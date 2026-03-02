@@ -981,3 +981,16 @@
     padding: 0 .5rem;
   }
 }
+
+/* ===== Disable legacy custom cursor effect ===== */
+.cursor,
+.cursor2,
+.cursor3 {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+body {
+  cursor: auto !important;
+}
