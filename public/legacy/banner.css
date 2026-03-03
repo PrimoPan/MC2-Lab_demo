@@ -34,12 +34,40 @@
   -webkit-backdrop-filter: blur(12px);
   transition: transform 260ms ease, opacity 220ms ease;
   will-change: transform, opacity;
+  animation: bannerRouteEnter 180ms ease-out both;
 }
 
 .major-nav.is-scroll-hidden {
   transform: translate(-50%, calc(-100% - 26px));
   opacity: 0;
   pointer-events: none;
+}
+
+.major-nav.is-route-leaving {
+  pointer-events: none;
+  animation: bannerRouteLeave 85ms ease-out forwards;
+}
+
+@keyframes bannerRouteEnter {
+  from {
+    opacity: 0.95;
+    transform: translate(-50%, -1px) scale(0.999);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes bannerRouteLeave {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  to {
+    opacity: 0.94;
+    transform: translate(-50%, -1px) scale(0.999);
+  }
 }
 
 .major-nav::after {
@@ -125,6 +153,8 @@
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   min-height: 38px;
   padding: 0 13px;
   border-radius: 9px;
@@ -147,6 +177,21 @@
     box-shadow 180ms ease;
 }
 
+.major-nav .nav__link a::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: 6px;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(111, 231, 255, 0.9), rgba(144, 255, 206, 0.9));
+  opacity: 0;
+  transform: scaleX(0.35);
+  transform-origin: center;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
 .major-nav .nav__link a:hover {
   color: var(--banner-text) !important;
   border-color: rgba(176, 197, 255, 0.14);
@@ -154,11 +199,23 @@
   transform: translateY(-1px);
 }
 
+.major-nav .nav__link a:hover::after,
+.major-nav .nav__link a:focus-visible::after {
+  opacity: 0.58;
+  transform: scaleX(1);
+}
+
 .major-nav .nav__link.active a {
   color: var(--banner-active-text) !important;
   border-color: rgba(111, 231, 255, 0.34);
   background: linear-gradient(110deg, var(--banner-accent) 0%, var(--banner-accent-2) 100%);
   box-shadow: 0 6px 14px rgba(57, 190, 201, 0.17);
+}
+
+.major-nav .nav__link.active a::after {
+  opacity: 0.24;
+  background: rgba(6, 19, 35, 0.7);
+  transform: scaleX(1);
 }
 
 .major-nav .banner-controls {
@@ -232,6 +289,7 @@
     gap: 8px;
     padding: 6px !important;
     border-radius: 14px !important;
+    animation: bannerRouteEnterMobile 140ms ease-out both;
   }
 
   .major-nav::after {
@@ -300,5 +358,59 @@
     min-height: 40px;
     padding: 0 12px;
     font-size: 0.96rem !important;
+  }
+
+  .major-nav.is-route-leaving {
+    animation: bannerRouteLeaveMobile 70ms ease-out forwards;
+  }
+
+  .major-nav .nav__link a::after {
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
+  }
+}
+
+@keyframes bannerRouteEnterMobile {
+  from {
+    opacity: 0.97;
+    transform: translate(-50%, -1px) scale(0.999);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes bannerRouteLeaveMobile {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  to {
+    opacity: 0.96;
+    transform: translate(-50%, -1px) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .major-nav {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .major-nav.is-route-leaving {
+    animation: none !important;
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+
+  .major-nav .nav__link a,
+  .major-nav .banner-lang,
+  .major-nav .banner-menu-toggle {
+    transition: none !important;
+  }
+
+  .major-nav .nav__link a::after {
+    transition: none !important;
   }
 }

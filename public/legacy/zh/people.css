@@ -233,56 +233,75 @@ li {
 
 
 .publication-nav {
-  position: sticky;
-  background-color: #eef0f1;
-  border-radius: 20px 20px 20px 20px;
-  float: left;
-  border: 1px solid transparent;
-  background-color: transparent;
-  width: 10%;
-  height: 300px;
   position: fixed;
-  z-index: 1;
   top: 50%;
-  left:0;
-  margin-top: -100px;
-  }
-  
-  .publication-nav .container {
-    display: block;
-    color: black;
-    padding: 20px 20px;
-    width: 0%;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 17px;
-    float: left;  
-  }
-  .publication-nav .container ul li {
-  display: inline-block;
-  border-radius:5px;
-  padding: 20px 20px 20px 20px;
-    left:0;
-  }
-  .publication-nav .container ul li a {
-  display: inline-block;
+  left: clamp(8px, 1.5vw, 24px);
+  transform: translateY(-50%);
+  width: 132px;
+  padding: 0.65rem;
+  border-radius: 16px;
+  border: 1px solid rgba(154, 181, 242, 0.12);
+  background: linear-gradient(180deg, rgba(14, 20, 34, 0.62), rgba(14, 20, 34, 0.28));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 12px 24px rgba(4, 8, 20, 0.22);
+  z-index: 20;
+}
+
+.publication-nav .container {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.publication-nav .container .yr__navs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.publication-nav .container ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  margin: 0;
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #c7d3ea;
+  font-size: 0.98rem;
+  font-weight: 650;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.publication-nav .container ul li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 42px;
+  padding: 0 10px;
+  color: inherit !important;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  color: white;
-  padding: 0px 10px;
-  }
-  .publication-nav .container ul li:hover {
-  background-color: rgba(13, 13, 17, 0.192);
-  border-radius:30px;
-  
-  }
-  .publication-nav .container ul li.active {
-  background-color: #48395f;
-  border-radius:30px;
-  transition: 0.3s;
-  }
+}
+
+.publication-nav .container ul li:hover {
+  background-color: rgba(120, 145, 198, 0.13);
+  border-color: rgba(162, 188, 242, 0.22);
+}
+
+.publication-nav .container ul li.active {
+  background: rgba(122, 150, 214, 0.16);
+  border-color: rgba(166, 197, 255, 0.34);
+  color: #edf3ff;
+}
 .member-explorer {
   width: min(100%, 58rem);
   margin: 0 auto 0.25rem;
