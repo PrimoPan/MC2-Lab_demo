@@ -56,6 +56,56 @@ function initBannerNav() {
       closeMenu();
     }
   });
+
+  // Auto-hide header on downward scroll; reveal on upward scroll or top-edge hover.
+  let lastScrollY = window.scrollY || 0;
+  const revealZone = 78;
+  const hideAfter = 96;
+  const delta = 8;
+
+  const showHeader = function () {
+    header.classList.remove('is-scroll-hidden');
+  };
+
+  const hideHeader = function () {
+    if (!header.classList.contains('is-menu-open')) {
+      header.classList.add('is-scroll-hidden');
+    }
+  };
+
+  window.addEventListener('scroll', function () {
+    const currentY = window.scrollY || 0;
+    const direction = currentY - lastScrollY;
+
+    if (header.classList.contains('is-menu-open')) {
+      showHeader();
+      lastScrollY = currentY;
+      return;
+    }
+
+    if (currentY <= revealZone) {
+      showHeader();
+    } else if (direction > delta && currentY > hideAfter) {
+      hideHeader();
+    } else if (direction < -delta) {
+      showHeader();
+    }
+
+    lastScrollY = currentY;
+  }, { passive: true });
+
+  document.addEventListener('mousemove', function (event) {
+    if (event.clientY <= revealZone) {
+      showHeader();
+    }
+  });
+
+  document.addEventListener('touchstart', function (event) {
+    if (!event.touches || event.touches.length === 0) return;
+    if (event.touches[0].clientY <= revealZone) {
+      showHeader();
+    }
+  }, { passive: true });
 }
 
 if (document.readyState === 'loading') {

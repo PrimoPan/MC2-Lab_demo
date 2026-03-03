@@ -51,7 +51,7 @@
               <a href="news.html" style="font-family: Open Sans;">新闻</a>
             </li>
             <li class="nav__link">
-                <a href="leader.html" style="font-family: Open Sans;">领导</a>
+                <a href="leader.html" style="font-family: Open Sans;">负责人</a>
             </li>
 
           </ul>
@@ -73,6 +73,27 @@
 
         <div class="container flow-content">
           <h1 class="section-title" style="font-size:6em;">Meet the team</h1>
+          <div class="member-explorer" aria-label="成员检索工具">
+            <label class="member-search-shell" for="memberSearchInput">
+              <i class="fa-solid fa-magnifying-glass member-search-icon" aria-hidden="true"></i>
+              <input
+                id="memberSearchInput"
+                class="member-search-input"
+                type="search"
+                placeholder="搜索姓名、研究方向或岗位..."
+                autocomplete="off"
+              />
+            </label>
+            <div class="member-role-chips" id="memberRoleChips" role="group" aria-label="按角色筛选">
+              <button type="button" class="member-chip is-active" data-role-filter="all">全部</button>
+              <button type="button" class="member-chip" data-role-filter="chair">负责人</button>
+              <button type="button" class="member-chip" data-role-filter="postdoc">博后</button>
+              <button type="button" class="member-chip" data-role-filter="admin">行政</button>
+              <button type="button" class="member-chip" data-role-filter="phd">博士</button>
+              <button type="button" class="member-chip" data-role-filter="mphil">硕士</button>
+              <button type="button" class="member-chip" data-role-filter="ra">科研助理</button>
+            </div>
+          </div>
 
           <section id="Current">
             <ul role="list" class="grid" id="membersGrid"></ul>
@@ -621,47 +642,68 @@
             ];
 
 
-              // ====== Sorting: Pan -> Postdoc -> Admin -> Year asc (senior first); same year: Spring -> Fall; PhD first, RBM MPhil last ======
-              const TERM_WEIGHT = { "Spring": 0, "Summer": 1, "Fall": 2, "": 9 };
+              // ====== Sorting + mobile explorer filter ======
+              const ROLE_SORT_ORDER = {
+                leader: 0,
+                chair: 0,
+                postdoc: 1,
+                admin: 2,
+                phd: 3,
+                mphil: 4,
+                ra: 5,
+                other: 6
+              };
+              const memberFilterState = { query: "", role: "all" };
 
-              function topRank(m) {
-              if (m.role === "chair") return 0;
-              if (m.role === "postdoc") return 1;
-              if (m.role === "admin") return 2;
-              return 3;
-            }
+              function roleRank(m) {
+                return ROLE_SORT_ORDER[m.role] ?? 99;
+              }
 
-              function withinYearRank(m) {
-              if (m.role === "phd") return 0;
-              if (m.role === "other") return 1;
-              if (m.role === "mphil") return 2;
-              return 3;
-            }
+              function cohortYearValue(m) {
+                return Number.isFinite(m.cohortYear) ? m.cohortYear : 9999;
+              }
 
               function esc(s) {
-              return String(s ?? "")
-              .replaceAll("&", "&amp;")
-              .replaceAll("<", "&lt;")
-              .replaceAll(">", "&gt;")
-              .replaceAll('"', "&quot;")
-              .replaceAll("'", "&#39;");
-            }
+                return String(s ?? "")
+                  .replaceAll("&", "&amp;")
+                  .replaceAll("<", "&lt;")
+                  .replaceAll(">", "&gt;")
+                  .replaceAll('"', "&quot;")
+                  .replaceAll("'", "&#39;");
+              }
 
               function formatFrontPosition(m) {
-              const base = m.positionTitle || "";
-              if (m.cohortYear && m.cohortTerm) return `${base} | ${m.cohortTerm} ${m.cohortYear}`;
-              return base;
-            }
+                const base = m.positionTitle || "";
+                if (m.cohortYear && m.cohortTerm) return `${base} | ${m.cohortTerm} ${m.cohortYear}`;
+                return base;
+              }
+
+              function matchesMemberFilter(member) {
+                const rolePass = memberFilterState.role === "all" || member.role === memberFilterState.role;
+                if (!rolePass) return false;
+                if (!memberFilterState.query) return true;
+
+                const haystack = [
+                  member.name,
+                  member.positionTitle,
+                  member.researchDirection,
+                  member.role,
+                  member.cohortTerm,
+                  member.cohortYear
+                ].join(" ").toLowerCase();
+
+                return haystack.includes(memberFilterState.query);
+              }
 
               function cardHTML(m) {
-              const name = esc(m.name);
-              const pos = esc(formatFrontPosition(m));
-              const photo = esc(m.photo);
-              const research = esc(m.researchDirection || "");
-              const website = (m.website || "").trim();
+                const name = esc(m.name);
+                const pos = esc(formatFrontPosition(m));
+                const photo = esc(m.photo);
+                const research = esc(m.researchDirection || "");
+                const website = (m.website || "").trim();
 
-              const socialHTML = website
-              ? `
+                const socialHTML = website
+                  ? `
         <ul role="list" class="card__social flex-group">
           <li>
             <a href="${esc(website)}" target="_blank" rel="noopener noreferrer">
@@ -669,12 +711,12 @@
             </a>
           </li>
         </ul>`
-              : `<ul role="list" class="card__social flex-group"></ul>`;
+                  : `<ul role="list" class="card__social flex-group"></ul>`;
 
-              const quoteHTML = research ? `<q>${research}</q>` : `<q>&nbsp;</q>`;
+                const quoteHTML = research ? `<q>${research}</q>` : `<q>研究方向信息将很快更新。</q>`;
 
-              return `
-      <li>
+                return `
+      <li class="member-card-item">
         <article class="card" data-visible="false">
           <div class="card__front flow-content">
             <img class="card__img mx-auto" src="${photo}" alt="${name} profile photo" />
@@ -697,45 +739,72 @@
           </footer>
         </article>
       </li>`;
-            }
+              }
 
               function renderMembers() {
-              const grid = document.getElementById("membersGrid");
-              if (!grid) return;
+                const grid = document.getElementById("membersGrid");
+                if (!grid) return;
 
-              const sorted = [...CURRENT_MEMBERS].sort((a, b) => {
-              const ra = topRank(a);
-              const rb = topRank(b);
-              if (ra !== rb) return ra - rb;
-              if (ra < 3) return 0; // Chair/Postdoc/Admin 固定顺序
+                const sorted = [...CURRENT_MEMBERS].sort((a, b) => {
+                  const ra = roleRank(a);
+                  const rb = roleRank(b);
+                  if (ra !== rb) return ra - rb;
 
-              const ya = a.cohortYear ?? 9999;
-              const yb = b.cohortYear ?? 9999;
-              if (ya !== yb) return ya - yb; // ✅ 年份：旧→新（师兄师姐在前）
+                  const ya = cohortYearValue(a);
+                  const yb = cohortYearValue(b);
+                  if (ya !== yb) return ya - yb;
 
-              const ta = TERM_WEIGHT[a.cohortTerm || ""] ?? 9;
-              const tb = TERM_WEIGHT[b.cohortTerm || ""] ?? 9;
-              if (ta !== tb) return ta - tb; // ✅ 同一年：Spring→Fall
+                  return String(a.name).localeCompare(String(b.name), "en", { sensitivity: "base" });
+                });
 
-              const wa = withinYearRank(a);
-              const wb = withinYearRank(b);
-              if (wa !== wb) return wa - wb; // ✅ PhD → other → MPhil
+                const filtered = sorted.filter(matchesMemberFilter);
+                if (!filtered.length) {
+                  grid.innerHTML = `<li class="member-empty">没有匹配结果，请尝试其他关键词或分类。</li>`;
+                  return;
+                }
 
-              return String(a.name).localeCompare(String(b.name));
-            });
+                grid.innerHTML = filtered.map(cardHTML).join("");
 
-              grid.innerHTML = sorted.map(cardHTML).join("");
+                grid.querySelectorAll(".card__img").forEach((img) => {
+                  img.onerror = function () {
+                    this.src = "/images/Team_Profile_Pic/profile_icon.jpg";
+                  };
+                });
+              }
 
-              // ✅ 动态插入后再做图片 fallback
-              grid.querySelectorAll(".card__img").forEach(img => {
-              img.onerror = function () {
-              this.src = "/images/Team_Profile_Pic/profile_icon.jpg";
-            };
-            });
-            }
+              function bindMemberExplorerControls() {
+                const searchInput = document.getElementById("memberSearchInput");
+                const chipContainer = document.getElementById("memberRoleChips");
+                if (!searchInput || !chipContainer) return;
 
-              // 你的 script 在 grid 后面，理论上直接跑也行；这里更稳
-              document.addEventListener("DOMContentLoaded", renderMembers);
+                searchInput.addEventListener("input", (event) => {
+                  memberFilterState.query = String(event.target.value || "").trim().toLowerCase();
+                  renderMembers();
+                });
+
+                chipContainer.addEventListener("click", (event) => {
+                  const chip = event.target.closest("[data-role-filter]");
+                  if (!chip) return;
+                  memberFilterState.role = chip.getAttribute("data-role-filter") || "all";
+
+                  chipContainer.querySelectorAll(".member-chip").forEach((btn) => {
+                    btn.classList.remove("is-active");
+                  });
+                  chip.classList.add("is-active");
+                  renderMembers();
+                });
+              }
+
+              function initMemberExplorer() {
+                bindMemberExplorerControls();
+                renderMembers();
+              }
+
+              if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", initMemberExplorer);
+              } else {
+                initMemberExplorer();
+              }
           </script>
 
 
