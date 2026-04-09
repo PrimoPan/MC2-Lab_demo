@@ -981,6 +981,44 @@
        })
      });
 
+     const peopleSectionToNavMap = {
+       Current: document.querySelector('.yr__nav.yr2024'),
+       Graduated: document.querySelector('.yr__nav.yr2023')
+     };
+
+     const peopleSections = Array.from(document.querySelectorAll('section[id="Current"], section[id="Graduated"]'));
+     const PEOPLE_SCROLLSPY_OFFSET = 140;
+
+     function getPageScrollTop() {
+       return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+     }
+
+     function syncPeopleNavByScroll() {
+       if (peopleSections.length === 0) {
+         return;
+       }
+
+       const triggerLine = getPageScrollTop() + PEOPLE_SCROLLSPY_OFFSET;
+       let activeSection = peopleSections[0];
+
+       peopleSections.forEach((section) => {
+         const sectionTop = section.getBoundingClientRect().top + getPageScrollTop();
+         if (sectionTop <= triggerLine) {
+           activeSection = section;
+         }
+       });
+
+       const correspondingNav = peopleSectionToNavMap[activeSection.id];
+       if (correspondingNav && !correspondingNav.classList.contains('active')) {
+         active_yr_nav(correspondingNav);
+       }
+     }
+
+     window.addEventListener('scroll', syncPeopleNavByScroll, { passive: true });
+     window.addEventListener('resize', syncPeopleNavByScroll);
+     window.addEventListener('load', syncPeopleNavByScroll);
+     syncPeopleNavByScroll();
+
 
     // Inspiration -  Frontend Mentor
     // https://www.frontendmentor.io/challenges/myteam-multipage-website-mxlEauvW

@@ -2682,27 +2682,40 @@ const sectionToNavMap = {
   yr2021: document.querySelector('.yr__nav.yr2021')
 };
 
-// Create an IntersectionObserver to watch for when sections come into view
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const sectionId = entry.target.id;
-      const correspondingNav = sectionToNavMap[sectionId];
-      if (correspondingNav) {
-        active_yr_nav(correspondingNav);
-      }
+const yearSections = Array.from(document.querySelectorAll('section[id^="yr"]'));
+const scrollContainer = document.querySelector('.publication-section');
+const SCROLLSPY_OFFSET = 140;
+
+function syncYearNavByScroll() {
+  if (yearSections.length === 0 || !scrollContainer) {
+    return;
+  }
+
+  const containerRect = scrollContainer.getBoundingClientRect();
+  const triggerLine = scrollContainer.scrollTop + SCROLLSPY_OFFSET;
+  let activeSection = yearSections[0];
+
+  yearSections.forEach((section) => {
+    const sectionTopInContainer =
+      section.getBoundingClientRect().top - containerRect.top + scrollContainer.scrollTop;
+
+    if (sectionTopInContainer <= triggerLine) {
+      activeSection = section;
     }
   });
-}, {
-  root: null, // relative to the viewport
-  rootMargin: '0px',
-  threshold: 0.5 // Trigger when 50% of the section is in view
-});
 
-// Observe each section
-document.querySelectorAll('section[id^="yr"]').forEach(section => {
-  observer.observe(section);
-});
+  const correspondingNav = sectionToNavMap[activeSection.id];
+  if (correspondingNav && !correspondingNav.classList.contains('active')) {
+    active_yr_nav(correspondingNav);
+  }
+}
+
+if (scrollContainer) {
+  scrollContainer.addEventListener('scroll', syncYearNavByScroll, { passive: true });
+}
+window.addEventListener('resize', syncYearNavByScroll);
+window.addEventListener('load', syncYearNavByScroll);
+syncYearNavByScroll();
 
 
 
@@ -2753,30 +2766,6 @@ function closeDropdown() {
     container.classList.remove("active");
   });
 }
-
-// Publication Navigation
-const sections = document.querySelectorAll("section");
-const navLi = document.querySelectorAll(".publication-nav .container ul li");
-
-document.body.addEventListener('scroll',()=>{
-  console.log(document.documentElement.scrollTop || document.body.scrollTop);
-  var current = "";
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    if (pageYOffset >= sectionTop - 60) {
-  alert(sectionTop);
-
-      current = section.getAttribute("id"); }
-     
-  });
-
-  navLi.forEach((li) => {
-    li.classList.remove("active");
-    if (li.classList.contains(current)) {
-      li.classList.add("active");
-    }
-  });
-})
 
 $(".find_out_more").on("click", function () {
       window.location.href = "https://panhui.people.ust.hk/publications.html";
