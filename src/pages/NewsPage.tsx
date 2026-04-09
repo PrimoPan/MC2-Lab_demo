@@ -3,7 +3,7 @@ import LegacyFramePage from '../components/LegacyFramePage';
 import { useNewsModalQueryEffect } from '../hooks/useNewsModalQueryEffect';
 
 interface NewsPageProps {
-  locale?: 'en' | 'zh-CN';
+  locale?: 'en' | 'zh-CN' ;
 }
 
 export default function NewsPage({ locale = 'en' }: NewsPageProps): JSX.Element {
