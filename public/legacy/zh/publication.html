@@ -4,8 +4,9 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="banner.css">
+<link rel="stylesheet" href="banner.css">
 <link rel="stylesheet" href="publication.css">
+<link rel="stylesheet" href="/legacy/publication-recent.css">
 <link rel="icon" type="image/x-icon" href="/images/MC2_Icon.png">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
@@ -2597,6 +2598,7 @@
     </div>
 </div>
     <script src="banner-nav.js"></script>
+    <script src="/legacy/publication-recent.js"></script>
 </body>
 
 <script>
@@ -2675,12 +2677,16 @@
  });
 
 // Map section IDs to their corresponding navigation elements
-const sectionToNavMap = {
-  yr2024: document.querySelector('.yr__nav.yr2024'),
-  yr2023: document.querySelector('.yr__nav.yr2023'),
-  yr2022: document.querySelector('.yr__nav.yr2022'),
-  yr2021: document.querySelector('.yr__nav.yr2021')
-};
+const sectionToNavMap = Array.from(document.querySelectorAll('.yr__nav')).reduce((map, navItem) => {
+  const href = navItem.querySelector('a')?.getAttribute('href');
+  const sectionId = href?.startsWith('#') ? href.slice(1) : null;
+
+  if (sectionId) {
+    map[sectionId] = navItem;
+  }
+
+  return map;
+}, {});
 
 const yearSections = Array.from(document.querySelectorAll('section[id^="yr"]'));
 const scrollContainer = document.querySelector('.publication-section');

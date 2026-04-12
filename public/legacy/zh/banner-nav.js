@@ -5,6 +5,7 @@ const APP_ROUTE_SET = new Set([
   '/project',
   '/news',
   '/leader',
+  '/news/ai-as-catalyst-workshop',
   '/news/japantimes-ai-love',
   '/news/nature-spotlight',
   '/zh',
@@ -12,6 +13,7 @@ const APP_ROUTE_SET = new Set([
   '/zh/publication',
   '/zh/project',
   '/zh/news',
+  '/zh/news/ai-as-catalyst-workshop',
   '/zh/leader',
   '/zh/news/japantimes-ai-love',
   '/zh/news/nature-spotlight'
@@ -24,6 +26,7 @@ const LEGACY_FILE_ROUTE_MAP = {
   'project.html': 'project',
   'news.html': 'news',
   'leader.html': 'leader',
+  'news-ai-as-catalyst-workshop.html': 'news/ai-as-catalyst-workshop',
   'news-japantimes-ai-love.html': 'news/japantimes-ai-love',
   'news-mc2-nature-spotlight.html': 'news/nature-spotlight'
 };
@@ -35,6 +38,7 @@ const HTML_ALIAS_MAP = {
   '/project.html': '/project',
   '/news.html': '/news',
   '/leader.html': '/leader',
+  '/news/ai-as-catalyst-workshop.html': '/news/ai-as-catalyst-workshop',
   '/news/japantimes-ai-love.html': '/news/japantimes-ai-love',
   '/news/nature-spotlight.html': '/news/nature-spotlight',
   '/zh/index.html': '/zh',
@@ -43,6 +47,7 @@ const HTML_ALIAS_MAP = {
   '/zh/project.html': '/zh/project',
   '/zh/news.html': '/zh/news',
   '/zh/leader.html': '/zh/leader',
+  '/zh/news/ai-as-catalyst-workshop.html': '/zh/news/ai-as-catalyst-workshop',
   '/zh/news/japantimes-ai-love.html': '/zh/news/japantimes-ai-love',
   '/zh/news/nature-spotlight.html': '/zh/news/nature-spotlight'
 };
@@ -178,16 +183,20 @@ function initBannerNav() {
   const isZh = canonicalRoute === '/zh' || canonicalRoute.startsWith('/zh/');
   const query = window.location.search || '';
   const hash = window.location.hash || '';
+  const alternateRoute = toAlternateLocaleRoute(canonicalRoute);
 
   const controls = document.createElement('div');
   controls.className = 'banner-controls';
 
-  const lang = document.createElement('a');
-  lang.className = 'banner-lang';
-  lang.textContent = isZh ? 'EN' : '中文';
-  lang.href = `${toAlternateLocaleRoute(canonicalRoute)}${query}${hash}`;
-  lang.setAttribute('target', '_top');
-  lang.setAttribute('rel', 'noopener');
+  let lang = null;
+  if (APP_ROUTE_SET.has(alternateRoute)) {
+    lang = document.createElement('a');
+    lang.className = 'banner-lang';
+    lang.textContent = isZh ? 'EN' : '中文';
+    lang.href = `${alternateRoute}${query}${hash}`;
+    lang.setAttribute('target', '_top');
+    lang.setAttribute('rel', 'noopener');
+  }
 
   const menuButton = document.createElement('button');
   menuButton.type = 'button';
@@ -197,7 +206,9 @@ function initBannerNav() {
   menuButton.setAttribute('aria-expanded', 'false');
   menuButton.setAttribute('aria-label', isZh ? '打开导航菜单' : 'Open navigation menu');
 
-  controls.appendChild(lang);
+  if (lang) {
+    controls.appendChild(lang);
+  }
   controls.appendChild(menuButton);
   header.appendChild(controls);
 
@@ -221,7 +232,9 @@ function initBannerNav() {
   nav.querySelectorAll('a').forEach(function (anchor) {
     attachRouteTransitionNavigation(anchor, header, closeMenu);
   });
-  attachRouteTransitionNavigation(lang, header, closeMenu);
+  if (lang) {
+    attachRouteTransitionNavigation(lang, header, closeMenu);
+  }
 
   document.querySelectorAll('.major-nav .nav-logo a[href]').forEach(function (anchor) {
     attachRouteTransitionNavigation(anchor, header, closeMenu);

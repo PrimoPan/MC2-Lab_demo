@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MC2 | HKUST(GZ), HKUST</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="banner.css">
+    <link rel="stylesheet" href="news.css">
+    <link rel="icon" type="image/x-icon" href="/images/MC2_Icon.png">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Permanent+Marker" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+</head>
+
+<body class="is-preload">
+<div class="major-nav">
+    <nav class="nav-logo">
+        <img src="/images/MC2.png" />
+        <div class="vertical"></div>
+        <img src="/images/UST-GZ-ZH.png" />
+        <div class="vertical"></div>
+        <img src="/images/UST-ZH.png" />
+    </nav>
+
+    <nav class="nav" style="margin: 0 .5em; padding: 0 .5em; box-sizing: content-box;">
+        <ul class="nav__links" style="padding:1em;padding-bottom:0; gap: 30px; box-sizing: content-box;display: flex;list-style-type: none;">
+            <li class="nav__link"><a href="index.html" style="font-family: Open Sans;">首页</a></li>
+            <li class="nav__link"><a href="people.html" style="font-family: Open Sans;">成员</a></li>
+            <li class="nav__link"><a href="publication.html" style="font-family: Open Sans;">论文</a></li>
+            <li class="nav__link"><a href="project.html" style="font-family: Open Sans;">项目</a></li>
+            <li class="nav__link active"><a href="news.html" style="font-family: Open Sans;">新闻</a></li>
+            <li class="nav__link"><a href="leader.html" style="font-family: Open Sans;">负责人</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="news-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center" style="padding-top: 100px; color: #fff;">
+                <h3>新闻</h3>
+            </div>
+
+            <div class="col-lg-10 mt-4 mb-5">
+                <article class="news-article-card">
+                    <h2 class="article-title">AI as Catalyst 工作坊将在港科大（广州）聚焦 AI 与医疗、教育的交汇</h2>
+                    <p class="article-meta"><strong>发布日期：</strong>2026年4月10日</p>
+
+                    <img
+                            class="article-cover"
+                            src="/images/20260410_ai_as_catalyst_workshop_cover.jpg"
+                            alt="AI as Catalyst 工作坊港科大（广州）校园配图。"
+                            onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';"
+                    >
+
+                    <div class="article-info-grid">
+                        <div class="article-info-box">
+                            <span class="info-label">活动日期</span>
+                            <span class="info-value">2026年5月12日</span>
+                        </div>
+                        <div class="article-info-box">
+                            <span class="info-label">地点</span>
+                            <span class="info-value">中国广州</span>
+                        </div>
+                        <div class="article-info-box">
+                            <span class="info-label">形式</span>
+                            <span class="info-value">全天工作坊与圆桌讨论</span>
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>AI as Catalyst</strong> 将于 2026 年 5 月 12 日在港科大（广州）举行。这是一场面向学生、教育者、临床工作者与研究者的全天工作坊，聚焦人工智能在医疗与教育中的设计、评估、应用与治理。
+                    </p>
+                    <p>
+                        整场活动将动手实验、跨学科讨论与协作式设计结合在一起。它并不把 AI 视作单纯提升效率的工具，而是强调批判性参与：参与者既要测试能力边界，也要识别失效情境，并进一步讨论在真实部署前所需的社会与制度保障。
+                    </p>
+
+                    <h4>议程速览</h4>
+                    <div class="agenda-snapshot">
+                        <div class="agenda-snapshot__item">
+                            <span class="agenda-snapshot__time">09:00-09:30</span>
+                            <div>
+                                <strong>签到与开场</strong>
+                                <p>签到、开场致辞与工作坊整体介绍。</p>
+                            </div>
+                        </div>
+                        <div class="agenda-snapshot__item">
+                            <span class="agenda-snapshot__time">09:30-10:50</span>
+                            <div>
+                                <strong>工作坊一：LLM-a-thon</strong>
+                                <p>从使用场景走向事实校验（ground truth），比对不同模型与提示词下的输出表现。</p>
+                            </div>
+                        </div>
+                        <div class="agenda-snapshot__item">
+                            <span class="agenda-snapshot__time">11:00-12:30</span>
+                            <div>
+                                <strong>工作坊二：面向社群的健康 AI 系统思维（HASTC）</strong>
+                                <p>聚焦偏差、透明度、问责、公平性及制度保障等关键议题。</p>
+                            </div>
+                        </div>
+                        <div class="agenda-snapshot__item">
+                            <span class="agenda-snapshot__time">14:00-15:00</span>
+                            <div>
+                                <strong>圆桌讨论</strong>
+                                <p>围绕 AI 在医疗与教育中的应用展开专家对谈与现场问答。</p>
+                            </div>
+                        </div>
+                        <div class="agenda-snapshot__item">
+                            <span class="agenda-snapshot__time">15:20-16:50</span>
+                            <div>
+                                <strong>工作坊三</strong>
+                                <p>重新想象技术在医疗与艺术教育中的角色。</p>
+                            </div>
+                        </div>
+                        <div class="agenda-snapshot__item">
+                            <span class="agenda-snapshot__time">16:50-17:20</span>
+                            <div>
+                                <strong>总结与收束</strong>
+                                <p>提炼关键结论、梳理后续方向，并完成闭幕交流。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>主讲人与组织者</h4>
+                    <p>
+                        本次工作坊邀请了来自港科大（广州）、港科大、MIT、哈佛、新加坡国立大学、香港大学、香港中文大学、埃默里大学及相关合作机构的主讲人与组织者。点击任意卡片即可展开查看人物简介。
+                    </p>
+
+                    <div class="speaker-grid-news">
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/pan_hui.jpg" alt="Pan Hui" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Pan Hui</h5>
+                                <p class="speaker-card-news__role">讲席教授</p>
+                                <p class="speaker-card-news__org">港科大（广州） / 港科大 / 赫尔辛基大学</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">英国皇家工程院国际院士、IEEE Fellow、ACM Distinguished Scientist、欧洲科学院院士，现任赫尔辛基大学数据科学诺基亚讲席教授、香港科技大学（广州）计算媒体与艺术学域讲席教授，以及香港科技大学新兴跨学科领域讲席教授。他的研究聚焦于普适计算、移动计算、增强/虚拟现实、数据科学、社交与移动网络，以及元宇宙相关系统。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/leo_celi.jpg" alt="Leo Anthony Celi" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Leo Anthony Celi</h5>
+                                <p class="speaker-card-news__role">高级研究科学家 / 副教授</p>
+                                <p class="speaker-card-news__org">麻省理工学院 / 哈佛大学</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任麻省理工学院高级研究科学家、MIT 计算生理学实验室临床研究主任、MIT Sana 联合主任、Beth Israel Deaconess Medical Center 肺与危重症科医生，并兼任哈佛医学院医学副教授。他的工作聚焦于利用数据科学与人工智能改进重症医疗，尤其关注开放临床数据以及减少医疗系统中的偏差。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/mornin_feng.jpg" alt="Mornin Feng" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Mornin Feng</h5>
+                                <p class="speaker-card-news__role">副教授</p>
+                                <p class="speaker-card-news__org">新加坡国立大学</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任新加坡国立大学 Saw Swee Hock 公共卫生学院副教授、AI for Public Health（AI4PH）项目主任、生物统计、建模、AI 与数据分析（B.MAD）领域负责人，并兼任杨潞龄医学院、生物医学工程系与数据科学研究所副教授，以及 OHDSI 新加坡分会主席。他的研究聚焦于健康医疗 AI、临床数据机器学习与数据驱动决策，应用涵盖医学影像、治疗优化与临床自然语言处理。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/calvin_or.jpg" alt="Calvin Kalun Or" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Calvin Kalun Or</h5>
+                                <p class="speaker-card-news__role">副教授</p>
+                                <p class="speaker-card-news__org">香港大学</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任香港大学数据与系统工程学系副教授兼副系主任。他的研究聚焦于人因工程、人机交互与医疗信息学，特别关注如何通过健康信息技术的设计、实施与评估提升患者安全、系统表现与医疗服务质量。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/Lowell_Ling.jpg" alt="Lowell Ling" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Lowell Ling</h5>
+                                <p class="speaker-card-news__role">副教授</p>
+                                <p class="speaker-card-news__org">香港中文大学</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任香港中文大学麻醉与深切治疗学系副教授，并于威尔斯亲王医院深切治疗部担任助理教授。他的研究聚焦于脓毒症、器官功能障碍与重症医学，尤其关注香港地区脓毒症的流行病学及其基因组机制。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/Xianglilan.jpg" alt="Xianglilan Zhang" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Xianglilan Zhang</h5>
+                                <p class="speaker-card-news__role">助理教授</p>
+                                <p class="speaker-card-news__org">香港中文大学</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任香港中文大学医学院助理教授。她的研究聚焦于将人工智能与机器学习应用于临床诊断、疾病监测与治疗决策支持，在精准医疗和重症医学等方向具有代表性成果。她已在 Nature、Nature Methods、PNAS 与 Nucleic Acids Research 等期刊发表或合作发表 65 篇论文，主持 6 项国家级科研项目，并拥有 10 项软件著作权与 2 项专利。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/qiushi_zhou.jpg" alt="Qiushi Zhou" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Qiushi Zhou</h5>
+                                <p class="speaker-card-news__role">助理教授</p>
+                                <p class="speaker-card-news__org">港科大（广州）</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任香港科技大学（广州）助理教授，隶属计算媒体与艺术学域及物联网学域。他的研究聚焦于人机交互与扩展现实，尤其关注 XR、AI 与 IoT 融合下的新型交互技术。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/xin_tong.jpg" alt="Xin Tong" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Xin Tong</h5>
+                                <p class="speaker-card-news__role">助理教授</p>
+                                <p class="speaker-card-news__org">港科大（广州）</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任香港科技大学（广州）计算媒体与艺术学域助理教授。她主要从事人机交互与人机协作研究，关注医疗、福祉与无障碍等议题，并探索 VR/AR 与生成式 AI 等技术在这些场景中的应用。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/tengjia_zuo.jpg" alt="Tengjia Zuo" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Tengjia Zuo</h5>
+                                <p class="speaker-card-news__role">助理教授</p>
+                                <p class="speaker-card-news__org">港科大（广州）</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任香港科技大学（广州）计算媒体与艺术学域助理教授。她的研究聚焦于混合现实、严肃游戏与人机交互，特别关注游戏化学习与玩家体验设计。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/Hyunjung.jpg" alt="Hyunjung Gloria Kwak" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Hyunjung Gloria Kwak</h5>
+                                <p class="speaker-card-news__role">助理教授</p>
+                                <p class="speaker-card-news__org">埃默里大学</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现任埃默里大学护理学院助理教授。她的研究聚焦于利用人工智能与机器学习提升临床决策质量，尤其关注公平性推进与医疗健康差异的缩减。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/James.jpg" alt="James Yiming Zhu" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>James Yiming Zhu</h5>
+                                <p class="speaker-card-news__role">博士生</p>
+                                <p class="speaker-card-news__org">MC<sup>2</sup>实验室 / 港科大（广州）</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现为香港科技大学博士生，并隶属于 MC² 实验室。他的研究兴趣主要包括社会计算、数据科学与自然语言处理。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/Boen.jpg" alt="Boen Liu" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Boen Liu</h5>
+                                <p class="speaker-card-news__role">本科生</p>
+                                <p class="speaker-card-news__org">昆山杜克大学 / MC<sup>2</sup>实验室</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">现为昆山杜克大学本科生，并在港科大（广州）MC² 实验室担任研究助理。他的研究聚焦于社会计算、图学习与社交网络分析。</p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                            <img src="/images/workshop-speakers/bianca_yang.jpg" alt="Ruoshan Bianca Yang" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <div class="speaker-card-news__body">
+                                <h5>Ruoshan Bianca Yang</h5>
+                                <p class="speaker-card-news__role">AI 研究员</p>
+                                <p class="speaker-card-news__org">港科大（广州）</p>
+                                <p class="speaker-card-news__hint">点击查看简介</p>
+                                <div class="speaker-card-news__details">
+                                    <p class="speaker-card-news__bio">Bianca 是香港科技大学（广州）计算媒体与艺术学域（CMA）的 AI 研究员。她的工作位于多模态 AI、以学习为中心的 XR 设计，以及非物质文化遗产研究的交叉地带。作为 AI as a Catalyst GBA 的联合组织者，她连接 MIT 的全球网络与粤港澳大湾区独特的多语言、多制度医疗生态，通过贯通科学、艺术与人文学科的跨学科方法，把关键研究转化为本地行动。</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <h4>三条实践工作坊主线</h4>
+                    <div class="track-grid">
+                        <section class="track-card">
+                            <h5>LLM-a-thon</h5>
+                            <p>这一部分将引导参与者比较不同模型的响应、观察提示词敏感性，并判断哪些输出在真实场景中真正有帮助，哪些会误导，哪些具有潜在风险。</p>
+                            <p>其中一个关键议题是“迎合性偏差”（sycophancy）：系统可能更倾向于回应用户想听的话，而不是提供用户真正需要的信息。</p>
+                        </section>
+                        <section class="track-card">
+                            <h5>HASTC</h5>
+                            <p>这一部分围绕健康 AI 的系统级思维展开，讨论算法偏差、幻觉、透明度、公平性约束与问责机制等核心问题。</p>
+                            <p>它关注的不只是问题本身，也包括在监管、机构与临床层面如何建立真正有效的保障路径。</p>
+                        </section>
+                        <section class="track-card">
+                            <h5>医疗与艺术教育</h5>
+                            <p>最后一部分将从批判走向重构，通过基于案例的“尊严压力测试”、倡导练习以及小型课程共创，重新思考技术在医疗与艺术教育中的位置。</p>
+                            <p>它希望帮助未来的临床工作者、艺术从业者与教育者建立更主动的判断力，在面对有害的 AI 部署时能够识别、质疑并做出回应。</p>
+                        </section>
+                    </div>
+
+                    <h4>举办地点</h4>
+                    <p>
+                        活动将在<strong>香港科技大学（广州）</strong>举行，地址为中国广东省广州市南沙区笃学路1号。
+                    </p>
+                    <p>
+                        通过把医疗、教育、人机交互与 AI 治理放进同一个讨论现场，AI as Catalyst 也把校园变成了一个用于实践检验、批判反思与跨学科协作的空间，让“负责任 AI”不只停留在口号层面，而进入具体方法与真实场景。
+                    </p>
+
+                    <a class="back-news-link" href="/zh/news" target="_top" rel="noopener noreferrer">← 返回新闻列表</a>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .news-article-card {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        padding: 26px 24px;
+        color: #f4f7fb;
+    }
+
+    .article-title {
+        margin: 0 0 10px;
+        padding-top: 0;
+        font-size: 34px;
+        line-height: 1.22;
+        color: #fff !important;
+        word-break: break-word;
+    }
+
+    .article-meta {
+        color: #c8d3df;
+        margin-bottom: 16px;
+        font-size: 16px;
+    }
+
+    .article-cover {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 18px;
+        display: block;
+        max-height: 420px;
+        object-fit: cover;
+    }
+
+    .article-info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .article-info-box {
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.04);
+    }
+
+    .info-label,
+    .info-value {
+        display: block;
+    }
+
+    .info-label {
+        margin-bottom: 4px;
+        color: #b7c8de;
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .info-value {
+        color: #fff;
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    .news-article-card p {
+        margin-bottom: 12px;
+        line-height: 1.78;
+        font-size: 17px;
+    }
+
+    .news-article-card h4 {
+        margin: 24px 0 12px;
+        padding-top: 0;
+        font-size: 24px;
+        color: #fff !important;
+    }
+
+    .speaker-grid-news {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 10px;
+    }
+
+    .speaker-card-news {
+        overflow: hidden;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .speaker-card-news:focus-visible {
+        transform: translateY(-2px);
+        border-color: rgba(142, 207, 201, 0.34);
+        box-shadow: 0 18px 36px rgba(8, 12, 24, 0.24);
+        outline: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        .speaker-card-news:hover {
+            transform: translateY(-2px);
+            border-color: rgba(142, 207, 201, 0.34);
+            box-shadow: 0 18px 36px rgba(8, 12, 24, 0.24);
+            outline: none;
+        }
+    }
+
+    .speaker-card-news.is-open {
+        background: rgba(255,255,255,0.07);
+        border-color: rgba(142, 207, 201, 0.38);
+    }
+
+    .speaker-card-news__image {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+    }
+
+    .speaker-card-news__body {
+        padding: 12px 12px 14px;
+    }
+
+    .speaker-card-news h5 {
+        margin: 0 0 4px;
+        padding-top: 0;
+        font-size: 17px;
+        color: #fff !important;
+    }
+
+    .speaker-card-news__role,
+    .speaker-card-news__org {
+        margin: 0;
+        font-size: 14px !important;
+        line-height: 1.45 !important;
+    }
+
+    .speaker-card-news__role {
+        color: #9adad4;
+        font-weight: 700;
+    }
+
+    .speaker-card-news__org {
+        color: #d2deee;
+        margin-top: 2px;
+    }
+
+    .speaker-card-news__hint {
+        margin: 10px 0 0;
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #93a7c2;
+    }
+
+    .speaker-card-news__details {
+        max-height: 0;
+        margin-top: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.28s ease, opacity 0.22s ease, margin-top 0.22s ease;
+    }
+
+    .speaker-card-news.is-open .speaker-card-news__details {
+        max-height: 520px;
+        margin-top: 10px;
+        opacity: 1;
+    }
+
+    .speaker-card-news.is-open .speaker-card-news__hint {
+        color: #8ecfc9;
+    }
+
+    .speaker-card-news__bio {
+        margin: 0;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        font-size: 14px !important;
+        line-height: 1.72 !important;
+        color: #e3ebf7;
+        white-space: normal;
+    }
+
+    .agenda-snapshot {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .agenda-snapshot__item {
+        display: grid;
+        grid-template-columns: 132px 1fr;
+        gap: 14px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .agenda-snapshot__time {
+        color: #8ecfc9;
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    .agenda-snapshot__item strong {
+        display: block;
+        color: #fff;
+        margin-bottom: 4px;
+    }
+
+    .agenda-snapshot__item p {
+        margin: 0;
+        font-size: 15px;
+        color: #d9e3f1;
+    }
+
+    .track-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 6px;
+    }
+
+    .track-card {
+        padding: 16px 16px 14px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .track-card h5 {
+        margin: 0 0 8px;
+        padding-top: 0;
+        font-size: 19px;
+        color: #fff !important;
+    }
+
+    .track-card p {
+        margin-bottom: 10px;
+        font-size: 15px;
+    }
+
+    .track-card p:last-child {
+        margin-bottom: 0;
+    }
+
+    .back-news-link {
+        display: inline-block;
+        margin-top: 10px;
+        color: #ffbe7a !important;
+        font-weight: 700;
+        text-decoration: none !important;
+    }
+
+    .back-news-link:hover {
+        text-decoration: underline !important;
+    }
+
+    @media (max-width: 960px) {
+        .article-info-grid,
+        .track-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .article-cover {
+            max-height: 340px;
+        }
+
+        .speaker-grid-news {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 840px) {
+        .news-article-card {
+            padding: 18px 16px;
+        }
+
+        .article-title {
+            font-size: 28px;
+        }
+
+        .news-article-card h4 {
+            font-size: 21px;
+        }
+
+        .agenda-snapshot__item {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .news-article-card p {
+            font-size: 16px;
+        }
+
+        .article-cover {
+            max-height: 280px;
+        }
+
+        .speaker-grid-news {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .news-section .container {
+            padding-left: 14px;
+            padding-right: 14px;
+        }
+
+        .news-section .col-12.text-center {
+            padding-top: 78px !important;
+        }
+
+        .news-article-card {
+            border-radius: 14px;
+            padding: 16px 14px;
+        }
+
+        .article-title {
+            font-size: 24px;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .article-meta {
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+
+        .article-cover {
+            max-height: 220px;
+            margin-bottom: 14px;
+        }
+
+        .article-info-grid {
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .article-info-box,
+        .agenda-snapshot__item,
+        .track-card {
+            border-radius: 12px;
+            padding: 12px 13px;
+        }
+
+        .info-label {
+            font-size: 11px;
+        }
+
+        .info-value {
+            font-size: 15px;
+        }
+
+        .news-article-card h4 {
+            margin: 20px 0 10px;
+            font-size: 20px;
+        }
+
+        .news-article-card p,
+        .track-card p {
+            font-size: 15px;
+            line-height: 1.72;
+        }
+
+        .agenda-snapshot {
+            gap: 10px;
+        }
+
+        .agenda-snapshot__time {
+            font-size: 14px;
+        }
+
+        .agenda-snapshot__item strong,
+        .track-card h5 {
+            font-size: 17px;
+        }
+
+        .speaker-grid-news {
+            gap: 12px;
+        }
+
+        .speaker-card-news {
+            border-radius: 12px;
+        }
+
+        .speaker-card-news__body {
+            padding: 12px 12px 13px;
+        }
+
+        .speaker-card-news h5 {
+            font-size: 16px;
+        }
+
+        .speaker-card-news__role,
+        .speaker-card-news__org,
+        .speaker-card-news__bio {
+            font-size: 13px !important;
+        }
+
+        .speaker-card-news__bio {
+            line-height: 1.66 !important;
+        }
+
+        .speaker-card-news__hint {
+            font-size: 10px !important;
+            letter-spacing: 0.06em;
+        }
+
+        .speaker-card-news.is-open .speaker-card-news__details {
+            max-height: 720px;
+        }
+
+        .back-news-link {
+            margin-top: 14px;
+            font-size: 15px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const speakerCards = Array.from(document.querySelectorAll('.speaker-card-news'));
+
+        if (!speakerCards.length) {
+            return;
+        }
+
+        const setCardState = function (card, shouldOpen) {
+            card.classList.toggle('is-open', shouldOpen);
+            card.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+
+            const hint = card.querySelector('.speaker-card-news__hint');
+            if (hint) {
+                hint.textContent = shouldOpen ? '收起简介' : '点击查看简介';
+            }
+        };
+
+        speakerCards.forEach(function (card) {
+            setCardState(card, false);
+
+            card.addEventListener('click', function () {
+                const shouldOpen = !card.classList.contains('is-open');
+
+                speakerCards.forEach(function (otherCard) {
+                    if (otherCard !== card) {
+                        setCardState(otherCard, false);
+                    }
+                });
+
+                setCardState(card, shouldOpen);
+            });
+
+            card.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    card.click();
+                }
+            });
+        });
+    });
+</script>
+
+<script src="banner-nav.js"></script>
+</body>
+</html>
