@@ -141,7 +141,7 @@
 
                     <div class="speaker-grid-news">
                         <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
-                            <img src="/images/workshop-speakers/pan_hui.jpg" alt="Pan Hui" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
+                            <img src="/images/workshop-speakers/pan_hui.jpg" alt="Pan Hui" class="speaker-card-news__image speaker-card-news__image--pan-hui" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
                             <div class="speaker-card-news__body">
                                 <h5>Pan Hui</h5>
                                 <p class="speaker-card-news__role">讲席教授</p>
@@ -454,6 +454,13 @@
         aspect-ratio: 1 / 1;
         object-fit: cover;
         display: block;
+    }
+
+    .speaker-card-news__image--pan-hui {
+        object-fit: contain;
+        object-position: center top;
+        background: #050506;
+        box-sizing: border-box;
     }
 
     .speaker-card-news__body {

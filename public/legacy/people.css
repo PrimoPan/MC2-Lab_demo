@@ -132,6 +132,12 @@ q{
   border: 2px solid var(--text-secondary);
 }
 
+.card__img--pan-hui {
+  object-fit: contain;
+  background: #050506;
+  box-sizing: border-box;
+}
+
 .card__front {
   padding: 2em 2em 2.5em 2em;
   transition:

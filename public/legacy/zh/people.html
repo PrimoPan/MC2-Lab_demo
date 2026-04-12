@@ -721,6 +721,7 @@
                 const name = esc(m.name);
                 const pos = esc(formatFrontPosition(m));
                 const photo = esc(m.photo);
+                const photoClass = m.key === "pan-hui" ? "card__img card__img--pan-hui" : "card__img";
                 const research = esc(m.researchDirection || "");
                 const website = (m.website || "").trim();
 
@@ -741,7 +742,7 @@
       <li class="member-card-item">
         <article class="card" data-visible="false">
           <div class="card__front flow-content">
-            <img class="card__img mx-auto" src="${photo}" alt="${name} profile photo" />
+            <img class="${photoClass} mx-auto" src="${photo}" alt="${name} profile photo" />
             <div class="flow-content" data-spacing="sm">
               <p class="card__name">${name}</p>
               <p class="card__position">${pos}</p>
