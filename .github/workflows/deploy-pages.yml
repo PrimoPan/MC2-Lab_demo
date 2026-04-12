@@ -20,7 +20,7 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
       DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
-      DEPLOY_TARGET: /home/ubuntu/mc2-lab-upload/build.tar.gz
+      DEPLOY_TARGET: /home/ubuntu/mc2-lab-upload/build-${{ github.run_id }}-${{ github.run_attempt }}.tar.gz
     steps:
       - name: Checkout
         uses: actions/checkout@v6
