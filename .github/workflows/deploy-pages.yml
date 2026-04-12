@@ -1,4 +1,4 @@
-name: Deploy React site to GitHub Pages
+name: Deploy MC2 Lab site to server
 
 on:
   push:
@@ -8,16 +8,18 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: mc2-lab-deploy
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_TARGET: /home/ubuntu/mc2-lab-upload/build.tar.gz
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,27 +30,37 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Check required secrets
+        run: |
+          test -n "$DEPLOY_HOST"
+          test -n "$DEPLOY_USER"
+          test -n "${{ secrets.DEPLOY_SSH_KEY }}"
+          test -n "${{ secrets.DEPLOY_KNOWN_HOSTS }}"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build static files with SPA 404 fallback
-        run: npm run build:pages
+      - name: Build static site
+        run: npm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./build
+      - name: Package build artifact
+        run: tar -czf build.tar.gz -C build .
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Upload build artifact
+        run: |
+          scp -i ~/.ssh/deploy_key build.tar.gz \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_TARGET}"
+
+      - name: Deploy on server
+        run: |
+          ssh -i ~/.ssh/deploy_key "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "/home/ubuntu/mc2-lab-deploy.sh ${DEPLOY_TARGET}"
