@@ -325,6 +325,18 @@
                         通过把医疗、教育、人机交互与 AI 治理放进同一个讨论现场，AI as Catalyst 也把校园变成了一个用于实践检验、批判反思与跨学科协作的空间，让“负责任 AI”不只停留在口号层面，而进入具体方法与真实场景。
                     </p>
 
+                    <h4>报名方式</h4>
+                    <div class="registration-panel">
+                        <div class="registration-panel__content">
+                            <p class="registration-panel__lead">如计划参加本次工作坊，请填写报名问卷完成登记。</p>
+                            <a class="registration-panel__link" href="https://forms.gle/h9GphSJ8dzZkESZ17" target="_blank" rel="noopener noreferrer">打开报名问卷</a>
+                            <p class="registration-panel__subtext">也可以直接扫描二维码，在手机上完成报名。</p>
+                        </div>
+                        <a class="registration-panel__qr" href="https://forms.gle/h9GphSJ8dzZkESZ17" target="_blank" rel="noopener noreferrer" aria-label="打开报名问卷">
+                            <img src="/images/workshop/ai_as_catalyst_registration_qr.png" alt="AI as Catalyst 工作坊报名问卷二维码。">
+                        </a>
+                    </div>
+
                     <a class="back-news-link" href="/zh/news" target="_top" rel="noopener noreferrer">← 返回新闻列表</a>
                 </article>
             </div>
@@ -592,6 +604,73 @@
         margin-bottom: 0;
     }
 
+    .registration-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) 220px;
+        gap: 20px;
+        align-items: center;
+        padding: 20px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(142, 207, 201, 0.12), rgba(255, 190, 122, 0.08));
+        border: 1px solid rgba(255,255,255,0.1);
+        margin-bottom: 8px;
+    }
+
+    .registration-panel__lead,
+    .registration-panel__subtext {
+        margin-bottom: 0 !important;
+    }
+
+    .registration-panel__lead {
+        color: #ffffff;
+        font-size: 18px !important;
+        font-weight: 700;
+    }
+
+    .registration-panel__subtext {
+        margin-top: 14px;
+        color: #c8d3df;
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+    }
+
+    .registration-panel__link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 16px;
+        padding: 11px 18px;
+        border-radius: 999px;
+        background: #8ecfc9;
+        color: #16202b !important;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .registration-panel__link:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 24px rgba(7, 12, 24, 0.2);
+    }
+
+    .registration-panel__qr {
+        width: 100%;
+        max-width: 220px;
+        justify-self: end;
+        padding: 14px;
+        border-radius: 16px;
+        background: #ffffff;
+        text-decoration: none !important;
+    }
+
+    .registration-panel__qr img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
     .back-news-link {
         display: inline-block;
         margin-top: 10px;
@@ -610,12 +689,20 @@
             grid-template-columns: 1fr;
         }
 
+        .registration-panel {
+            grid-template-columns: 1fr;
+        }
+
         .article-cover {
             max-height: 340px;
         }
 
         .speaker-grid-news {
             grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .registration-panel__qr {
+            justify-self: center;
         }
     }
 
@@ -688,7 +775,8 @@
 
         .article-info-box,
         .agenda-snapshot__item,
-        .track-card {
+        .track-card,
+        .registration-panel {
             border-radius: 12px;
             padding: 12px 13px;
         }
@@ -723,6 +811,24 @@
         .agenda-snapshot__item strong,
         .track-card h5 {
             font-size: 17px;
+        }
+
+        .registration-panel__lead {
+            font-size: 16px !important;
+        }
+
+        .registration-panel__subtext {
+            font-size: 13px !important;
+        }
+
+        .registration-panel__link {
+            width: 100%;
+            margin-top: 14px;
+            font-size: 14px;
+        }
+
+        .registration-panel__qr {
+            max-width: 190px;
         }
 
         .speaker-grid-news {
