@@ -595,7 +595,6 @@
     }
 
     .speaker-card-news.is-open .speaker-card-news__details {
-        max-height: 520px;
         margin-top: 10px;
         opacity: 1;
     }
@@ -924,12 +923,17 @@
         }
 
         const setCardState = function (card, shouldOpen) {
+            const details = card.querySelector('.speaker-card-news__details');
             card.classList.toggle('is-open', shouldOpen);
             card.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
 
             const hint = card.querySelector('.speaker-card-news__hint');
             if (hint) {
                 hint.textContent = shouldOpen ? 'Hide bio' : 'Click to view bio';
+            }
+
+            if (details) {
+                details.style.maxHeight = shouldOpen ? details.scrollHeight + 'px' : '0px';
             }
         };
 
@@ -952,6 +956,17 @@
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
                     card.click();
+                }
+            });
+        });
+
+        window.addEventListener('resize', function () {
+            speakerCards.forEach(function (card) {
+                if (card.classList.contains('is-open')) {
+                    const details = card.querySelector('.speaker-card-news__details');
+                    if (details) {
+                        details.style.maxHeight = details.scrollHeight + 'px';
+                    }
                 }
             });
         });
