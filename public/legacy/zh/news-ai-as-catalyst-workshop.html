@@ -59,6 +59,27 @@
                     <h2 class="article-title">AI as Catalyst 工作坊将在港科大（广州）聚焦 AI 与医疗、教育的交汇</h2>
                     <p class="article-meta"><strong>发布日期：</strong>2026年4月10日</p>
 
+                    <section class="sponsor-showcase" aria-label="工作坊赞助支持">
+                        <div class="sponsor-showcase__intro">
+                            <span class="sponsor-showcase__eyebrow">赞助支持</span>
+                            <p class="sponsor-showcase__deck">本次工作坊获得两家关注数字健康、生物电子与青年创新人才培养的科技企业支持。</p>
+                        </div>
+                        <div class="sponsor-grid">
+                            <article class="sponsor-card">
+                                <h5>Beijing Qingsong Yikang Information Technology Co., Ltd.</h5>
+                                <p class="sponsor-card__lead">Beijing Qingsong Yikang Information Technology Co., Ltd. 成立于 2015 年，是 Easy Health Group 的核心技术企业之一，专注于数字健康与信息技术服务。</p>
+                                <p>公司获认定为国家高新技术企业和中关村高新技术企业，依托人工智能、大数据、区块链等前沿技术，打造一站式数字健康服务平台，整合医疗保险、商业保险、医疗机构与医药产业等多个健康产业环节，提供便捷、高效、普惠的健康管理与保障解决方案。</p>
+                                <p>公司始终重视社会责任，积极参与公益行动与全民健康推广，也高度关注青年人才培养和校园教育。通过支持本次工作坊，Qingsong Yikang 希望为学生搭建一个交流观点、提升实践能力并激发创新思维的高质量平台。</p>
+                            </article>
+                            <article class="sponsor-card">
+                                <h5>Shenzhen Nonghua Bio-Electronics Co., Ltd.</h5>
+                                <p class="sponsor-card__lead">Shenzhen Nonghua Bio-Electronics Co., Ltd. 成立于 2020 年，位于深圳科技创新核心区域，是一家聚焦生物技术与电子技术创新融合的科技企业。</p>
+                                <p>公司主要开展生物医学电子研发、医疗器械软件开发、生物科技研究与技术咨询。依托专业研发团队和深圳充满活力的创新生态，Nonghua 已取得多项自主知识产权成果，并持续为医疗和生物科技行业提供高质量技术支持与解决方案。</p>
+                                <p>在“以科技赋能生命科学与健康”的愿景引领下，Nonghua 希望通过赞助本次校园工作坊搭建学术交流桥梁，激发学生对生物电子和技术创新的兴趣，并为青年人才成长提供支持。</p>
+                            </article>
+                        </div>
+                    </section>
+
                     <img
                             class="article-cover"
                             src="/images/20260410_ai_as_catalyst_workshop_cover.jpg"
@@ -575,6 +596,88 @@
         white-space: normal;
     }
 
+    .sponsor-showcase {
+        margin: 20px 0 22px;
+        padding: 18px;
+        border-radius: 18px;
+        background: linear-gradient(135deg, rgba(122, 170, 214, 0.12), rgba(142, 207, 201, 0.08));
+        border: 1px solid rgba(255,255,255,0.09);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .sponsor-showcase__intro {
+        margin-bottom: 16px;
+    }
+
+    .sponsor-showcase__eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 11px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: #dff6f2;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .sponsor-showcase__deck {
+        margin: 12px 0 0 !important;
+        color: #dce7f5;
+        font-size: 15px !important;
+        line-height: 1.74 !important;
+        max-width: 880px;
+    }
+
+    .sponsor-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .sponsor-card {
+        height: 100%;
+        padding: 18px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(12, 18, 30, 0.52), rgba(12, 18, 30, 0.32));
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 16px 30px rgba(7, 12, 24, 0.18);
+    }
+
+    .sponsor-card:nth-child(1) {
+        background: linear-gradient(180deg, rgba(24, 51, 68, 0.52), rgba(12, 18, 30, 0.38));
+    }
+
+    .sponsor-card:nth-child(2) {
+        background: linear-gradient(180deg, rgba(52, 41, 24, 0.48), rgba(12, 18, 30, 0.38));
+    }
+
+    .sponsor-card h5 {
+        margin: 0 0 14px;
+        padding-top: 0;
+        font-size: 23px;
+        line-height: 1.34;
+        color: #ffffff !important;
+    }
+
+    .sponsor-card p {
+        margin: 0 0 12px !important;
+        color: #d9e3f1;
+        font-size: 15px !important;
+        line-height: 1.75 !important;
+    }
+
+    .sponsor-card p:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    .sponsor-card__lead {
+        color: #f6fbff !important;
+        font-weight: 700;
+    }
+
     .agenda-snapshot {
         display: grid;
         gap: 12px;
@@ -720,7 +823,8 @@
 
     @media (max-width: 960px) {
         .article-info-grid,
-        .track-grid {
+        .track-grid,
+        .sponsor-grid {
             grid-template-columns: 1fr;
         }
 
@@ -751,6 +855,10 @@
         }
 
         .news-article-card h4 {
+            font-size: 21px;
+        }
+
+        .sponsor-card h5 {
             font-size: 21px;
         }
 
@@ -809,6 +917,8 @@
         }
 
         .article-info-box,
+        .sponsor-showcase,
+        .sponsor-card,
         .agenda-snapshot__item,
         .track-card,
         .registration-panel {
@@ -827,6 +937,16 @@
         .news-article-card h4 {
             margin: 20px 0 10px;
             font-size: 20px;
+        }
+
+        .sponsor-showcase__deck,
+        .sponsor-card p {
+            font-size: 15px !important;
+            line-height: 1.72 !important;
+        }
+
+        .sponsor-card h5 {
+            font-size: 19px;
         }
 
         .news-article-card p,
