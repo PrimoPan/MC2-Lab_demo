@@ -1,6 +1,6 @@
 import React from 'react';
 import LegacyFramePage from '../components/LegacyFramePage';
-import { useNewsModalQueryEffect } from '../hooks/useNewsModalQueryEffect';
+import { useNewsModalQueryEffect  } from '../hooks/useNewsModalQueryEffect';
 
 interface NewsPageProps {
   locale?: 'en' | 'zh-CN' ;
