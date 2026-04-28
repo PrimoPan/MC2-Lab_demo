@@ -443,14 +443,28 @@
                         </div>
                         <div class="sponsor-grid">
                             <article class="sponsor-card">
-                                <h5>QingSong Health Corporation</h5>
-                                <p class="sponsor-card__lead">Founded in 2014, QingSong Health Corporation (HKEX: 02661.HK) is a leading one-stop health technology platform in China, specializing in integrated healthcare services and health insurance solutions. Leveraging its strengths in health education scenarios, industrial ecosystem synergy, and a continuously evolving technical framework, the Group builds a digital health service system driven by Artificial Intelligence to address users' needs across their entire life cycle.</p>
+                                <div class="sponsor-card__header">
+                                    <div class="sponsor-card__logo-frame">
+                                        <img src="/images/workshop-sponsors/qingsong-health-logo.jpg" alt="QingSong Health Corporation logo" class="sponsor-card__logo sponsor-card__logo--qingsong">
+                                    </div>
+                                    <div class="sponsor-card__heading">
+                                        <h5>QingSong Health Corporation</h5>
+                                        <p class="sponsor-card__lead">Founded in 2014, QingSong Health Corporation (HKEX: 02661.HK) is a leading one-stop health technology platform in China, specializing in integrated healthcare services and health insurance solutions. Leveraging its strengths in health education scenarios, industrial ecosystem synergy, and a continuously evolving technical framework, the Group builds a digital health service system driven by Artificial Intelligence to address users' needs across their entire life cycle.</p>
+                                    </div>
+                                </div>
                                 <p>In terms of AI capability building, QingSong Health Corporation has established a full-stack technical ecosystem centered on its proprietary technology stack "Alcare" and its foundational medical health large language model "Dr.GPT." This system covers critical scenarios such as health literacy, medical research, clinical decision-making, insurance services, and corporate health management, driving the evolution of health services from "information connectivity" to "intelligent decision-making."</p>
                                 <p>Recently, the Group launched the evidence-based medicine AI agent "ZhengYuanFang" and unveiled the industry's first AI skills store, the ZhengYuanFang MedClaw Skills Store. By integrating massive volumes of authoritative medical literature and clinical guidelines, the platform upgrades evidence-based medicine from a traditional "expert-experience-driven" model to an "intelligent-invocation-driven" model. This provides doctors with more efficient and traceable clinical decision support, steering the healthcare service system toward greater standardization and intelligence.</p>
                             </article>
                             <article class="sponsor-card">
-                                <h5>Shenzhen Nonghua Bio-Electronics Co., Ltd.</h5>
-                                <p class="sponsor-card__lead">Established in 2020 in the heart of Shenzhen's tech hub, Shenzhen Nonghua Bio-Electronics Co., Ltd. focuses on the innovative integration of biotechnology and electro-technology.</p>
+                                <div class="sponsor-card__header">
+                                    <div class="sponsor-card__logo-frame">
+                                        <img src="/images/workshop-sponsors/wsc-holding-logo.jpg" alt="WSC Holding Limited Health and Wellness logo" class="sponsor-card__logo sponsor-card__logo--wsc">
+                                    </div>
+                                    <div class="sponsor-card__heading">
+                                        <h5>Shenzhen Nonghua Bio-Electronics Co., Ltd.</h5>
+                                        <p class="sponsor-card__lead">Established in 2020 in the heart of Shenzhen's tech hub, Shenzhen Nonghua Bio-Electronics Co., Ltd. focuses on the innovative integration of biotechnology and electro-technology.</p>
+                                    </div>
+                                </div>
                                 <p>The company works across biomedical electronic research and development, software development for medical devices, biotech research, and technical consultation. Backed by a strong R&amp;D team and Shenzhen's innovation ecosystem, Nonghua has developed multiple independent intellectual property achievements and delivers high-quality technical solutions to the medical and biotech industries.</p>
                                 <p>Guided by the vision of empowering bioscience and health through technology, Nonghua supports this workshop to encourage academic exchange, spark student interest in bio-electronics and technological innovation, and help young talent grow through real-world engagement.</p>
                             </article>
@@ -961,6 +975,47 @@
         border-left-color: rgba(142, 207, 201, 0.34);
     }
 
+    .sponsor-card__header {
+        display: grid;
+        grid-template-columns: minmax(210px, 246px) minmax(0, 1fr);
+        gap: 18px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .sponsor-card__logo-frame {
+        min-height: 94px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,247,250,0.96));
+        border: 1px solid rgba(255,255,255,0.48);
+        box-shadow: 0 12px 26px rgba(0,0,0,0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .sponsor-card__logo {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        margin: 0 auto !important;
+    }
+
+    .sponsor-card__logo--qingsong {
+        height: 66px;
+    }
+
+    .sponsor-card__logo--wsc {
+        height: 60px;
+    }
+
+    .sponsor-card__heading {
+        min-width: 0;
+    }
+
     .sponsor-card h5 {
         margin: 0 0 10px;
         padding-top: 0;
@@ -984,6 +1039,10 @@
     .sponsor-card__lead {
         color: #f6fbff !important;
         font-weight: 700;
+    }
+
+    .sponsor-card__header .sponsor-card__lead {
+        margin: 0 !important;
     }
 
     .track-grid {
@@ -1276,6 +1335,24 @@
 
         .sponsor-card {
             padding: 0 0 0 15px;
+        }
+
+        .sponsor-card__header {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .sponsor-card__logo-frame {
+            max-width: 252px;
+            min-height: 88px;
+        }
+
+        .sponsor-card__logo--qingsong {
+            height: 60px;
+        }
+
+        .sponsor-card__logo--wsc {
+            height: 56px;
         }
 
         .info-label {

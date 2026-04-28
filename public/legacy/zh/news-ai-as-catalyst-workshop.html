@@ -443,14 +443,28 @@
                         </div>
                         <div class="sponsor-grid">
                             <article class="sponsor-card">
-                                <h5>轻松健康集团</h5>
-                                <p class="sponsor-card__lead">轻松健康集团（港股代码：02661.HK）成立于 2014 年，是国内领先的一站式健康科技平台，专注于提供综合健康服务与健康保险解决方案。依托健康教育场景优势、产业生态协同能力与持续迭代的技术体系，集团围绕用户全生命周期健康需求，持续构建以人工智能为核心驱动力的数字健康服务体系。</p>
+                                <div class="sponsor-card__header">
+                                    <div class="sponsor-card__logo-frame">
+                                        <img src="/images/workshop-sponsors/qingsong-health-logo.jpg" alt="轻松健康集团标识" class="sponsor-card__logo sponsor-card__logo--qingsong">
+                                    </div>
+                                    <div class="sponsor-card__heading">
+                                        <h5>轻松健康集团</h5>
+                                        <p class="sponsor-card__lead">轻松健康集团（港股代码：02661.HK）成立于 2014 年，是国内领先的一站式健康科技平台，专注于提供综合健康服务与健康保险解决方案。依托健康教育场景优势、产业生态协同能力与持续迭代的技术体系，集团围绕用户全生命周期健康需求，持续构建以人工智能为核心驱动力的数字健康服务体系。</p>
+                                    </div>
+                                </div>
                                 <p>在 AI 能力建设方面，轻松健康集团形成了以自研技术栈“Alcare”和医疗健康基座大模型“Dr.GPT”为核心的全链路技术体系，覆盖健康科普、医学研究、临床决策、保险服务及企业健康管理等多个关键场景，推动健康服务从“信息连接”向“智能决策”升级。</p>
                                 <p>近期，集团推出循证医学智能体“证元芳”，并发布医疗行业首个 AI 技能商店——证元芳 MedClaw Skills Store。通过整合海量权威医学文献与临床指南，将循证医学能力从传统“专家经验驱动”，升级为“智能调用驱动”，为医生提供更加高效、可溯源的临床决策支持，推动医疗服务体系向标准化、智能化迈进。</p>
                             </article>
                             <article class="sponsor-card">
-                                <h5>深圳市浓华生物电子有限公司</h5>
-                                <p class="sponsor-card__lead">深圳市浓华生物电子有限公司成立于 2020 年，位于深圳科技创新核心区域，是一家聚焦生物技术与电子技术创新融合的科技企业。</p>
+                                <div class="sponsor-card__header">
+                                    <div class="sponsor-card__logo-frame">
+                                        <img src="/images/workshop-sponsors/wsc-holding-logo.jpg" alt="WSC Holding Limited Health and Wellness 标识" class="sponsor-card__logo sponsor-card__logo--wsc">
+                                    </div>
+                                    <div class="sponsor-card__heading">
+                                        <h5>深圳市浓华生物电子有限公司</h5>
+                                        <p class="sponsor-card__lead">深圳市浓华生物电子有限公司成立于 2020 年，位于深圳科技创新核心区域，是一家聚焦生物技术与电子技术创新融合的科技企业。</p>
+                                    </div>
+                                </div>
                                 <p>公司主要开展生物医学电子研发、医疗器械软件开发、生物科技研究与技术咨询。依托专业研发团队和深圳充满活力的创新生态，浓华生物电子已取得多项自主知识产权成果，并持续为医疗和生物科技行业提供高质量技术支持与解决方案。</p>
                                 <p>在“以科技赋能生命科学与健康”的愿景引领下，浓华生物电子希望通过赞助本次校园工作坊搭建学术交流桥梁，激发学生对生物电子和技术创新的兴趣，并为青年人才成长提供支持。</p>
                             </article>
@@ -913,6 +927,47 @@
         border-left-color: rgba(142, 207, 201, 0.34);
     }
 
+    .sponsor-card__header {
+        display: grid;
+        grid-template-columns: minmax(210px, 246px) minmax(0, 1fr);
+        gap: 18px;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .sponsor-card__logo-frame {
+        min-height: 94px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,247,250,0.96));
+        border: 1px solid rgba(255,255,255,0.48);
+        box-shadow: 0 12px 26px rgba(0,0,0,0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .sponsor-card__logo {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        margin: 0 auto !important;
+    }
+
+    .sponsor-card__logo--qingsong {
+        height: 66px;
+    }
+
+    .sponsor-card__logo--wsc {
+        height: 60px;
+    }
+
+    .sponsor-card__heading {
+        min-width: 0;
+    }
+
     .sponsor-card h5 {
         margin: 0 0 10px;
         padding-top: 0;
@@ -936,6 +991,10 @@
     .sponsor-card__lead {
         color: #f6fbff !important;
         font-weight: 700;
+    }
+
+    .sponsor-card__header .sponsor-card__lead {
+        margin: 0 !important;
     }
 
     .agenda-snapshot {
@@ -1261,6 +1320,24 @@
 
         .sponsor-card {
             padding: 0 0 0 15px;
+        }
+
+        .sponsor-card__header {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .sponsor-card__logo-frame {
+            max-width: 252px;
+            min-height: 88px;
+        }
+
+        .sponsor-card__logo--qingsong {
+            height: 60px;
+        }
+
+        .sponsor-card__logo--wsc {
+            height: 56px;
         }
 
         .info-label {
