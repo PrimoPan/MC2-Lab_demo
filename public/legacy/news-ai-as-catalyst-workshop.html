@@ -62,31 +62,59 @@
                     <section class="affiliation-showcase" aria-label="Workshop organizers and participating institutions">
                         <div class="affiliation-group">
                             <p class="affiliation-group__title">Organizers</p>
-                            <div class="affiliation-grid affiliation-grid--organizers">
-                                <article class="affiliation-tile">
-                                    <div class="affiliation-tile__media affiliation-tile__media--dark">
-                                        <img src="/images/UST-GZ-EN.png" alt="HKUST(GZ) logo" class="affiliation-tile__logo affiliation-tile__logo--organizer" onerror="this.style.display='none'; this.closest('.affiliation-tile').classList.add('affiliation-tile--text-only');">
+                            <div class="organizer-lockup">
+                                <div class="organizer-lockup__row">
+                                    <div class="organizer-pair organizer-pair--schools">
+                                        <div class="organizer-brand organizer-brand--mit">
+                                            <div class="organizer-brand__visual">
+                                                <img src="https://1000logos.net/wp-content/uploads/2026/01/MIT-logo.png" alt="MIT logo" class="organizer-brand__logo organizer-brand__logo--mit">
+                                            </div>
+                                            <div class="organizer-brand__meta">
+                                                <span class="organizer-brand__zh">麻省理工学院</span>
+                                                <span class="organizer-brand__en">MIT</span>
+                                            </div>
+                                        </div>
+                                        <span class="organizer-pair__mark" aria-hidden="true">×</span>
+                                        <div class="organizer-brand organizer-brand--hkustgz">
+                                            <div class="organizer-brand__visual">
+                                                <img src="/images/UST-GZ-EN.png" alt="HKUST(GZ) logo" class="organizer-brand__logo organizer-brand__logo--hkustgz" onerror="this.style.display='none'; this.closest('.organizer-brand').classList.add('organizer-brand--text-only');">
+                                            </div>
+                                            <div class="organizer-brand__meta">
+                                                <span class="organizer-brand__zh">香港科技大学（广州）</span>
+                                                <span class="organizer-brand__en">HKUST(GZ)</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="affiliation-tile__name">HKUST(GZ)</p>
-                                </article>
-                                <article class="affiliation-tile">
-                                    <div class="affiliation-tile__media affiliation-tile__media--dark">
-                                        <img src="/images/workshop-logos/cma.png" alt="Computational Media and Arts Thrust logo" class="affiliation-tile__logo affiliation-tile__logo--organizer" onerror="this.style.display='none'; this.closest('.affiliation-tile').classList.add('affiliation-tile--text-only');">
+                                    <div class="organizer-lockup__divider" aria-hidden="true"></div>
+                                    <div class="organizer-pair organizer-pair--programs">
+                                        <div class="organizer-brand organizer-brand--critical-data">
+                                            <div class="organizer-brand__visual">
+                                                <img src="https://criticaldatathon.github.io/static/img/logo.svg" alt="MIT Critical Data logo" class="organizer-brand__logo organizer-brand__logo--critical-data" onerror="this.style.display='none'; this.closest('.organizer-brand').classList.add('organizer-brand--text-only');">
+                                            </div>
+                                            <div class="organizer-brand__meta">
+                                                <span class="organizer-brand__zh">MIT Critical Data</span>
+                                            </div>
+                                        </div>
+                                        <span class="organizer-pair__mark" aria-hidden="true">×</span>
+                                        <div class="organizer-brand organizer-brand--cma">
+                                            <div class="organizer-brand__visual">
+                                                <img src="/images/workshop-logos/cma-official.png" alt="Computational Media and Arts Thrust logo" class="organizer-brand__logo organizer-brand__logo--cma" onerror="this.style.display='none'; this.closest('.organizer-brand').classList.add('organizer-brand--text-only');">
+                                            </div>
+                                            <div class="organizer-brand__meta">
+                                                <span class="organizer-brand__zh">Computational Media and Arts</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="affiliation-tile__name">Computational Media and Arts Thrust (CMA)</p>
-                                </article>
-                                <article class="affiliation-tile">
-                                    <div class="affiliation-tile__media affiliation-tile__media--dark">
-                                        <img src="/images/workshop-logos/mc2.png" alt="MC2 logo" class="affiliation-tile__logo affiliation-tile__logo--organizer affiliation-tile__logo--organizer-subtle" onerror="this.style.display='none'; this.closest('.affiliation-tile').classList.add('affiliation-tile--text-only');">
+                                </div>
+                                <div class="organizer-lab">
+                                    <div class="organizer-lab__logo-wrap">
+                                        <img src="/images/MC2.png" alt="MC2 logo" class="organizer-lab__logo" onerror="this.style.display='none'; this.closest('.organizer-lab__logo-wrap').classList.add('organizer-lab__logo-wrap--text-only');">
                                     </div>
-                                    <p class="affiliation-tile__name">Center for Metaverse and Computational Creativity</p>
-                                </article>
-                                <article class="affiliation-tile">
-                                    <div class="affiliation-tile__media affiliation-tile__media--dark">
-                                        <img src="/images/workshop-logos/mit-critical-data.svg" alt="MIT Critical Data logo" class="affiliation-tile__logo affiliation-tile__logo--organizer affiliation-tile__logo--organizer-subtle" onerror="this.style.display='none'; this.closest('.affiliation-tile').classList.add('affiliation-tile--text-only');">
+                                    <div class="organizer-lab__copy">
+                                        <p class="organizer-lab__eyebrow">Hosting Lab</p>
+                                        <p class="organizer-lab__name">Center for Metaverse and Computational Creativity (MC<sup>2</sup>), HKUST(GZ)</p>
                                     </div>
-                                    <p class="affiliation-tile__name">MIT Critical Data</p>
-                                </article>
+                                </div>
                             </div>
                         </div>
 
@@ -176,14 +204,14 @@
                             <span class="agenda-snapshot__time">09:30-09:45</span>
                             <div>
                                 <strong>Opening Talk</strong>
-                                <p>Workshop overview and opening talk. Lead: Pan Hui.</p>
+                                <p>Workshop overview and opening talk. Lead: <a href="#speaker-pan-hui" class="agenda-speaker-link">Pan Hui</a>.</p>
                             </div>
                         </div>
                         <div class="agenda-snapshot__item">
                             <span class="agenda-snapshot__time">09:45-11:05</span>
                             <div>
                                 <strong>Workshop 1: The Art of Healing: Creative Arts as Pedagogical Practice</strong>
-                                <p>Lead: Tengjia Zuo.</p>
+                                <p>Lead: <a href="#speaker-tengjia-zuo" class="agenda-speaker-link">Tengjia Zuo</a>.</p>
                             </div>
                         </div>
                         <div class="agenda-snapshot__item">
@@ -197,42 +225,42 @@
                             <span class="agenda-snapshot__time">11:15-12:45</span>
                             <div>
                                 <strong>Workshop 2: Health AI Systems Thinking for Community (HASTC)</strong>
-                                <p>Lead: Mornin Feng.</p>
+                                <p>Lead: <a href="#speaker-mornin-feng" class="agenda-speaker-link">Mornin Feng</a>.</p>
                             </div>
                         </div>
                         <div class="agenda-snapshot__item">
                             <span class="agenda-snapshot__time">12:45-14:35</span>
                             <div>
-                                <strong>Lunch</strong>
-                                <p>Lunch break.</p>
+                                <strong>Lunch and <a href="https://surreality.world/" target="_blank" rel="noopener noreferrer"><em>Surreality Exhibition</em></a> Viewing</strong>
+                                <p>Lunch break and exhibition viewing.</p>
                             </div>
                         </div>
                         <div class="agenda-snapshot__item">
                             <span class="agenda-snapshot__time">14:35-15:35</span>
                             <div>
                                 <strong>Panel Discussion</strong>
-                                <p>Expert panel on the workshop theme with Q&amp;A. Lead: Qiushi Zhou.</p>
+                                <p>Expert panel on the workshop theme with Q&amp;A. Lead: <a href="#speaker-qiushi-zhou" class="agenda-speaker-link">Qiushi Zhou</a>.</p>
                             </div>
                         </div>
                         <div class="agenda-snapshot__item">
                             <span class="agenda-snapshot__time">15:35-15:55</span>
                             <div>
-                                <strong>Coffee Break</strong>
-                                <p>Networking and refreshments.</p>
+                                <strong><a href="#sponsor-wsc" class="agenda-speaker-link">WSC Coffee Break</a></strong>
+                                <p>Networking and refreshments, sponsored by WSC.</p>
                             </div>
                         </div>
                         <div class="agenda-snapshot__item">
                             <span class="agenda-snapshot__time">15:55-17:15</span>
                             <div>
                                 <strong>Workshop 3: LLM-a-thon: From Use Case to Ground Truth</strong>
-                                <p>Lead: Calvin K.L. Or.</p>
+                                <p>Lead: <a href="#speaker-calvin-kalun-or" class="agenda-speaker-link">Calvin K.L. Or</a>.</p>
                             </div>
                         </div>
                         <div class="agenda-snapshot__item">
                             <span class="agenda-snapshot__time">17:15-17:30</span>
                             <div>
                                 <strong>Closing</strong>
-                                <p>Key takeaways, next steps, and wrap-up. Lead: Pan Hui.</p>
+                                <p>Key takeaways, next steps, and wrap-up. Lead: <a href="#speaker-pan-hui" class="agenda-speaker-link">Pan Hui</a>.</p>
                             </div>
                         </div>
                     </div>
@@ -243,7 +271,7 @@
                     </p>
 
                     <div class="speaker-grid-news">
-                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                        <article class="speaker-card-news" id="speaker-pan-hui" tabindex="0" role="button" aria-expanded="false">
                             <img src="/images/workshop-speakers/pan_hui.jpg?v=20260412-2" alt="Pan Hui" class="speaker-card-news__image speaker-card-news__image--pan-hui" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
                             <div class="speaker-card-news__body">
                                 <h5>Pan Hui</h5>
@@ -279,7 +307,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                        <article class="speaker-card-news" id="speaker-mornin-feng" tabindex="0" role="button" aria-expanded="false">
                             <img src="/images/workshop-speakers/mornin_feng.jpg" alt="Mornin Feng" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
                             <div class="speaker-card-news__body">
                                 <h5>Mornin Feng</h5>
@@ -291,7 +319,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                        <article class="speaker-card-news" id="speaker-calvin-kalun-or" tabindex="0" role="button" aria-expanded="false">
                             <img src="/images/workshop-speakers/calvin_or.jpg" alt="Calvin Kalun Or" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
                             <div class="speaker-card-news__body">
                                 <h5>Calvin Kalun Or</h5>
@@ -327,7 +355,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                        <article class="speaker-card-news" id="speaker-qiushi-zhou" tabindex="0" role="button" aria-expanded="false">
                             <img src="/images/workshop-speakers/qiushi_zhou_20260423.png" alt="Qiushi Zhou" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
                             <div class="speaker-card-news__body">
                                 <h5>Qiushi Zhou</h5>
@@ -351,7 +379,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="speaker-card-news" tabindex="0" role="button" aria-expanded="false">
+                        <article class="speaker-card-news" id="speaker-tengjia-zuo" tabindex="0" role="button" aria-expanded="false">
                             <img src="/images/workshop-speakers/tengjia_zuo.jpg" alt="Tengjia Zuo" class="speaker-card-news__image" onerror="this.onerror=null; this.src='http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';">
                             <div class="speaker-card-news__body">
                                 <h5>Tengjia Zuo</h5>
@@ -483,7 +511,7 @@
                                 <p>In terms of AI capability building, QingSong Health Corporation has established a full-stack technical ecosystem centered on its proprietary technology stack "Alcare" and its foundational medical health large language model "Dr.GPT." This system covers critical scenarios such as health literacy, medical research, clinical decision-making, insurance services, and corporate health management, driving the evolution of health services from "information connectivity" to "intelligent decision-making."</p>
                                 <p>Recently, the Group launched the evidence-based medicine AI agent "ZhengYuanFang" and unveiled the industry's first AI skills store, the ZhengYuanFang MedClaw Skills Store. By integrating massive volumes of authoritative medical literature and clinical guidelines, the platform upgrades evidence-based medicine from a traditional "expert-experience-driven" model to an "intelligent-invocation-driven" model. This provides doctors with more efficient and traceable clinical decision support, steering the healthcare service system toward greater standardization and intelligence.</p>
                             </article>
-                            <article class="sponsor-card">
+                            <article class="sponsor-card" id="sponsor-wsc">
                                 <div class="sponsor-card__header">
                                     <div class="sponsor-card__logo-frame">
                                         <img src="/images/workshop-sponsors/wsc-holding-logo.jpg" alt="WSC HOLDING LIMITED logo" class="sponsor-card__logo sponsor-card__logo--wsc">
@@ -660,6 +688,7 @@
         border: 1px solid rgba(255,255,255,0.08);
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
+        scroll-margin-top: 108px;
         transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
     }
 
@@ -711,6 +740,21 @@
         padding-top: 0;
         font-size: 17px;
         color: #fff !important;
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    .agenda-speaker-link {
+        color: inherit;
+        font-style: italic;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1.5px;
+    }
+
+    .agenda-speaker-link:hover,
+    .agenda-speaker-link:focus-visible {
+        color: #b7e7de;
     }
 
     .speaker-card-news__role,
@@ -788,6 +832,276 @@
 
     .affiliation-group--is-hidden {
         display: none;
+    }
+
+    .organizer-lockup {
+        display: grid;
+        gap: 16px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+    }
+
+    .organizer-lockup__row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+        gap: 36px;
+    }
+
+    .organizer-pair {
+        min-width: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: center;
+        gap: 16px;
+        padding: 18px 18px 16px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+
+    .organizer-lockup__divider {
+        display: none;
+    }
+
+    .organizer-brand {
+        min-width: 0;
+        display: grid;
+        grid-template-rows: auto auto;
+        align-items: center;
+        justify-items: center;
+        min-height: 0;
+        padding: 0;
+        gap: 10px;
+        border-radius: 0;
+        background: transparent;
+        border: 0;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .organizer-pair--schools .organizer-brand {
+        min-height: 0;
+        padding: 0;
+        gap: 8px;
+    }
+
+    .organizer-pair--schools .organizer-brand__meta {
+        display: grid;
+        gap: 0;
+        padding-top: 4px;
+    }
+
+    .organizer-pair--schools {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.42fr);
+        gap: 10px;
+    }
+
+    .organizer-pair--programs {
+        grid-template-columns: minmax(0, 1.18fr) auto minmax(0, 1.14fr);
+        gap: 16px;
+        align-items: center;
+    }
+
+    .organizer-brand--mit,
+    .organizer-brand--hkustgz,
+    .organizer-brand--critical-data,
+    .organizer-brand--cma {
+        flex: 1 1 0;
+    }
+
+    .organizer-brand__visual {
+        width: 100%;
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 8px;
+        border-radius: 0;
+        background: transparent;
+        border: 0;
+    }
+
+    .organizer-pair--schools .organizer-brand__visual {
+        min-height: 84px;
+    }
+
+    .organizer-pair--programs .organizer-brand__visual {
+        min-height: 104px;
+    }
+
+    .organizer-brand__logo {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .organizer-brand__logo--mit {
+        height: 84px;
+        object-position: left center;
+    }
+
+    .organizer-brand__logo--hkustgz {
+        height: 84px;
+    }
+
+    .organizer-brand__logo--critical-data {
+        width: auto;
+        max-width: 100%;
+        height: 74px;
+        object-position: center;
+        padding: 8px 12px;
+        border-radius: 22px;
+        background: rgba(245, 247, 250, 0.96);
+        box-shadow: 0 8px 22px rgba(10, 14, 24, 0.12);
+    }
+
+    .organizer-brand__logo--cma {
+        height: 112px;
+    }
+
+    .organizer-brand--critical-data .organizer-brand__visual {
+        background: transparent;
+        border-color: transparent;
+        box-shadow: none;
+        min-height: 104px;
+        align-items: center;
+        padding: 6px 8px;
+    }
+
+    .organizer-brand--cma .organizer-brand__visual {
+        background: transparent;
+        min-height: 104px;
+        padding: 6px 8px;
+    }
+
+    .organizer-pair--schools .organizer-brand__logo--mit {
+        height: 84px;
+    }
+
+    .organizer-pair--schools .organizer-brand__logo--hkustgz {
+        height: 84px;
+    }
+
+    .organizer-pair__mark {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #3da1ff;
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 1;
+    }
+
+    .organizer-brand__meta {
+        display: grid;
+        gap: 4px;
+        width: 100%;
+        padding-top: 2px;
+        align-content: start;
+    }
+
+    .organizer-brand__zh {
+        color: #f2f6ff;
+        font-size: 13.5px;
+        line-height: 1.36;
+        font-weight: 600;
+        text-wrap: balance;
+    }
+
+    .organizer-brand__en {
+        color: rgba(226, 236, 247, 0.78);
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 500;
+        text-wrap: balance;
+    }
+
+    .organizer-brand--cma .organizer-brand__en {
+        font-size: 13.5px;
+    }
+
+    .organizer-brand--cma .organizer-brand__zh {
+        font-size: 14.5px;
+    }
+
+    .organizer-pair--schools .organizer-brand__zh {
+        display: none;
+    }
+
+    .organizer-pair--schools .organizer-brand__en {
+        color: #f2f6ff;
+        font-size: 15px;
+        line-height: 1.2;
+        font-weight: 600;
+    }
+
+    .organizer-lab {
+        display: grid;
+        grid-template-columns: minmax(0, 178px) minmax(0, 1fr);
+        gap: 16px;
+        align-items: center;
+        padding: 16px 18px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+    }
+
+    .organizer-lab__logo-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 74px;
+        padding: 12px 16px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+        overflow: hidden;
+    }
+
+    .organizer-lab__logo {
+        display: block;
+        width: 100%;
+        max-width: 176px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .organizer-lab__copy {
+        min-width: 0;
+    }
+
+    .organizer-lab__eyebrow {
+        margin: 0 0 6px !important;
+        color: #8ecfc9;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: none;
+    }
+
+    .organizer-lab__name {
+        margin: 0 0 4px !important;
+        color: #edf4ff;
+        font-size: 18px !important;
+        line-height: 1.5 !important;
+        font-weight: 600;
+    }
+
+    .organizer-lab__subname {
+        margin: 0 !important;
+        color: rgba(226, 236, 247, 0.82);
+        font-size: 15px !important;
+        line-height: 1.55 !important;
+        font-weight: 500;
     }
 
     .affiliation-grid {
@@ -1429,6 +1743,84 @@
             gap: 16px;
         }
 
+        .organizer-lockup {
+            gap: 12px;
+        }
+
+        .organizer-lockup__row {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .organizer-pair {
+            flex-basis: 100%;
+            gap: 10px;
+            padding: 14px 12px;
+        }
+
+        .organizer-lockup__divider {
+            display: none;
+        }
+
+        .organizer-brand {
+            min-height: 98px;
+            padding: 12px 14px;
+            gap: 10px;
+        }
+
+        .organizer-pair--schools .organizer-brand {
+            min-height: 84px;
+        }
+
+        .organizer-pair--schools {
+            gap: 8px;
+            padding: 12px 10px;
+        }
+
+        .organizer-brand__visual,
+        .organizer-pair--schools .organizer-brand__visual {
+            min-height: 68px;
+        }
+
+        .organizer-brand__logo--mit,
+        .organizer-brand__logo--hkustgz,
+        .organizer-brand__logo--critical-data,
+        .organizer-brand__logo--cma,
+        .organizer-pair--schools .organizer-brand__logo--mit,
+        .organizer-pair--schools .organizer-brand__logo--hkustgz {
+            height: 68px;
+        }
+
+        .organizer-pair__mark {
+            font-size: 24px;
+        }
+
+        .organizer-brand__zh {
+            font-size: 13px;
+        }
+
+        .organizer-brand__en {
+            font-size: 11px;
+        }
+
+        .organizer-lab {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .organizer-lab__logo-wrap {
+            max-width: 240px;
+            min-height: 68px;
+        }
+
+        .organizer-lab__name {
+            font-size: 16px !important;
+        }
+
+        .organizer-lab__subname {
+            font-size: 13px !important;
+        }
+
         .affiliation-grid--organizers,
         .affiliation-grid--participants {
             grid-template-columns: 1fr;
@@ -1526,6 +1918,15 @@
             }
         };
 
+        const scrollCardIntoView = function (card) {
+            const topOffset = 108;
+            const cardTop = card.getBoundingClientRect().top + window.scrollY - topOffset;
+            window.scrollTo({
+                top: Math.max(0, cardTop),
+                behavior: 'smooth'
+            });
+        };
+
         speakerCards.forEach(function (card) {
             setCardState(card, false);
 
@@ -1549,6 +1950,30 @@
             });
         });
 
+        const openCardByHash = function () {
+            if (!window.location.hash) {
+                return;
+            }
+
+            const targetCard = document.querySelector(window.location.hash + '.speaker-card-news');
+            if (!targetCard) {
+                return;
+            }
+
+            speakerCards.forEach(function (otherCard) {
+                setCardState(otherCard, otherCard === targetCard);
+            });
+
+            requestAnimationFrame(function () {
+                targetCard.focus({ preventScroll: true });
+                scrollCardIntoView(targetCard);
+
+                window.setTimeout(function () {
+                    scrollCardIntoView(targetCard);
+                }, 240);
+            });
+        };
+
         window.addEventListener('resize', function () {
             speakerCards.forEach(function (card) {
                 if (card.classList.contains('is-open')) {
@@ -1559,6 +1984,9 @@
                 }
             });
         });
+
+        window.addEventListener('hashchange', openCardByHash);
+        openCardByHash();
     });
 </script>
 
