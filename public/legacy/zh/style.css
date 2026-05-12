@@ -980,6 +980,10 @@
     line-height: 1.25;
     padding: 0 .5rem;
   }
+
+  .menu.menu--bottom-right {
+    display: none !important;
+  }
 }
 
 /* ===== Disable legacy custom cursor effect ===== */
