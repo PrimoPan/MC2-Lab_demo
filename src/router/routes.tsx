@@ -35,6 +35,7 @@ export const routes: RouteObject[] = [
 
   // Compatibility redirects from old .html paths to canonical routes
   { path: '/index.html', element: <Navigate to="/" replace /> },
+  { path: '/legacy/index.html', element: <Navigate to="/" replace /> },
   { path: '/people.html', element: <Navigate to="/people" replace /> },
   { path: '/publication.html', element: <Navigate to="/publication" replace /> },
   { path: '/legacy/publication.html', element: <Navigate to="/publication" replace /> },
@@ -46,6 +47,7 @@ export const routes: RouteObject[] = [
   { path: '/news/japantimes-ai-love.html', element: <Navigate to="/news/japantimes-ai-love" replace /> },
   { path: '/news/nature-spotlight.html', element: <Navigate to="/news/nature-spotlight" replace /> },
   { path: '/zh/index.html', element: <Navigate to="/zh" replace /> },
+  { path: '/legacy/zh/index.html', element: <Navigate to="/zh" replace /> },
   { path: '/zh/people.html', element: <Navigate to="/zh/people" replace /> },
   { path: '/zh/publication.html', element: <Navigate to="/zh/publication" replace /> },
   { path: '/legacy/zh/publication.html', element: <Navigate to="/zh/publication" replace /> },
