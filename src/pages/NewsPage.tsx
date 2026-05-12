@@ -1,9 +1,10 @@
 import React from 'react';
 import LegacyFramePage from '../components/LegacyFramePage';
 import { useNewsModalQueryEffect  } from '../hooks/useNewsModalQueryEffect';
+import type { Locale } from '../types/common';
 
 interface NewsPageProps {
-  locale?: 'en' | 'zh-CN' ;
+  locale?: Locale;
 }
 
 export default function NewsPage({ locale = 'en' }: NewsPageProps): JSX.Element {

@@ -1,8 +1,9 @@
 import React from 'react';
 import LegacyFramePage from '../components/LegacyFramePage';
+import type { Locale } from '../types/common';
 
 interface NewsNatureSpotlightPageProps {
-  locale?: 'en' | 'zh-CN';
+  locale?: Locale;
 }
 
 export default function NewsNatureSpotlightPage({ locale = 'en' }: NewsNatureSpotlightPageProps): JSX.Element {

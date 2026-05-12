@@ -1,8 +1,9 @@
 import React from 'react';
 import LegacyFramePage from '../components/LegacyFramePage';
+import type { Locale } from '../types/common';
 
 interface ProjectPageProps {
-  locale?: 'en' | 'zh-CN';
+  locale?: Locale;
 }
 
 export default function ProjectPage({ locale = 'en' }: ProjectPageProps): JSX.Element {

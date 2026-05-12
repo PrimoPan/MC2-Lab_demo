@@ -1,8 +1,9 @@
 import React from 'react';
 import LegacyFramePage from '../components/LegacyFramePage';
+import type { Locale } from '../types/common';
 
 interface NewsJapanTimesAILovePageProps {
-  locale?: 'en' | 'zh-CN';
+  locale?: Locale;
 }
 
 export default function NewsJapanTimesAILovePage({ locale = 'en' }: NewsJapanTimesAILovePageProps): JSX.Element {
