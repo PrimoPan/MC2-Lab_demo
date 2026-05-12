@@ -193,20 +193,28 @@
             }
         }
 
-        @media (max-width: 600px){
+        @media (max-width: 640px){
             .hero-cta-group{
-                width: min(560px, 94vw);
+                width: 100%;
+                max-width: 100%;
                 gap: 10px;
             }
 
             .hero-cta-group .surreality-btn{
                 width: 100%;
+                max-width: 100%;
+                min-width: 0;
                 justify-content: center;
                 white-space: normal;
                 text-align: center;
                 min-height: 44px;
                 padding: 12px 14px;
                 line-height: 1.15;
+            }
+
+            .hero-cta-group .surreality-btn span:not(.btn-arrow){
+                min-width: 0;
+                overflow-wrap: anywhere;
             }
         }
     </style>
