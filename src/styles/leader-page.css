@@ -518,6 +518,9 @@ body.leader-page-on {
   }
 
   .leader-page-shell .leader-wrap {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
     margin-top: 22px;
     padding: 0 14px;
   }
