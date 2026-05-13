@@ -1,5 +1,6 @@
 /* Please ❤ this if you like it! */
 
+if (typeof window.jQuery !== "undefined") {
 (function ($) {
     "use strict";
   
@@ -54,5 +55,6 @@
       $("body").removeClass("contact-on");
     });
 
-  })(jQuery);
+  })(window.jQuery);
+}
   
