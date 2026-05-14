@@ -64,7 +64,12 @@
 .people-page-shell .grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(35ch, 100%), 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.people-page-shell .grid > li {
+  min-width: 0;
 }
 
 .people-page-shell .section-title {
