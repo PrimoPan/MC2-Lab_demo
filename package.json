@@ -17,6 +17,7 @@
     "ajv": "^8.18.0",
     "ajv-keywords": "^5.1.0",
     "glob": "^10.4.5",
+    "htmlparser2": "^9.1.0",
     "tsx": "^4.19.3"
   },
   "scripts": {
@@ -26,7 +27,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pub:update": "tsx tools/update-publications.ts",
-    "update:all": "npm run pub:update && npm run build"
+    "update:all": "npm run pub:update && npm run build",
+    "pub:sync": "tsx tools/sync-recent-publications.ts",
+    "pub:sync:check": "tsx tools/sync-recent-publications.ts --check"
   },
   "browserslist": {
     "production": [

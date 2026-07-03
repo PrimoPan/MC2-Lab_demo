@@ -11,7 +11,7 @@
       "venue": "In Proceedings of the Thirty-Ninth Annual Conference on Neural Information Processing Systems (NeurIPS), San Diego, CA, USA, December 2025."
     },
     {
-      "title": "\" Is This Your True Intention to Participate?\"?Simulated Interrogation and Hidden Control in an Agent-Driven Installation.",
+      "title": "\"Is This Your True Intention to Participate?\": Simulated Interrogation and Hidden Control in an Agent-Driven Installation.",
       "authors": "Yuyang Jiang, Luwen Yu, Jia Sun, Jiashun Chen, Pui Wa Chau, and Pan Hui.",
       "venue": "In Proceedings of the SIGGRAPH Asia 2025 Art Papers, Hong Kong, December 2025."
     },
@@ -27,7 +27,7 @@
     },
     {
       "title": "SARF: Sparsity-Aware Reconstruction Framework for Large-Scale Datasets.",
-      "authors": "ZAgustin Zuniga, Huber Flores, Ngoc Thi Nguyen, Pan Hui, Sasu Tarkoma, and Petteri Nurmi.",
+      "authors": "Agustin Zuniga, Huber Flores, Ngoc Thi Nguyen, Pan Hui, Sasu Tarkoma, and Petteri Nurmi.",
       "venue": "In IEEE Transactions on Big Data (Publication date 2025/12/4)."
     },
     {
@@ -72,8 +72,8 @@
     },
     {
       "title": "CineVision: An Interactive Pre-visualization Storyboard System for Director-Cinematographer Collaboration.",
-      "authors": "Zheng Wei, Hongtao Wu, lvmin Zhang, Xian Xu, Yefeng Zheng, Pan Hui, Maneesh Agrawala, Huamin Qu, Anyi Rao.",
-      "venue": "In Proceeding of the ACM Symposium on User Interface Software and Technology (UIST 2025), Busan Korea, September 2025."
+      "authors": "Zheng Wei, Hongtao Wu, Lvmin Zhang, Xian Xu, Yefeng Zheng, Pan Hui, Maneesh Agrawala, Huamin Qu, Anyi Rao.",
+      "venue": "In Proceedings of the ACM Symposium on User Interface Software and Technology (UIST 2025), Busan Korea, September 2025."
     },
     {
       "title": "MetaCineMoji: Visualizing film set communication in an interactive interface for collaboration in virtual LED production.",
@@ -81,7 +81,7 @@
       "venue": "In Visual Informatics (Publication date 2025/9/25)."
     },
     {
-      "title": "Little Hands, Big Exhibitions ? Children's Virtual Curation with Generative MR Toolbox.",
+      "title": "Little Hands, Big Exhibitions: Children's Virtual Curation with Generative MR Toolbox.",
       "authors": "Yuyang Jiang, Cekai Weng, Ching Christie Pang, Pengfei Yu, Yuqi Liang, and Pan Hui.",
       "venue": "In Proceedings of the Conference on Animation and Interactive Art (Expanded 2025), Linz, Austria, September, 2025."
     },
@@ -151,7 +151,7 @@
       "venue": "In Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems (CHI), Yokohama Japan, April 2025."
     },
     {
-      "title": "“Even When Success Seems Impossible, I Keep Streaming”: How Do Chinese Elderly Streamers Interact with Platform Algorithmic (In)visibility.",
+      "title": "\"Even When Success Seems Impossible, I Keep Streaming\": How Do Chinese Elderly Streamers Interact with Platform Algorithmic (In)visibility.",
       "authors": "Junxiang Liao, Zheng Wei, Zeyu Yang, Xian Xu, Pan Hui, Changyang He, and Muzhi Zhou.",
       "venue": "In Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems (CHI), Yokohama Japan, April 2025."
     },
@@ -206,6 +206,11 @@
       "venue": "In Displays (Date of Acceptance: 1 April 2025)."
     },
     {
+      "title": "Illuminating the Scene: How Virtual Environments and Learning Modes Shape Film Lighting Mastery in Virtual Reality.",
+      "authors": "Zheng Wei, Jia Sun, Junxiang Liao, Lik-Hang Lee, Chan In Sio, Pan Hui, Huamin Qu, Wai Tong, Xian Xu.",
+      "venue": "In IEEE Transactions on Visualization and Computer Graphics (JCR Q1 IF=6.5). Best Papers - Honorable Mentions, IEEE Conference Virtual Reality and 3D User Interfaces (VR) (IEEE VR 2025), St Malo, France, March 2025."
+    },
+    {
       "title": "Toward Sustainable 6G leveraging Digital Twin and Artificial Intelligence: Framework and Case Study.",
       "authors": "Dianlei Xu, Xiang Su, Sasu Tarkoma, and Pan Hui.",
       "venue": "In IEEE Communications Magazine (Date of Acceptance: 12 March 2025)."
@@ -230,7 +235,22 @@
     {
       "title": "IMGNN: An Efficient, Effective and Generalizable Algorithm for Influence Maximization in Social Networks.",
       "authors": "Haotian Zhang, Kai Han, Zhizhuo Yin, Shuang Cui, Jing Tang, and Pan Hui.",
-      "venue": "In Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), Toronto, Canada, August 2026."
+      "venue": "In Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '26), Toronto, Canada, August 2026."
+    },
+    {
+      "title": "Beyond Compliance: How AI Could Help Creative Writers by Refusing Them.",
+      "authors": "Hua Xuan Qin, Guangzhi Zhu, Mingming Fan, Pan Hui.",
+      "venue": "In Proceedings of the 2026 ACM Creativity and Cognition Conference (C&C '26), London, UK, July 2026."
+    },
+    {
+      "title": "EMSTouch: Electrical Muscle Stimulation for Object Interaction and Social Touch in Extended Reality.",
+      "authors": "Kirill A. Shatilov, Alex Wong Tat Hang, Pan Hui, Tristan Braud.",
+      "venue": "In Proceedings of the 2026 ACM Creativity and Cognition Conference (C&C '26), London, UK, July 2026."
+    },
+    {
+      "title": "The Blooming Archive.",
+      "authors": "Yawei Zhao, Circle Zheng Yuan, Zuona Chen, Jieyu Wang, Anca-Simona Horvath, Pan Hui.",
+      "venue": "In Proceedings of the 2026 ACM Creativity and Cognition Conference (C&C '26), London, UK, July 2026 (Artwork)."
     },
     {
       "title": "Co-Designing Digital Humans for Online Learning: A Framework for Human-AI Pedagogical Integration.",
@@ -238,14 +258,54 @@
       "venue": "In Proceedings of the 28th Human-Computer Interaction International Conference (HCII 2026), Montreal, Canada, July 2026."
     },
     {
+      "title": "Beyond Correctness: A Stage-Aware Framework for Decoding Student Problem-Solving Processes from Handwriting Trajectories.",
+      "authors": "Zhonghua Sheng, Shuyu Shen, Qiqi Duan, Leixian Shen, Xiaofu Jin, Pan Hui, Huamin Qu, Yuyu Luo.",
+      "venue": "In Proceedings of the 27th International Conference on AI in Education (AIED), Seoul, Korea, June 2026 (Long Paper)."
+    },
+    {
+      "title": "Agnoagentia: The Illusion of Agency in AI-Assisted Learning.",
+      "authors": "Iris Delikoura, Pantelis M Papadopoulos, Pan Hui.",
+      "venue": "In Proceedings of the 27th International Conference on AI in Education (AIED), Seoul, Korea, June 2026 (Short Paper)."
+    },
+    {
+      "title": "Operationalizing Adaptive Scaffolding: A State-Driven Design Framework for Hybrid Learning with Digital Teachers.",
+      "authors": "Xiaokang Lei, Ching Christie Pang, Zesheng Hong, Yuyang Jiang, Xin Tong, Pan Hui.",
+      "venue": "In Proceedings of the 27th International Conference on AI in Education (AIED), Seoul, Korea, June 2026 (Short Paper)."
+    },
+    {
+      "title": "DesignerlyLoop: Forming Design Intent through Curated Reasoning for Human-LLM Alignment.",
+      "authors": "Anqi Wang, Zhengyi Li, Xin Tong, Pan Hui.",
+      "venue": "In Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS '26), Singapore, June 2026."
+    },
+    {
+      "title": "Dream the Dream: Futuring Communication between LGBTQ+ and Cisgender Groups in Metaverse Space.",
+      "authors": "Anqi Wang, Lei Han, Jiahua Dong, Muzhi Zhou, David Yip, Yuyang Wang, Pan Hui.",
+      "venue": "In Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS '26), Singapore, June 2026."
+    },
+    {
+      "title": "G-SAN: Rethinking Audio Navigation Beyond Time in Podcasts.",
+      "authors": "Liuziyu Zhao, Xiaoyu Yang, Weipeng Chen, Pan Hui.",
+      "venue": "In Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS '26), Singapore, June 2026."
+    },
+    {
+      "title": "Exploring Modular Wearable Rehabilitation Devices for Motor Impairments: Insights from Design Probe Workshops with Rehabilitation Clinicians.",
+      "authors": "Janet Ka-man Choi, Mengyang Wang, Pan Hui, Mingming Fan.",
+      "venue": "In Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS '26), Singapore, June 2026."
+    },
+    {
+      "title": "Who Gets Left Out of Digital Banking in Later Life? Barriers and Opportunities in Hong Kong's Silver Population.",
+      "authors": "Clarence Chi San Cheung, Jianan Liu, Lulin Chen, Qiongyan Chen, Luchen Li, Pan Hui, Lik-Hang Lee, Mingming Fan.",
+      "venue": "In Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS '26), Singapore, June 2026."
+    },
+    {
       "title": "Cross-Platform Short-Video Diplomacy: Topic and Sentiment Analysis of China-US Relations on Douyin and TikTok.",
       "authors": "Zheng Wei, Mingchen Li, Junxiang Liao, Zeyu Yang, Xiaoyu Yang, Yixuan Xie, Pan Hui, and Huamin Qu.",
-      "venue": "In Proceeding of the International AAAI Conference on Web and Social Media (ICWSM 2026), Los Angeles, USA, June 2026."
+      "venue": "In Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2026), Los Angeles, USA, June 2026."
     },
     {
       "title": "Unpacking Discourses on Childbirth and Parenthood in Popular Social Media Platforms Across China, Japan, and South Korea.",
       "authors": "Zheng Wei, Yunqi Li, Yucheng He, Yuelu Li, Xian Xu, Huamin Qu, Pan Hui, and Muzhi Zhou.",
-      "venue": "In Proceeding of the International AAAI Conference on Web and Social Media (ICWSM 2026), Los Angeles, USA, June 2026."
+      "venue": "In Proceedings of the International AAAI Conference on Web and Social Media (ICWSM 2026), Los Angeles, USA, June 2026."
     },
     {
       "title": "FovRL: Joint Foveation and Quality Control for Immersive VR Streaming Using Reinforcement Learning.",

@@ -39,6 +39,18 @@ Refresh publications and build:
 npm run update:all
 ```
 
+Sync recent publications from Pan Hui's website:
+
+```bash
+npm run pub:sync
+```
+
+Preview remote publication differences without changing local JSON:
+
+```bash
+npm run pub:sync -- --dry-run
+```
+
 ## Routes
 
 Canonical routes are React routes. Old `.html` URLs are kept only as redirects for external compatibility.
@@ -69,6 +81,7 @@ Chinese:
 - Keep English and Chinese content synchronized in structure and key claims.
 - Place static assets in `public/images/` and reference them with `/images/...`.
 - Add new recent publication entries in `src/data/recentPublications.json`; `src/data/recentPublications.ts` is only the typed bridge used by React.
+- Use `npm run pub:sync` to refresh 2026 and 2025 recent publications from `https://panhui.people.ust.hk/publications.html`; the sync script excludes exact author-name matches for `Ze Gao` / `Gao Ze`.
 - Keep `public/legacy/` limited to transitional CSS that is still needed by migrated pages.
 - Do not add new `public/legacy/**/*.html` files.
 - Preserve old `.html` route aliases as redirects when a public URL has already existed.

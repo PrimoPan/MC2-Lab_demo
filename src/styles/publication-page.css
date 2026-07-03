@@ -1705,6 +1705,26 @@ h4 {
   line-height: 1.65;
 }
 
+.publication-author-link {
+  color: inherit;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  letter-spacing: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.publication-author-link:hover,
+.publication-author-link:focus-visible {
+  color: #9cf9cf;
+  text-decoration-color: #9cf9cf;
+}
+
 .pan-hui-name {
   color: inherit;
   display: inline;
@@ -1713,7 +1733,7 @@ h4 {
   font-weight: 400 !important;
   font-style: italic;
   line-height: inherit;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   vertical-align: baseline;
   text-decoration: underline;
   text-decoration-thickness: 0.8px;

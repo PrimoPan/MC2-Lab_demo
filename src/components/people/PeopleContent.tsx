@@ -69,7 +69,7 @@ function MemberCard({ fallbackResearch, member }: { fallbackResearch: string; me
   const research = member.researchDirection || fallbackResearch;
 
   return (
-    <li className='member-card-item'>
+    <li className='member-card-item' id={member.key} data-member-key={member.key}>
       <article className='card' data-visible={isVisible ? 'true' : 'false'}>
         <div className='card__front flow-content'>
           <img
@@ -188,11 +188,56 @@ export default function PeopleContent({ content }: PeopleContentProps): JSX.Elem
   const programmaticScrollTargetRef = useRef<number | null>(null);
   const programmaticScrollDeadlineRef = useRef(0);
   const scrollFrameRef = useRef<number | null>(null);
+  const anchorHighlightTimeoutRef = useRef<number | null>(null);
   const [activeSection, setActiveSection] = useState('Current');
   const [isSubnavHidden, setIsSubnavHidden] = useState(false);
   const sectionIds = useMemo(() => ['Current', 'Graduated'], []);
 
   useSectionScrollSpy(pageRef, sectionIds, setActiveSection, 190);
+
+  const scrollToMemberHash = useCallback(() => {
+    const memberKey = decodeURIComponent(window.location.hash.replace(/^#/, ''));
+    if (!memberKey || memberKey === 'Current' || memberKey === 'Graduated') return;
+
+    const scrollContainer = pageRef.current;
+    if (!scrollContainer) return;
+
+    const target = Array.from(scrollContainer.querySelectorAll<HTMLElement>('[data-member-key]'))
+      .find((element) => element.dataset.memberKey === memberKey);
+    if (!target) return;
+
+    setActiveSection('Current');
+    setIsSubnavHidden(false);
+
+    window.requestAnimationFrame(() => {
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const targetTop = target.getBoundingClientRect().top - containerRect.top + scrollContainer.scrollTop;
+      const stickyOffset = window.matchMedia('(max-width: 980px)').matches ? 172 : 110;
+      const nextTop = Math.max(0, targetTop - stickyOffset);
+
+      programmaticScrollTargetRef.current = nextTop;
+      programmaticScrollDeadlineRef.current = Date.now() + 4000;
+      scrollContainer.scrollTo({ top: nextTop, behavior: 'smooth' });
+
+      target.classList.add('is-anchor-target');
+      if (anchorHighlightTimeoutRef.current !== null) window.clearTimeout(anchorHighlightTimeoutRef.current);
+      anchorHighlightTimeoutRef.current = window.setTimeout(() => {
+        target.classList.remove('is-anchor-target');
+        anchorHighlightTimeoutRef.current = null;
+      }, 2200);
+    });
+  }, []);
+
+  useEffect(() => {
+    const initialScrollTimeout = window.setTimeout(scrollToMemberHash, 80);
+    window.addEventListener('hashchange', scrollToMemberHash);
+
+    return () => {
+      window.clearTimeout(initialScrollTimeout);
+      window.removeEventListener('hashchange', scrollToMemberHash);
+      if (anchorHighlightTimeoutRef.current !== null) window.clearTimeout(anchorHighlightTimeoutRef.current);
+    };
+  }, [scrollToMemberHash]);
 
   useEffect(() => {
     const scrollContainer = pageRef.current;
