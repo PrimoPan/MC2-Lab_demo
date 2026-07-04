@@ -13,7 +13,7 @@ interface PublicationPageProps {
 
 const FALLBACK_PHOTO = 'http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';
 const YEARS = ['2026', '2025', '2024', '2023', '2022', '2021'];
-const AUTHOR_SEPARATOR_PATTERN = /(\s*,\s*|\s+and\s+|\s*&\s+)/i;
+const AUTHOR_SEPARATOR_PATTERN = /(\s*,\s+and\s+|\s*,\s*|\s+and\s+|\s*&\s+)/i;
 const MANUAL_MEMBER_AUTHOR_ALIASES: Record<string, string[]> = {
   'bianca': ['Bianca Yang', 'Ruoshan Yang'],
   'ching-christie-pang': ['Christie Pang'],
@@ -80,7 +80,8 @@ function isAuthorSeparator(part: string): boolean {
   return /^\s*(?:,|and|&)\s*$/i.test(part);
 }
 
-function getPeopleHref(locale: Locale, memberKey: string): string {
+function getMemberProfileHref(locale: Locale, memberKey: string): string {
+  if (memberKey === 'pan-hui') return getRoutePath('leader', locale);
   return `${getRoutePath('people', locale)}#${memberKey}`;
 }
 
@@ -99,7 +100,7 @@ function AuthorList({ authors, locale }: { authors: string; locale: Locale }): J
         return (
           <React.Fragment key={`${index}-${part}`}>
             {leading}
-            <Link className='publication-author-link' to={getPeopleHref(locale, memberLink.key)}>{name}</Link>
+            <Link className='publication-author-link' to={getMemberProfileHref(locale, memberLink.key)}>{name}</Link>
             {trailing}
           </React.Fragment>
         );
@@ -133,7 +134,7 @@ function decorateMemberAuthorLinks(root: HTMLElement, locale: Locale): void {
       if (leading) fragment.appendChild(document.createTextNode(leading));
       const link = document.createElement('a');
       link.className = 'publication-author-link';
-      link.href = getPeopleHref(locale, memberLink.key);
+      link.href = getMemberProfileHref(locale, memberLink.key);
       link.textContent = name;
       fragment.appendChild(link);
       if (trailing) fragment.appendChild(document.createTextNode(trailing));
