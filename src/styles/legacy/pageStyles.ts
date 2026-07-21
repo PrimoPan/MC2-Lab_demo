@@ -2,9 +2,6 @@ import bannerStyles from './banner.css?inline';
 import baseStyles from './base.css?inline';
 import newsStyles from './news.css?inline';
 import peopleStyles from './people.css?inline';
-import projectStyles from './project.css?inline';
-import projectZhStyles from './project-zh.css?inline';
-import type { Locale } from '../../types/common';
 
 export interface PageStyleBundle {
   css: string[];
@@ -29,7 +26,3 @@ function createPageStyleBundle(pageStyles: string): PageStyleBundle {
 
 export const newsPageStyles = createPageStyleBundle(newsStyles);
 export const peoplePageStyles = createPageStyleBundle(peopleStyles);
-export const projectPageStyles: Record<Locale, PageStyleBundle> = {
-  en: createPageStyleBundle(projectStyles),
-  'zh-CN': createPageStyleBundle(projectZhStyles)
-};

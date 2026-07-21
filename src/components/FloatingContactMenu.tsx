@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ContactMenu from './contact/ContactMenu';
 
-export default function FloatingContactMenu({ wrapperClassName = '' }: { wrapperClassName?: string }): JSX.Element {
+export default function FloatingContactMenu({ transparentSurface = false, wrapperClassName = '' }: { transparentSurface?: boolean; wrapperClassName?: string }): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function FloatingContactMenu({ wrapperClassName = '' }: { wrapper
 
   return (
     <div className={`wrapMenu ${wrapperClassName}`}>
-      <ContactMenu id='menu_bottom_right' isOpen={isOpen} onToggle={() => setIsOpen((open) => !open)} wechatHref='#wechat' />
+      <ContactMenu id='menu_bottom_right' isOpen={isOpen} onToggle={() => setIsOpen((open) => !open)} transparentSurface={transparentSurface} wechatHref='#wechat' />
     </div>
   );
 }
