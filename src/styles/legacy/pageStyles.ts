@@ -1,6 +1,5 @@
 import bannerStyles from './banner.css?inline';
 import baseStyles from './base.css?inline';
-import newsStyles from './news.css?inline';
 import peopleStyles from './people.css?inline';
 
 export interface PageStyleBundle {
@@ -24,5 +23,4 @@ function createPageStyleBundle(pageStyles: string): PageStyleBundle {
   };
 }
 
-export const newsPageStyles = createPageStyleBundle(newsStyles);
 export const peoplePageStyles = createPageStyleBundle(peopleStyles);

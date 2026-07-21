@@ -2,49 +2,68 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import type { NewsArticleBlock, NewsArticleContent as NewsArticleContentType } from '../../types/legacyPages';
 import InlineMc2Text from './InlineMc2Text';
+import {
+  NEWS_ARTICLE_BACK_LINK_CLASS,
+  NEWS_ARTICLE_CARD_CLASS,
+  NEWS_ARTICLE_COLUMN_CLASS,
+  NEWS_ARTICLE_COVER_CLASS,
+  NEWS_ARTICLE_EXTERNAL_LINK_CLASS,
+  NEWS_ARTICLE_HEADING_CLASS,
+  NEWS_ARTICLE_LINKS_CLASS,
+  NEWS_ARTICLE_LIST_CLASS,
+  NEWS_ARTICLE_LIST_ITEM_CLASS,
+  NEWS_ARTICLE_META_CLASS,
+  NEWS_ARTICLE_PARAGRAPH_CLASS,
+  NEWS_ARTICLE_TITLE_CLASS,
+  NEWS_COL_12_CLASS,
+  NEWS_CONTAINER_CLASS,
+  NEWS_PAGE_HEADING_CLASS,
+  NEWS_ROW_CLASS,
+  NEWS_SECTION_CLASS
+} from './newsStyles';
 
 interface NewsArticleContentProps {
   article: NewsArticleContentType;
 }
 
 function ArticleBlock({ block }: { block: NewsArticleBlock }): JSX.Element {
-  if (block.type === 'heading') return <h4><InlineMc2Text text={block.text} /></h4>;
+  if (block.type === 'heading') return <h4 className={NEWS_ARTICLE_HEADING_CLASS}><InlineMc2Text text={block.text} /></h4>;
   if (block.type === 'list') {
     return (
-      <ul className='article-list'>
+      <ul className={NEWS_ARTICLE_LIST_CLASS}>
         {block.items.map((item) => (
-          <li key={item}>{item}</li>
+          <li className={NEWS_ARTICLE_LIST_ITEM_CLASS} key={item}>{item}</li>
         ))}
       </ul>
     );
   }
-  return <p><InlineMc2Text text={block.text} /></p>;
+  return <p className={NEWS_ARTICLE_PARAGRAPH_CLASS}><InlineMc2Text text={block.text} /></p>;
 }
 
 export default function NewsArticleContent({ article }: NewsArticleContentProps): JSX.Element {
   return (
     <>
-      <div className='news-section'>
-        <div className='container'>
-          <div className='row justify-content-center'>
-            <div className='col-12 pt-[100px]! text-center text-white!'>
-              <h3>{article.pageHeading}</h3>
+      <div className={NEWS_SECTION_CLASS}>
+        <div className={NEWS_CONTAINER_CLASS}>
+          <div className={NEWS_ROW_CLASS}>
+            <div className={`${NEWS_COL_12_CLASS} pt-[100px]! text-center! text-white!`}>
+              <h3 className={NEWS_PAGE_HEADING_CLASS}>{article.pageHeading}</h3>
             </div>
 
-            <div className='col-lg-10 mt-4 mb-5'>
-              <article className='news-article-card'>
-                <h2 className='article-title'><InlineMc2Text text={article.title} /></h2>
-                <p className='article-meta'><InlineMc2Text text={article.meta} /></p>
-                <img className='article-cover' src={article.image} alt={article.imageAlt} />
+            <div className={NEWS_ARTICLE_COLUMN_CLASS}>
+              <article className={NEWS_ARTICLE_CARD_CLASS}>
+                <h2 className={NEWS_ARTICLE_TITLE_CLASS}><InlineMc2Text text={article.title} /></h2>
+                <p className={NEWS_ARTICLE_META_CLASS}><InlineMc2Text text={article.meta} /></p>
+                <img className={NEWS_ARTICLE_COVER_CLASS} src={article.image} alt={article.imageAlt} />
                 {article.blocks.map((block, index) => (
                   <ArticleBlock block={block} key={`${block.type}-${index}`} />
                 ))}
-                <div className='article-links'>
+                <div className={NEWS_ARTICLE_LINKS_CLASS}>
                   {article.links.map((link) => (
-                    <a href={link.href} key={link.href} target='_blank' rel='noopener noreferrer'>{link.label}</a>
+                    <a className={NEWS_ARTICLE_EXTERNAL_LINK_CLASS} href={link.href} key={link.href} target='_blank' rel='noopener noreferrer'>{link.label}</a>
                   ))}
                 </div>
-                <Link className='back-news-link' to={article.backHref}>{article.backLabel}</Link>
+                <Link className={NEWS_ARTICLE_BACK_LINK_CLASS} to={article.backHref}>{article.backLabel}</Link>
               </article>
             </div>
           </div>

@@ -3,6 +3,42 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSectionScrollSpy } from '../../hooks/useSectionScrollSpy';
 import type { NewsListContent as NewsListContentType, NewsListItem, NewsModalContent } from '../../types/legacyPages';
 import InlineMc2Text from './InlineMc2Text';
+import {
+  NEWS_CARD_CLASS,
+  NEWS_CARD_LINK_CLASS,
+  NEWS_CARD_ROW_CLASS,
+  NEWS_CARD_TITLE_BASE_CLASS,
+  NEWS_COL_12_CLASS,
+  NEWS_CONTAINER_CLASS,
+  NEWS_COVER_CLASS,
+  NEWS_CTA_ARROW_CLASS,
+  NEWS_CTA_CLASS,
+  NEWS_CTA_ICON_CLASS,
+  NEWS_CTA_SUB_CLASS,
+  NEWS_CTA_WRAP_CLASS,
+  NEWS_DESCRIPTION_CLASS,
+  NEWS_DESCRIPTION_LAST_CLASS,
+  NEWS_IMAGE_COLUMN_CLASS,
+  NEWS_META_CLASS,
+  NEWS_MODAL_CLASS,
+  NEWS_MODAL_CLOSE_CLASS,
+  NEWS_MODAL_CONTENT_CLASS,
+  NEWS_MODAL_IMAGE_CLASS,
+  NEWS_MODAL_TRIGGER_CARD_CLASS,
+  NEWS_PAGE_HEADING_CLASS,
+  NEWS_ROW_CLASS,
+  NEWS_SECTION_CLASS,
+  NEWS_SOURCE_CLASS,
+  NEWS_TEXT_COLUMN_CLASS,
+  NEWS_YEAR_NAV_CLASS,
+  NEWS_YEAR_NAV_CONTAINER_CLASS,
+  NEWS_YEAR_NAV_LIST_CLASS,
+  NEWS_YEAR_SECTION_CLASS,
+  NEWS_YEAR_TITLE_CLASS,
+  newsItemWrapperClass,
+  newsYearNavLinkClass,
+  newsYearNavItemClass
+} from './newsStyles';
 
 interface NewsListContentProps {
   content: NewsListContentType;
@@ -20,56 +56,56 @@ function NewsCard({ item, onOpenModal }: { item: NewsListItem; onOpenModal: () =
   const metaSuffix = metaSeparatorIndex >= 0 ? item.meta.slice(metaSeparatorIndex + 1).trim() : '';
   const metaJoiner = item.meta.includes('：') ? '' : ' ';
   const cardInner = (
-    <div className='row news-row'>
-      <div className='col-md-4 news-left'>
+    <div className={NEWS_CARD_ROW_CLASS}>
+      <div className={NEWS_IMAGE_COLUMN_CLASS}>
         <img
-          className='news-cover-photo'
+          className={NEWS_COVER_CLASS}
           src={item.image}
           alt={item.imageAlt}
           onError={(event) => { event.currentTarget.src = 'http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg'; }}
         />
       </div>
 
-      <div className='col-md-8'>
-        <h4 className={item.titleFontSize === '36px' ? 'text-[36px]! text-white!' : 'text-[33px]! text-white!'}>
+      <div className={NEWS_TEXT_COLUMN_CLASS}>
+        <h4 className={`${NEWS_CARD_TITLE_BASE_CLASS} ${item.titleFontSize === '36px' ? 'text-[36px]!' : 'text-[33px]!'}`}>
           <strong><InlineMc2Text text={item.title} /></strong>
         </h4>
-        <p className='news-meta'><strong>{metaPrefix}</strong>{metaSuffix ? `${metaJoiner}${metaSuffix}` : ''}</p>
+        <p className={NEWS_META_CLASS}><strong>{metaPrefix}</strong>{metaSuffix ? `${metaJoiner}${metaSuffix}` : ''}</p>
         {item.descriptions.map((description, index) => (
-          <p className={index === item.descriptions.length - 1 && !item.source ? 'mb-0! text-white!' : 'text-white!'} key={description}>
+          <p className={index === item.descriptions.length - 1 && !item.source ? NEWS_DESCRIPTION_LAST_CLASS : NEWS_DESCRIPTION_CLASS} key={description}>
             {description}
           </p>
         ))}
-        {item.source ? <p className='news-source'>{item.source}</p> : null}
+        {item.source ? <p className={NEWS_SOURCE_CLASS}>{item.source}</p> : null}
       </div>
     </div>
   );
 
   if (item.kind === 'modal') {
     return (
-      <button className='button-like' type='button' onClick={onOpenModal}>
+      <button className={`${NEWS_CARD_CLASS} ${NEWS_MODAL_TRIGGER_CARD_CLASS}`} type='button' onClick={onOpenModal}>
         {cardInner}
       </button>
     );
   }
 
   return (
-    <Link className='button-like news-link-card' to={item.href} aria-label={`Open ${item.title}`}>
+    <Link className={`${NEWS_CARD_CLASS} ${NEWS_CARD_LINK_CLASS}`} to={item.href} aria-label={`Open ${item.title}`}>
       {cardInner}
     </Link>
   );
 }
 
 function SurrealityModal({ content, isOpen, onClose }: { content: NewsModalContent; isOpen: boolean; onClose: () => void }): JSX.Element {
-  if (!isOpen) return <div id='myModal' className='modal'></div>;
+  if (!isOpen) return <div id='myModal' className={`${NEWS_MODAL_CLASS} hidden!`}></div>;
 
   return (
-    <div id='myModal' className='modal block!' onClick={onClose}>
-      <div className='modal-content max-h-[80vh]! scroll-smooth! overflow-y-auto!' onClick={(event) => event.stopPropagation()}>
-        <span className='close' role='button' tabIndex={0} onClick={onClose} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') onClose(); }}>&times;</span>
+    <div id='myModal' className={`${NEWS_MODAL_CLASS} block!`} onClick={onClose}>
+      <div className={NEWS_MODAL_CONTENT_CLASS} onClick={(event) => event.stopPropagation()}>
+        <span className={NEWS_MODAL_CLOSE_CLASS} role='button' tabIndex={0} onClick={onClose} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') onClose(); }}>&times;</span>
         <br /><br />
         <img
-          className='img-fluid block! h-auto! max-w-full!'
+          className={NEWS_MODAL_IMAGE_CLASS}
           src={content.poster}
           srcSet={content.srcSet}
           sizes={content.sizes}
@@ -81,13 +117,13 @@ function SurrealityModal({ content, isOpen, onClose }: { content: NewsModalConte
           }}
         />
 
-        <div className='surreality-cta-wrap'>
-          <a className='surreality-cta' href={content.submitHref} target='_blank' rel='noopener noreferrer' aria-label={content.submitAria}>
-            <span className='cta-icon' aria-hidden='true'>🚀</span>
+        <div className={NEWS_CTA_WRAP_CLASS}>
+          <a className={NEWS_CTA_CLASS} href={content.submitHref} target='_blank' rel='noopener noreferrer' aria-label={content.submitAria}>
+            <span className={NEWS_CTA_ICON_CLASS} aria-hidden='true'>🚀</span>
             <span className='cta-text'>{content.submitText}</span>
-            <span className='cta-arrow' aria-hidden='true'>→</span>
+            <span className={NEWS_CTA_ARROW_CLASS} aria-hidden='true'>→</span>
           </a>
-          <div className='surreality-cta-sub'>{content.helperText}</div>
+          <div className={NEWS_CTA_SUB_CLASS}>{content.helperText}</div>
         </div>
       </div>
     </div>
@@ -124,19 +160,19 @@ export default function NewsListContent({ content }: NewsListContentProps): JSX.
 
   return (
     <>
-      <div className='news-section' ref={scrollRef}>
-        <div className='container'>
-          <div className='row justify-content-center'>
-            <div className='col-12 pt-[100px]! text-center text-white!'>
-              <h3>{content.pageHeading}</h3>
+      <div className={NEWS_SECTION_CLASS} ref={scrollRef}>
+        <div className={NEWS_CONTAINER_CLASS}>
+          <div className={NEWS_ROW_CLASS}>
+            <div className={`${NEWS_COL_12_CLASS} pt-[100px]! text-center! text-white!`}>
+              <h3 className={NEWS_PAGE_HEADING_CLASS}>{content.pageHeading}</h3>
             </div>
 
-            <div className='publication-nav'>
-              <div className='container'>
-                <ul className='yr__navs'>
+            <div className={NEWS_YEAR_NAV_CLASS}>
+              <div className={NEWS_YEAR_NAV_CONTAINER_CLASS}>
+                <ul className={NEWS_YEAR_NAV_LIST_CLASS}>
                   {content.years.map((year) => (
-                    <li className={activeYearId === year.id ? `yr__nav ${year.id} active` : `yr__nav ${year.id}`} key={year.id}>
-                      <a href={`#${year.id}`} onClick={(event) => { event.preventDefault(); selectYear(year.id); }}>{year.label.replace('YEAR ', '')}</a>
+                    <li className={`${newsYearNavItemClass(activeYearId === year.id)} ${year.id} ${activeYearId === year.id ? 'active' : ''}`} key={year.id}>
+                      <a className={newsYearNavLinkClass(activeYearId === year.id)} href={`#${year.id}`} onClick={(event) => { event.preventDefault(); selectYear(year.id); }}>{year.label.replace('YEAR ', '')}</a>
                     </li>
                   ))}
                 </ul>
@@ -144,12 +180,12 @@ export default function NewsListContent({ content }: NewsListContentProps): JSX.
             </div>
 
             {content.years.map((year) => (
-              <section className='news-year-section' id={year.id} key={year.id}>
-                <div className='col-12'>
-                  <h3 className='news-year-title'>{year.label}</h3>
+              <section className={NEWS_YEAR_SECTION_CLASS} id={year.id} key={year.id}>
+                <div className={NEWS_COL_12_CLASS}>
+                  <h3 className={NEWS_YEAR_TITLE_CLASS}>{year.label}</h3>
                 </div>
-                {year.items.map((item) => (
-                  <div className='col-12 mt-3' key={item.id}>
+                {year.items.map((item, index) => (
+                  <div className={newsItemWrapperClass(index > 0)} key={item.id}>
                     <NewsCard item={item} onOpenModal={() => setIsModalOpen(true)} />
                   </div>
                 ))}

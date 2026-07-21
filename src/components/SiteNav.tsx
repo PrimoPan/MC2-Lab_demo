@@ -77,6 +77,7 @@ export default function SiteNav({ activeRoute, locale, alternateHref }: SiteNavP
   const items = getSiteNavItems(locale, activeRoute);
   const languageHref = alternateHref || getAlternateRoutePath(activeRoute, locale);
   const isLeader = activeRoute === 'leader';
+  const usesLegacyControlCascade = activeRoute === 'project' || activeRoute === 'news';
   const routeAnimationClass = activeRoute === 'leader'
     ? 'animate-[leaderBannerRouteEnter_180ms_ease-out_both]! max-[980px]:animate-[leaderBannerRouteEnterMobile_140ms_ease-out_both]!'
     : 'animate-[bannerRouteEnter_180ms_ease-out_both]! max-[980px]:animate-[bannerRouteEnterMobile_140ms_ease-out_both]!';
@@ -98,11 +99,11 @@ export default function SiteNav({ activeRoute, locale, alternateHref }: SiteNavP
   return (
     <div ref={navRef} className={`${isMenuOpen ? 'major-nav is-menu-open' : 'major-nav'} ${SITE_NAV_CLASS} ${routeAnimationClass}`}>
       <nav className={`nav-logo ${SITE_LOGO_CLASS}`} aria-label='Brand'>
-        <img className={`m-0! block! h-[28px]! max-h-[70%]! w-auto! max-w-[232px]! max-[1160px]:h-[25px]! max-[1160px]:max-w-[200px]! max-[980px]:h-[23px]! max-[980px]:max-w-[164px]! ${activeRoute === 'project' ? 'min-w-0! object-contain!' : ''} ${isLeader ? 'max-[640px]:h-[24px]! max-[640px]:max-w-[150px]!' : ''}`} src='/images/MC2.png' alt='MC2 Lab' />
+        <img className={`m-0! block! h-[28px]! max-h-[70%]! w-auto! max-w-[232px]! max-[1160px]:h-[25px]! max-[1160px]:max-w-[200px]! max-[980px]:h-[23px]! max-[980px]:max-w-[164px]! ${usesLegacyControlCascade ? 'min-w-0! object-contain!' : ''} ${isLeader ? 'max-[640px]:h-[24px]! max-[640px]:max-w-[150px]!' : ''}`} src='/images/MC2.png' alt='MC2 Lab' />
         <div className={`vertical m-0! h-[22px]! border-l-2! border-white! opacity-35! ${isLeader ? 'max-[640px]:h-[20px]!' : ''}`}></div>
-        <img className={`m-0! block! h-[26px]! max-h-[70%]! w-auto! max-w-[232px]! max-[1160px]:h-[23px]! max-[1160px]:max-w-[200px]! max-[980px]:h-[21px]! max-[980px]:max-w-[164px]! ${activeRoute === 'project' ? 'min-w-0! object-contain!' : ''} ${isLeader ? 'max-[640px]:h-[22px]! max-[640px]:max-w-[150px]!' : ''}`} src={isZh ? '/images/UST-GZ-ZH.png' : '/images/UST-GZ-EN.png'} alt={isZh ? '香港科技大学（广州）' : 'HKUST(GZ)'} />
+        <img className={`m-0! block! h-[26px]! max-h-[70%]! w-auto! max-w-[232px]! max-[1160px]:h-[23px]! max-[1160px]:max-w-[200px]! max-[980px]:h-[21px]! max-[980px]:max-w-[164px]! ${usesLegacyControlCascade ? 'min-w-0! object-contain!' : ''} ${isLeader ? 'max-[640px]:h-[22px]! max-[640px]:max-w-[150px]!' : ''}`} src={isZh ? '/images/UST-GZ-ZH.png' : '/images/UST-GZ-EN.png'} alt={isZh ? '香港科技大学（广州）' : 'HKUST(GZ)'} />
         <div className='vertical m-0! h-[22px]! border-l-2! border-white! opacity-35! max-[980px]:hidden!'></div>
-        <img className={`m-0! block! h-[26px]! max-h-[70%]! w-auto! max-w-[232px]! max-[1160px]:h-[23px]! max-[1160px]:max-w-[200px]! max-[980px]:hidden! ${activeRoute === 'project' ? 'min-w-0! object-contain!' : ''}`} src={isZh ? '/images/UST-ZH.png' : '/images/UST-EN.png'} alt={isZh ? '香港科技大学' : 'HKUST'} />
+        <img className={`m-0! block! h-[26px]! max-h-[70%]! w-auto! max-w-[232px]! max-[1160px]:h-[23px]! max-[1160px]:max-w-[200px]! max-[980px]:hidden! ${usesLegacyControlCascade ? 'min-w-0! object-contain!' : ''}`} src={isZh ? '/images/UST-ZH.png' : '/images/UST-EN.png'} alt={isZh ? '香港科技大学' : 'HKUST'} />
       </nav>
 
       <nav className={`nav ${SITE_PRIMARY_NAV_CLASS} ${isMenuOpen ? 'max-[980px]:flex!' : 'max-[980px]:hidden!'}`} aria-label='Primary navigation'>
@@ -115,11 +116,11 @@ export default function SiteNav({ activeRoute, locale, alternateHref }: SiteNavP
         </ul>
       </nav>
 
-      <div className={`banner-controls relative! z-[1]! flex! items-center! justify-self-end! gap-[8px]! max-[980px]:gap-[6px]! ${activeRoute === 'project' ? 'max-[980px]:shrink-0! max-[980px]:[justify-self:end]!' : ''}`}>
-        <Link className={`banner-lang ${SITE_CONTROL_CLASS} inline-flex! min-w-[56px]! rounded-[10px]! px-[12px]! py-0! font-['Open_Sans','Noto_Sans',sans-serif]! text-[0.88rem]! leading-none! ${activeRoute === 'project' ? 'bg-transparent! text-[#007bff]! hover:[transform:translateY(-1px)]!' : 'bg-[rgba(255,255,255,0.05)]! text-[#ecf2ff]! hover:-translate-y-px!'} ${isLeader ? 'max-[640px]:min-w-[50px]! max-[640px]:px-[10px]!' : ''}`} to={languageHref}>{getSiteText(locale, 'languageLabel')}</Link>
+      <div className={`banner-controls relative! z-[1]! flex! items-center! justify-self-end! gap-[8px]! max-[980px]:gap-[6px]! ${usesLegacyControlCascade ? 'max-[980px]:shrink-0! max-[980px]:[justify-self:end]!' : ''}`}>
+        <Link className={`banner-lang ${SITE_CONTROL_CLASS} inline-flex! min-w-[56px]! rounded-[10px]! px-[12px]! py-0! font-['Open_Sans','Noto_Sans',sans-serif]! text-[0.88rem]! leading-none! ${usesLegacyControlCascade ? 'bg-transparent! text-[#007bff]! hover:[transform:translateY(-1px)]!' : 'bg-[rgba(255,255,255,0.05)]! text-[#ecf2ff]! hover:-translate-y-px!'} ${isLeader ? 'max-[640px]:min-w-[50px]! max-[640px]:px-[10px]!' : ''}`} to={languageHref}>{getSiteText(locale, 'languageLabel')}</Link>
         <button
           type='button'
-          className={`banner-menu-toggle ${SITE_CONTROL_CLASS} hidden! min-w-[44px]! bg-[rgba(255,255,255,0.05)]! px-[10px]! py-0! text-[#ecf2ff]! max-[980px]:inline-flex! ${activeRoute === 'project' ? "rounded-none! [font-family:-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,'Helvetica_Neue',Arial,sans-serif,'Apple_Color_Emoji','Segoe_UI_Emoji','Segoe_UI_Symbol','Noto_Color_Emoji']! text-[16px]! leading-[1.5]! hover:[transform:translateY(-1px)]!" : "rounded-[10px]! font-['Open_Sans','Noto_Sans',sans-serif]! text-[0.88rem]! leading-none! hover:-translate-y-px!"} ${isLeader ? 'max-[640px]:min-w-[40px]! max-[640px]:px-[9px]! max-[640px]:text-[0.9rem]!' : ''}`}
+          className={`banner-menu-toggle ${SITE_CONTROL_CLASS} hidden! min-w-[44px]! bg-[rgba(255,255,255,0.05)]! px-[10px]! py-0! text-[#ecf2ff]! max-[980px]:inline-flex! ${usesLegacyControlCascade ? "rounded-none! [font-family:-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,'Helvetica_Neue',Arial,sans-serif,'Apple_Color_Emoji','Segoe_UI_Emoji','Segoe_UI_Symbol','Noto_Color_Emoji']! text-[16px]! leading-[1.5]! hover:[transform:translateY(-1px)]!" : "rounded-[10px]! font-['Open_Sans','Noto_Sans',sans-serif]! text-[0.88rem]! leading-none! hover:-translate-y-px!"} ${isLeader ? 'max-[640px]:min-w-[40px]! max-[640px]:px-[9px]! max-[640px]:text-[0.9rem]!' : ''}`}
           id='bannerMenuToggle'
           aria-expanded={isMenuOpen}
           aria-label={getSiteText(locale, 'menuAria')}
