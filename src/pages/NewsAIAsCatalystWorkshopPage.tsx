@@ -17,7 +17,7 @@ export default function NewsAIAsCatalystWorkshopPage({ locale = 'en' }: NewsAIAs
   const alternateHref = isZh ? '/news/ai-as-catalyst-workshop' : '/zh/news/ai-as-catalyst-workshop';
 
   return (
-    <SitePageShell className={workshopClass('workshop-page-shell')} ariaLabel={isZh ? 'AI as Catalyst 工作坊' : 'AI as Catalyst Workshop'} locale={locale} activeRoute='news' alternateHref={alternateHref} ref={pageRef}>
+    <SitePageShell className={workshopClass('workshop-page-shell')} ariaLabel={isZh ? 'AI as Catalyst 工作坊' : 'AI as Catalyst Workshop'} locale={locale} activeRoute='news' alternateHref={alternateHref} navControlVariant='default' ref={pageRef}>
       {isZh ? <ChineseWorkshopArticle /> : <EnglishWorkshopArticle />}
     </SitePageShell>
   );

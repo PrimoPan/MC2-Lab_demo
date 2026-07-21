@@ -7,6 +7,7 @@ interface SiteNavProps {
   activeRoute: RouteKey;
   locale: Locale;
   alternateHref?: string;
+  controlVariant?: 'default' | 'legacy';
 }
 
 const SITE_NAV_CLASS = [
@@ -70,14 +71,15 @@ const SITE_CONTROL_CLASS = [
   'motion-reduce:transition-none!'
 ].join(' ');
 
-export default function SiteNav({ activeRoute, locale, alternateHref }: SiteNavProps): JSX.Element {
+export default function SiteNav({ activeRoute, locale, alternateHref, controlVariant }: SiteNavProps): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const isZh = isZhLocale(locale);
   const items = getSiteNavItems(locale, activeRoute);
   const languageHref = alternateHref || getAlternateRoutePath(activeRoute, locale);
   const isLeader = activeRoute === 'leader';
-  const usesLegacyControlCascade = activeRoute === 'project' || activeRoute === 'news';
+  const usesLegacyControlCascade = controlVariant === 'legacy'
+    || (controlVariant === undefined && (activeRoute === 'project' || activeRoute === 'news'));
   const usesPeopleControlCascade = activeRoute === 'people';
   const routeAnimationClass = activeRoute === 'leader'
     ? 'animate-[leaderBannerRouteEnter_180ms_ease-out_both]! max-[980px]:animate-[leaderBannerRouteEnterMobile_140ms_ease-out_both]!'

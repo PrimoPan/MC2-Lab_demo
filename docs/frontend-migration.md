@@ -2,7 +2,7 @@
 
 ## Outcome
 
-The application now uses Node.js 24 LTS, TypeScript 7, Vite 8, React route-level code splitting, and Tailwind CSS 4. The migration keeps the pre-migration rendering as a locked contract: nine views, two languages, and two viewport sizes compare with zero changed pixels.
+The application now uses Node.js 24 LTS, TypeScript 7, Vite 8, React route-level code splitting, and Tailwind CSS 4. The migration keeps the pre-migration rendering as a locked contract: seven route families, two languages, and two viewport sizes compare with zero changed pixels.
 
 ## Component boundaries
 
@@ -21,19 +21,18 @@ The application now uses Node.js 24 LTS, TypeScript 7, Vite 8, React route-level
 3. global base
 4. Tailwind components and utilities
 5. Bootstrap compatibility
-6. pixel-locked legacy route rules
-7. icon fonts
+6. icon fonts
 
-React components use Tailwind utilities, including the important modifier where a historical vendor selector must be overridden. Existing complex route CSS remains in Tailwind's `legacy` layer until it can be retired together with its markup; moving those declarations between layers without screenshot verification is not safe.
+React components use Tailwind utilities, including the important modifier where a historical vendor selector must be overridden. Complex components keep reusable utility strings in colocated `*Styles.ts` modules so their state variants remain readable without reintroducing selector-based stylesheets.
 
-The People, News, and Project routes inject their historical route bundle only while mounted. This preserves their original vendor ordering without leaking the rules into other routes.
+`src/styles/tailwind.css` is the only CSS file. It owns the global reset, the route-entry and People-search keyframes, Tailwind imports, and the external vendor/icon imports required by the historical markup.
 
 ## Upgrade rules
 
 1. Run `nvm use` before installing or building.
 2. Keep TypeScript and Vite on exact versions in `package.json`; upgrade intentionally and regenerate `package-lock.json` with `npm install`.
 3. Run `npm run typecheck` and `npm run build`.
-4. Capture all 36 visual cases at the documented viewports and require a zero-pixel comparison.
+4. Capture all 28 visual cases at the documented viewports, freeze dynamic media to matching frames, and require a zero-pixel deterministic comparison.
 5. Push `main` only after the checked build passes; Vite keeps the existing `build/` artifact contract and the production update is owned by GitHub Actions.
 
 ## Adding content

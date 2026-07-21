@@ -38,12 +38,12 @@ Vite writes the production site to `build/` to preserve the established GitHub A
 - `src/data/publications/`: archived publication records grouped by year.
 - `src/hooks/`: reusable interaction and browser hooks.
 - `src/styles/tailwind.css`: the only global style entry point and cascade-layer order.
-- `src/styles/legacy/`: pixel-locked route styles imported into Tailwind's `legacy` layer.
+- page-level `*Styles.ts` modules: reusable Tailwind utility strings for complex components.
 - `public/images/`: static images referenced with `/images/...`.
 - `content/submissions/`: publication source data.
 - `tools/`: publication update and synchronization scripts.
 
-All component-level presentation uses Tailwind utilities. Pixel-locked historical rules are preserved inside Tailwind cascade layers so the migration does not change existing layout, typography, or spacing.
+All application presentation uses Tailwind utilities. The only CSS file is `src/styles/tailwind.css`, which contains the global reset, shared keyframes, Tailwind imports, and external vendor/icon imports.
 
 ## Content workflows
 
@@ -70,11 +70,12 @@ English routes are `/`, `/people`, `/publication`, `/project`, `/news`, `/news/:
 
 UI maintenance must preserve the current screenshots exactly.
 
-- Validate all nine views in English and Chinese.
+- Validate Home, Leader, Publication, Workshop, People, News, and Project in English and Chinese (14 routes).
 - Test desktop at 1440 x 1000 and mobile at 390 x 844.
-- Compare full-page screenshots before and after the change.
-- A visual migration is accepted only when all 36 comparisons report zero changed pixels.
-- Keep Tailwind layer order in `src/styles/tailwind.css`; changing it can alter Bootstrap, icon-font, or legacy selector precedence.
+- Compare the 28 settled-state screenshots before and after the change.
+- Freeze animated media and CSS animations to the same frame, and verify the underlying asset hashes separately.
+- A visual migration is accepted only when all 28 deterministic comparisons report zero changed pixels.
+- Keep Tailwind layer order in `src/styles/tailwind.css`; changing it can alter Bootstrap or icon-font selector precedence.
 
 The TypeScript 7, Vite 8, component, and Tailwind migration is described in `docs/frontend-migration.md`.
 
