@@ -2,6 +2,30 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FloatingContactMenu from '../components/FloatingContactMenu';
 import ArchivedPublicationSections from '../components/publication/ArchivedPublicationSections';
+import {
+  PUBLICATION_AUTHOR_LINK_CLASS,
+  PUBLICATION_CENTERED_ROW_CLASS,
+  PUBLICATION_COL_12_CLASS,
+  PUBLICATION_CONTACT_WRAPPER_CLASS,
+  PUBLICATION_CONTAINER_CLASS,
+  PUBLICATION_HEADING_CLASS,
+  PUBLICATION_SECTION_CLASS,
+  PUBLICATION_SHELL_CLASS,
+  RECENT_AUTHOR_CLASS,
+  RECENT_CONFERENCE_CLASS,
+  RECENT_ITEM_CLASS,
+  RECENT_LIST_CLASS,
+  RECENT_TITLE_CLASS,
+  RECENT_YEAR_HEADING_CLASS,
+  RECENT_YEAR_SECTION_CLASS,
+  YEAR_NAV_ACTIVE_CLASS,
+  YEAR_NAV_ACTIVE_LINK_CLASS,
+  YEAR_NAV_CLASS,
+  YEAR_NAV_CONTAINER_CLASS,
+  YEAR_NAV_ITEM_CLASS,
+  YEAR_NAV_LINK_CLASS,
+  YEAR_NAV_LIST_CLASS
+} from '../components/publication/publicationStyles';
 import SitePageShell from '../components/SitePageShell';
 import { peoplePageContent } from '../data/legacyPageContent';
 import { recentPublicationData } from '../data/recentPublications';
@@ -94,7 +118,7 @@ function AuthorList({ authors, locale }: { authors: string; locale: Locale }): J
         return (
           <React.Fragment key={`${index}-${part}`}>
             {leading}
-            <Link className='publication-author-link' to={getMemberProfileHref(locale, memberLink.key)}>{name}</Link>
+            <Link className={PUBLICATION_AUTHOR_LINK_CLASS} to={getMemberProfileHref(locale, memberLink.key)}>{name}</Link>
             {trailing}
           </React.Fragment>
         );
@@ -127,7 +151,7 @@ function decorateMemberAuthorLinks(root: HTMLElement, locale: Locale): void {
       hasMemberLink = true;
       if (leading) fragment.appendChild(document.createTextNode(leading));
       const link = document.createElement('a');
-      link.className = 'publication-author-link';
+      link.className = PUBLICATION_AUTHOR_LINK_CLASS;
       link.href = getMemberProfileHref(locale, memberLink.key);
       link.textContent = name;
       fragment.appendChild(link);
@@ -138,13 +162,6 @@ function decorateMemberAuthorLinks(root: HTMLElement, locale: Locale): void {
     element.textContent = '';
     element.appendChild(fragment);
   });
-}
-
-function useBodyPublicationClass(): void {
-  useEffect(() => {
-    document.body.classList.add('publication-on');
-    return () => document.body.classList.remove('publication-on');
-  }, []);
 }
 
 function usePublicationScrollSpy(pageRef: React.RefObject<HTMLElement>, setActiveYear: React.Dispatch<React.SetStateAction<string>>): void {
@@ -181,12 +198,12 @@ function usePublicationScrollSpy(pageRef: React.RefObject<HTMLElement>, setActiv
 
 function YearNav({ activeYear, onSelectYear }: { activeYear: string; onSelectYear: (year: string) => void }): JSX.Element {
   return (
-    <div className='publication-nav'>
-      <div className='container'>
-        <ul className='yr__navs'>
+    <div className={YEAR_NAV_CLASS}>
+      <div className={YEAR_NAV_CONTAINER_CLASS}>
+        <ul className={YEAR_NAV_LIST_CLASS}>
           {YEARS.map((year) => (
-            <li className={activeYear === year ? `yr__nav yr${year} active` : `yr__nav yr${year}`} key={year}>
-              <a href={`#yr${year}`} onClick={(event) => { event.preventDefault(); onSelectYear(year); }}>{year}</a>
+            <li className={`${YEAR_NAV_ITEM_CLASS} yr${year} ${activeYear === year ? `active ${YEAR_NAV_ACTIVE_CLASS}` : ''}`} key={year}>
+              <a className={`${YEAR_NAV_LINK_CLASS} ${activeYear === year ? YEAR_NAV_ACTIVE_LINK_CLASS : ''}`} href={`#yr${year}`} onClick={(event) => { event.preventDefault(); onSelectYear(year); }}>{year}</a>
             </li>
           ))}
         </ul>
@@ -197,10 +214,10 @@ function YearNav({ activeYear, onSelectYear }: { activeYear: string; onSelectYea
 
 function RecentPublicationItem({ authors, locale, title, venue }: { title: string; authors: string; venue: string; locale: Locale }): JSX.Element {
   return (
-    <article className='recent-publication-item'>
-      <h4>{title}</h4>
-      <p className='conference'>{venue}</p>
-      <p className='author'><AuthorList authors={authors} locale={locale} /></p>
+    <article className={RECENT_ITEM_CLASS}>
+      <h4 className={RECENT_TITLE_CLASS}>{title}</h4>
+      <p className={RECENT_CONFERENCE_CLASS}>{venue}</p>
+      <p className={RECENT_AUTHOR_CLASS}><AuthorList authors={authors} locale={locale} /></p>
     </article>
   );
 }
@@ -210,11 +227,11 @@ function RecentPublicationSections({ locale }: { locale: Locale }): JSX.Element 
   return (
     <>
       {years.map((year) => (
-        <section id={`yr${year}`} className='recent-year-section' key={year}>
+        <section id={`yr${year}`} className={RECENT_YEAR_SECTION_CLASS} key={year}>
           <br />
           <br />
-          <h3>{`YEAR ${year}`}</h3>
-          <div className='recent-publication-list'>
+          <h3 className={RECENT_YEAR_HEADING_CLASS}>{`YEAR ${year}`}</h3>
+          <div className={RECENT_LIST_CLASS}>
             {recentPublicationData[year].map((entry, index) => <RecentPublicationItem {...entry} locale={locale} key={`${year}-${index}-${entry.title}`} />)}
           </div>
         </section>
@@ -228,7 +245,6 @@ export default function PublicationPage({ locale = 'en' }: PublicationPageProps)
   const [activeYear, setActiveYear] = useState('2026');
   const isZh = locale === 'zh-CN';
 
-  useBodyPublicationClass();
   usePublicationScrollSpy(pageRef, setActiveYear);
 
   useEffect(() => {
@@ -254,22 +270,22 @@ export default function PublicationPage({ locale = 'en' }: PublicationPageProps)
   };
 
   return (
-    <SitePageShell className='publication-page-shell' ariaLabel={isZh ? '论文' : 'Publication'} locale={locale} activeRoute='publication' ref={pageRef}>
-      <div className='publication-section'>
-        <div className='container'>
-          <div className='row justify-content-center'>
-            <div className='col-12 pt-[100px]! text-center'>
-              <h3>{isZh ? '论文' : 'Publication'}</h3>
+    <SitePageShell className={PUBLICATION_SHELL_CLASS} ariaLabel={isZh ? '论文' : 'Publication'} locale={locale} activeRoute='publication' ref={pageRef}>
+      <div className={PUBLICATION_SECTION_CLASS}>
+        <div className={PUBLICATION_CONTAINER_CLASS}>
+          <div className={PUBLICATION_CENTERED_ROW_CLASS}>
+            <div className={`${PUBLICATION_COL_12_CLASS} pt-[100px]! text-center!`}>
+              <h3 className={PUBLICATION_HEADING_CLASS}>{isZh ? '论文' : 'Publication'}</h3>
             </div>
             <YearNav activeYear={activeYear} onSelectYear={selectYear} />
-            <div className='col-12 mt-3'>
+            <div className={`${PUBLICATION_COL_12_CLASS} mt-[1rem]! min-w-0!`}>
               <RecentPublicationSections locale={locale} />
               <ArchivedPublicationSections />
             </div>
           </div>
         </div>
       </div>
-      <FloatingContactMenu />
+      <FloatingContactMenu wrapperClassName={PUBLICATION_CONTACT_WRAPPER_CLASS} />
     </SitePageShell>
   );
 }

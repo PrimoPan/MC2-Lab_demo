@@ -1,4 +1,4 @@
-@layer theme, vendor, base, components, utilities, bootstrap, legacy, icons;
+@layer theme, vendor, base, components, utilities, bootstrap, icons;
 
 @import url("https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css") layer(icons);
 @import url("https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css") layer(bootstrap);
@@ -11,10 +11,52 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,700&display=swap") layer(vendor);
 
 @import "tailwindcss/theme.css" layer(theme);
-@import "./app.css";
-@import "./home-page.css";
-@import "./migrated-legacy-pages.css";
-@import "./workshop-page.css";
-@import "./publication-page.css";
-@import "./leader-page.css";
 @import "tailwindcss/utilities.css" layer(utilities);
+
+@layer base {
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #1f2029;
+  }
+
+  body,
+  #root {
+    display: block !important;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@keyframes bannerRouteEnter {
+  from { opacity: 0.95; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bannerRouteEnterMobile {
+  from { opacity: 0.97; transform: translate(-50%, -1px) scale(0.999); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes leaderBannerRouteEnter {
+  from { opacity: 0.95; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes leaderBannerRouteEnterMobile {
+  from { opacity: 0.97; transform: translate(-50%, -1px) scale(0.999); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes memberSearchGlow {
+  0% { transform: translateX(-25%) rotate(12deg); opacity: 0.28; }
+  50% { transform: translateX(120%) rotate(12deg); opacity: 0.16; }
+  100% { transform: translateX(240%) rotate(12deg); opacity: 0; }
+}

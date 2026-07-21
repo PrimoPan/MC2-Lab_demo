@@ -17,9 +17,15 @@ function useHomeDocumentTitle(): void {
   }, []);
 }
 
+const HOME_SHELL_CLASS = [
+  'home-page-shell fixed! inset-0! size-full! overflow-hidden!',
+  "bg-[rgba(31,32,41,1)]! text-[15px]! leading-[1.6]! font-light! text-white! [font-family:'Poppins',sans-serif]!",
+  '[&_a]:cursor-pointer! [&_a:hover]:text-[#bfdbdb]! [&_a:hover]:no-underline!'
+].join(' ');
+
 function getHomeShellClassName(activePanel: HomePanel): string {
   return [
-    'home-page-shell',
+    HOME_SHELL_CLASS,
     activePanel === 'about' ? 'home-about-on' : '',
     activePanel === 'contact' ? 'home-contact-on' : ''
   ].filter(Boolean).join(' ');
@@ -40,8 +46,8 @@ export default function HomePage({ locale = 'en' }: HomePageProps): JSX.Element 
   return (
     <div className={getHomeShellClassName(activePanel)} role='main' aria-label='Home'>
       <SiteNav activeRoute='home' locale={locale} />
-      <HomeHero locale={locale} onOpenPanel={setActivePanel} />
-      <HomePanels onClosePanel={closePanel} />
+      <HomeHero isPanelOpen={activePanel !== null} locale={locale} onOpenPanel={setActivePanel} />
+      <HomePanels activePanel={activePanel} onClosePanel={closePanel} />
       <HomeSocialMenu isOpen={isSocialMenuOpen} menuRef={socialMenuRef} onToggle={toggleSocialMenu} />
     </div>
   );
