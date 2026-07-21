@@ -1,48 +1,42 @@
-import React, { type CSSProperties } from 'react';
+import React from 'react';
 import { homeAboutCopy, homeResearchFocus } from '../../data/homePageContent';
 import HomePanelCloseButton from './HomePanelCloseButton';
 
 interface HomeAboutPanelProps {
+  isOpen: boolean;
   onClosePanel: () => void;
 }
 
-const aboutSectionStyle: CSSProperties = { overflow: 'auto' };
-const aboutSectionCenterStyle: CSSProperties = { transform: 'none', top: '10%' };
-const aboutHeadingStyle: CSSProperties = { fontSize: 'min(10vw,10vh)', fontFamily: 'Open Sans', fontWeight: 400 };
-const justifiedTextStyle: CSSProperties = { textAlign: 'justify' };
-const justifiedInterWordStyle: CSSProperties = { textAlign: 'justify', textJustify: 'inter-word' };
-const centeredRowStyle: CSSProperties = { display: 'flex', justifyContent: 'center' };
-
-export default function HomeAboutPanel({ onClosePanel }: HomeAboutPanelProps): JSX.Element {
+export default function HomeAboutPanel({ isOpen, onClosePanel }: HomeAboutPanelProps): JSX.Element {
   return (
-    <section className='about-section' style={aboutSectionStyle}>
-      <div className='section-center' style={aboutSectionCenterStyle}>
+    <section className={`about-section overflow-auto! ${isOpen ? 'translate-x-0! delay-[400ms]!' : ''}`}>
+      <div className='section-center top-[10%]! transform-none!'>
         <div className='container'>
           <div className='row justify-content-center'>
             <div className='col-12 text-center'>
-              <p style={aboutHeadingStyle}>About Us</p>
+              <p className="font-['Open_Sans']! text-[min(10vw,10vh)]! font-normal!">About Us</p>
             </div>
-            <div className='col-lg-12 mt-4' style={justifiedTextStyle}>
+            <div className='col-lg-12 mt-4 text-justify!'>
               <p>{homeAboutCopy.intro}</p>
             </div>
-            <div className='col-lg-12 mt-4' style={justifiedInterWordStyle}>
+            <div className='col-lg-12 mt-4 text-justify! [text-justify:inter-word]!'>
               <p>
                 {homeAboutCopy.leaderPrefix}
                 <a href={homeAboutCopy.leaderHref} target='_blank' rel='noopener noreferrer'>{homeAboutCopy.leaderName}</a>
                 {homeAboutCopy.leaderSuffix}
               </p>
             </div>
-            <div className='col-lg-12 mt-4' style={justifiedInterWordStyle}>
+            <div className='col-lg-12 mt-4 text-justify! [text-justify:inter-word]!'>
               <ul>
                 {homeResearchFocus.map((item) => (
                   <li key={item.title}>• <strong>{item.title}</strong>: {item.body}</li>
                 ))}
               </ul>
             </div>
-            <div className='col-lg-12 mt-4' style={centeredRowStyle}>
+            <div className='col-lg-12 mt-4 flex! justify-center!'>
               <p>{homeAboutCopy.closing}</p>
             </div>
-            <div className='col-lg-12 mt-4' style={centeredRowStyle}>
+            <div className='col-lg-12 mt-4 flex! justify-center!'>
               <HomePanelCloseButton className='close_btn about-close_btn' onClose={onClosePanel} />
             </div>
           </div>

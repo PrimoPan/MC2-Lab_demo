@@ -1,16 +1,15 @@
-import React, { type CSSProperties } from 'react';
+import React from 'react';
 import { homeContactLinks } from '../../data/homePageContent';
 import HomePanelCloseButton from './HomePanelCloseButton';
 
 interface HomeContactPanelProps {
+  isOpen: boolean;
   onClosePanel: () => void;
 }
 
-const centeredCloseStyle: CSSProperties = { display: 'flex', justifyContent: 'center' };
-
-export default function HomeContactPanel({ onClosePanel }: HomeContactPanelProps): JSX.Element {
+export default function HomeContactPanel({ isOpen, onClosePanel }: HomeContactPanelProps): JSX.Element {
   return (
-    <section className='contact-section'>
+    <section className={`contact-section ${isOpen ? 'translate-x-0! delay-[400ms]!' : ''}`}>
       <div className='section-center'>
         <div className='container'>
           <div className='row justify-content-center'>
@@ -24,7 +23,7 @@ export default function HomeContactPanel({ onClosePanel }: HomeContactPanelProps
             </div>
           </div>
         </div>
-        <div className='col-lg-12 mt-4' style={centeredCloseStyle}>
+        <div className='col-lg-12 mt-4 flex! justify-center!'>
           <HomePanelCloseButton className='contact_btn contact-close_btn' onClose={onClosePanel} />
         </div>
       </div>

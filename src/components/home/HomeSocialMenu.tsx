@@ -8,8 +8,8 @@ interface HomeSocialMenuProps {
 
 export default function HomeSocialMenu({ isOpen, menuRef, onToggle }: HomeSocialMenuProps): JSX.Element {
   return (
-    <div className='wrapMenu' ref={menuRef}>
-      <div className={isOpen ? 'menu menu--bottom-right active' : 'menu menu--bottom-right menu-closed'} id='menu_bottom_right'>
+    <div className='wrapMenu pointer-events-none! absolute! inset-0!' ref={menuRef}>
+      <div className={`${isOpen ? 'menu menu--bottom-right active' : 'menu menu--bottom-right menu-closed'} pointer-events-auto! max-[840px]:hidden!`} id='menu_bottom_right'>
         <a
           className='menu__btn'
           href='#contact-menu'
@@ -32,4 +32,3 @@ export default function HomeSocialMenu({ isOpen, menuRef, onToggle }: HomeSocial
     </div>
   );
 }
-

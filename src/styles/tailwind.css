@@ -12,9 +12,18 @@
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "./app.css";
-@import "./home-page.css";
 @import "./migrated-legacy-pages.css";
 @import "./workshop-page.css";
+@import "./shared-publication-workshop.css";
 @import "./publication-page.css";
-@import "./leader-page.css";
 @import "tailwindcss/utilities.css" layer(utilities);
+
+@keyframes leaderBannerRouteEnter {
+  from { opacity: 0.95; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes leaderBannerRouteEnterMobile {
+  from { opacity: 0.97; transform: translate(-50%, -1px) scale(0.999); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
