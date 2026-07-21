@@ -6,7 +6,7 @@ Author: **Dongyijie Primo Pan**
 
 ## Runtime and toolchain
 
-- Node.js 24.18.0 LTS (pinned in `.nvmrc`)
+- Node.js 24.18.0 LTS for local development (pinned in `.nvmrc`); Node.js 20.19+ is the supported CI minimum
 - TypeScript 7.0.2
 - Vite 8.1.5
 - React 18.3.1
