@@ -1,4 +1,5 @@
- .people-content {
+@layer legacy {
+.people-content {
         width: 100%;
         border: 1px #fff;
         padding: 2em;
@@ -723,4 +724,5 @@ li {
   .grid > li:nth-child(2n) {
     transform: none;
   }
+}
 }

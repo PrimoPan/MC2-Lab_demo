@@ -27,10 +27,10 @@ export default function FloatingContactMenu(): JSX.Element {
           <i className='fa fa-info' aria-hidden='true'></i>
         </a>
         <ul className='menu__list'>
-          <li><a style={{ color: '#fff' }} href='mailto:mc2@hkust-gz.edu.cn' aria-label='Email MC2'><i className='fa-solid fa-envelope' aria-hidden='true'></i></a></li>
-          <li><a style={{ color: '#fff' }} href='#wechat' aria-label='WeChat'><i className='fa-brands fa-weixin' aria-hidden='true'></i></a></li>
-          <li><a style={{ color: '#fff' }} href='https://medium.com/@mc2.hkust.hkustgz' aria-label='Medium'><i className='fa-brands fa-medium' aria-hidden='true'></i></a></li>
-          <li><a style={{ color: '#fff' }} href='https://www.youtube.com/@MC2HKUSTGZCWB' aria-label='YouTube'><i className='fa-brands fa-youtube' aria-hidden='true'></i></a></li>
+          <li><a className='text-white!' href='mailto:mc2@hkust-gz.edu.cn' aria-label='Email MC2'><i className='fa-solid fa-envelope' aria-hidden='true'></i></a></li>
+          <li><a className='text-white!' href='#wechat' aria-label='WeChat'><i className='fa-brands fa-weixin' aria-hidden='true'></i></a></li>
+          <li><a className='text-white!' href='https://medium.com/@mc2.hkust.hkustgz' aria-label='Medium'><i className='fa-brands fa-medium' aria-hidden='true'></i></a></li>
+          <li><a className='text-white!' href='https://www.youtube.com/@MC2HKUSTGZCWB' aria-label='YouTube'><i className='fa-brands fa-youtube' aria-hidden='true'></i></a></li>
         </ul>
       </div>
     </div>

@@ -40,11 +40,11 @@ export default function SiteNav({ activeRoute, locale, alternateHref }: SiteNavP
         <img src={isZh ? '/images/UST-ZH.png' : '/images/UST-EN.png'} alt={isZh ? '香港科技大学' : 'HKUST'} />
       </nav>
 
-      <nav className='nav' aria-label='Primary navigation' style={{ margin: '0 .5em', padding: '0 .5em', boxSizing: 'content-box' }}>
-        <ul className='nav__links' style={{ padding: '1em', paddingBottom: 0, gap: '30px', boxSizing: 'content-box', display: 'flex', listStyleType: 'none' }}>
+      <nav className='nav m-[0_.5em]! p-[0_.5em]! box-content!' aria-label='Primary navigation'>
+        <ul className='nav__links flex! list-none! gap-[30px]! p-[1em]! pb-0! box-content!'>
           {items.map((item) => (
             <li className={item.active ? 'nav__link active' : 'nav__link'} key={item.href}>
-              <Link to={item.href} style={{ fontFamily: 'Open Sans' }}>{item.label}</Link>
+              <Link className="font-['Open_Sans']!" to={item.href}>{item.label}</Link>
             </li>
           ))}
         </ul>
@@ -66,4 +66,3 @@ export default function SiteNav({ activeRoute, locale, alternateHref }: SiteNavP
     </div>
   );
 }
-

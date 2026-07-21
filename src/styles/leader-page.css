@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,700&display=swap');
-
+@layer legacy {
 body.leader-page-on {
   background: #1f2234;
 }
@@ -614,4 +612,5 @@ body.leader-page-on {
   .leader-page-shell .major-nav .nav__link a::after {
     transition: none !important;
   }
+}
 }

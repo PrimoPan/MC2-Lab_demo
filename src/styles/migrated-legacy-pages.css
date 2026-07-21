@@ -1,3 +1,4 @@
+@layer legacy {
 .people-page-shell,
 .project-page-shell,
 .news-page-shell {
@@ -1062,4 +1063,5 @@
   .news-page-shell .article-list li {
     font-size: 16px;
   }
+}
 }

@@ -91,7 +91,7 @@ function MemberCard({ fallbackResearch, member }: { fallbackResearch: string; me
             {member.website ? (
               <li>
                 <a href={member.website} target='_blank' rel='noopener noreferrer'>
-                  <i className='fa fa-id-card fa-xl' style={{ paddingTop: '1em' }}></i>
+                  <i className='fa fa-id-card fa-xl pt-[1em]!'></i>
                 </a>
               </li>
             ) : null}
@@ -165,10 +165,10 @@ function MemberExplorer({ content }: PeopleContentProps): JSX.Element {
 function AlumniSections({ groups }: { groups: AlumniGroup[] }): JSX.Element {
   return (
     <section id='Graduated'>
-      <h1 className='section-title' style={{ fontSize: '3em', paddingTop: '1em' }}>Graduated / Alumni</h1>
+      <h1 className='section-title pt-[1em]! text-[3em]!'>Graduated / Alumni</h1>
       {groups.map((group) => (
         <React.Fragment key={group.heading}>
-          <h3 style={{ color: '#fff', paddingBottom: '.5em' }}>{group.heading}</h3>
+          <h3 className='pb-[.5em]! text-white!'>{group.heading}</h3>
           <ul>
             {group.entries.map((entry, index) => (
               <li key={`${group.heading}-${entry.name}-${index}`}>
@@ -316,7 +316,7 @@ export default function PeopleContent({ content }: PeopleContentProps): JSX.Elem
           </div>
 
           <div className='container flow-content'>
-            <h1 className='section-title' style={{ fontSize: '6em' }}>{content.pageHeading}</h1>
+            <h1 className='section-title text-[6em]!'>{content.pageHeading}</h1>
             <MemberExplorer content={content} />
             <AlumniSections groups={content.alumniGroups} />
           </div>

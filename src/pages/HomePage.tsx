@@ -6,7 +6,6 @@ import SiteNav from '../components/SiteNav';
 import { useCloseOnOutsideInteraction } from '../hooks/useCloseOnOutsideInteraction';
 import type { Locale } from '../types/common';
 import type { HomePanel } from '../types/home';
-import '../styles/home-page.css';
 
 interface HomePageProps {
   locale?: Locale;

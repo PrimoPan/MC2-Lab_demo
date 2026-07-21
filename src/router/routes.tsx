@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
-import HomePage from '../pages/HomePage';
-import NewsPage from '../pages/NewsPage';
-import NewsNatureSpotlightPage from '../pages/NewsNatureSpotlightPage';
-import NewsJapanTimesAILovePage from '../pages/NewsJapanTimesAILovePage';
-import NewsAIAsCatalystWorkshopPage from '../pages/NewsAIAsCatalystWorkshopPage';
-import PeoplePage from '../pages/PeoplePage';
-import ProjectPage from '../pages/ProjectPage';
-import PublicationPage from '../pages/PublicationPage';
-import LeaderPage from '../pages/LeaderPage';
+
+const HomePage = lazy(() => import('../pages/HomePage'));
+const LeaderPage = lazy(() => import('../pages/LeaderPage'));
+const NewsAIAsCatalystWorkshopPage = lazy(() => import('../pages/NewsAIAsCatalystWorkshopPage'));
+const NewsJapanTimesAILovePage = lazy(() => import('../pages/NewsJapanTimesAILovePage'));
+const NewsNatureSpotlightPage = lazy(() => import('../pages/NewsNatureSpotlightPage'));
+const NewsPage = lazy(() => import('../pages/NewsPage'));
+const PeoplePage = lazy(() => import('../pages/PeoplePage'));
+const ProjectPage = lazy(() => import('../pages/ProjectPage'));
+const PublicationPage = lazy(() => import('../pages/PublicationPage'));
 
 export const routes: RouteObject[] = [
   // Canonical English routes

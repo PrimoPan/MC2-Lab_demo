@@ -2,21 +2,18 @@ import React from 'react';
 import NewsListContent from '../components/news/NewsListContent';
 import SitePageShell from '../components/SitePageShell';
 import { newsPageContent } from '../data/legacyPageContent';
-import { legacyPageStylesheets } from '../data/legacyStylesheets';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { usePageStylesheets } from '../hooks/usePageStylesheets';
+import { newsPageStyles } from '../styles/legacy/pageStyles';
 import type { Locale } from '../types/common';
-import '../styles/migrated-legacy-pages.css';
 
 interface NewsPageProps {
   locale?: Locale;
 }
 
-const NEWS_STYLESHEETS = legacyPageStylesheets('/legacy/news.css');
-
 export default function NewsPage({ locale = 'en' }: NewsPageProps): JSX.Element {
   useDocumentTitle('MC2 | HKUST(GZ), HKUST');
-  usePageStylesheets(NEWS_STYLESHEETS);
+  usePageStylesheets(newsPageStyles);
 
   const content = newsPageContent[locale].list;
   return (

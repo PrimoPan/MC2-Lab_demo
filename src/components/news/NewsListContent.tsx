@@ -31,12 +31,12 @@ function NewsCard({ item, onOpenModal }: { item: NewsListItem; onOpenModal: () =
       </div>
 
       <div className='col-md-8'>
-        <h4 style={{ color: '#fff', fontSize: item.titleFontSize }}>
+        <h4 className={item.titleFontSize === '36px' ? 'text-[36px]! text-white!' : 'text-[33px]! text-white!'}>
           <strong><InlineMc2Text text={item.title} /></strong>
         </h4>
         <p className='news-meta'><strong>{metaPrefix}</strong>{metaSuffix ? `${metaJoiner}${metaSuffix}` : ''}</p>
         {item.descriptions.map((description, index) => (
-          <p style={{ color: '#fff', marginBottom: index === item.descriptions.length - 1 && !item.source ? 0 : undefined }} key={description}>
+          <p className={index === item.descriptions.length - 1 && !item.source ? 'mb-0! text-white!' : 'text-white!'} key={description}>
             {description}
           </p>
         ))}
@@ -64,13 +64,12 @@ function SurrealityModal({ content, isOpen, onClose }: { content: NewsModalConte
   if (!isOpen) return <div id='myModal' className='modal'></div>;
 
   return (
-    <div id='myModal' className='modal' style={{ display: 'block' }} onClick={onClose}>
-      <div className='modal-content' style={{ overflowY: 'auto', scrollBehavior: 'smooth', maxHeight: '80vh' }} onClick={(event) => event.stopPropagation()}>
+    <div id='myModal' className='modal block!' onClick={onClose}>
+      <div className='modal-content max-h-[80vh]! scroll-smooth! overflow-y-auto!' onClick={(event) => event.stopPropagation()}>
         <span className='close' role='button' tabIndex={0} onClick={onClose} onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') onClose(); }}>&times;</span>
         <br /><br />
         <img
-          className='img-fluid'
-          style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
+          className='img-fluid block! h-auto! max-w-full!'
           src={content.poster}
           srcSet={content.srcSet}
           sizes={content.sizes}
@@ -128,7 +127,7 @@ export default function NewsListContent({ content }: NewsListContentProps): JSX.
       <div className='news-section' ref={scrollRef}>
         <div className='container'>
           <div className='row justify-content-center'>
-            <div className='col-12 text-center' style={{ paddingTop: '100px', color: '#fff' }}>
+            <div className='col-12 pt-[100px]! text-center text-white!'>
               <h3>{content.pageHeading}</h3>
             </div>
 

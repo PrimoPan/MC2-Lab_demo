@@ -27,7 +27,7 @@ export default function NewsArticleContent({ article }: NewsArticleContentProps)
       <div className='news-section'>
         <div className='container'>
           <div className='row justify-content-center'>
-            <div className='col-12 text-center' style={{ paddingTop: '100px', color: '#fff' }}>
+            <div className='col-12 pt-[100px]! text-center text-white!'>
               <h3>{article.pageHeading}</h3>
             </div>
 

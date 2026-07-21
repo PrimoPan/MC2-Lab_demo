@@ -1,3 +1,4 @@
+@layer legacy {
 :root {
   --banner-shell: rgba(8, 12, 24, 0.58);
   --banner-shell-top: rgba(20, 28, 46, 0.62);
@@ -507,4 +508,5 @@
   .major-nav .nav__link a::after {
     transition: none !important;
   }
+}
 }

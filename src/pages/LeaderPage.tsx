@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import SitePageShell from '../components/SitePageShell';
 import type { Locale } from '../types/common';
-import '../styles/leader-page.css';
 
 interface LeaderPageProps {
   locale?: Locale;

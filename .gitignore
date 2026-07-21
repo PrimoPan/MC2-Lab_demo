@@ -35,6 +35,7 @@ Thumbs.db
 /Auto_generator/
 /assets/
 /output/
+/.playwright-cli/
 /tmp/
 /images/
 output_*.txt

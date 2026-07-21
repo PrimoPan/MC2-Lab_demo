@@ -2,21 +2,18 @@ import React from 'react';
 import PeopleContent from '../components/people/PeopleContent';
 import SitePageShell from '../components/SitePageShell';
 import { peoplePageContent } from '../data/legacyPageContent';
-import { legacyPageStylesheets } from '../data/legacyStylesheets';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { usePageStylesheets } from '../hooks/usePageStylesheets';
+import { peoplePageStyles } from '../styles/legacy/pageStyles';
 import type { Locale } from '../types/common';
-import '../styles/migrated-legacy-pages.css';
 
 interface PeoplePageProps {
   locale?: Locale;
 }
 
-const PEOPLE_STYLESHEETS = legacyPageStylesheets('/legacy/people.css');
-
 export default function PeoplePage({ locale = 'en' }: PeoplePageProps): JSX.Element {
   useDocumentTitle('MC2 | HKUST(GZ), HKUST');
-  usePageStylesheets(PEOPLE_STYLESHEETS);
+  usePageStylesheets(peoplePageStyles);
 
   const content = peoplePageContent[locale];
   return (

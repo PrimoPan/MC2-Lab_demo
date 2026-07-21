@@ -4,36 +4,50 @@ React + TypeScript website for the Center for Metaverse and Computational Creati
 
 Author: **Dongyijie Primo Pan**
 
-## Project Structure
+## Runtime and toolchain
 
-- `src/router/routes.tsx`: canonical app routes and compatibility redirects.
-- `src/pages/`: route-level React pages.
-- `src/components/`: shared UI plus page-specific React components.
-- `src/components/news/`, `src/components/people/`, `src/components/project/`: migrated content views.
-- `src/data/`: typed content sources and generated JSON data used by React pages.
-- `src/data/recentPublications.json`: editable recent publication entries grouped by year.
-- `src/i18n/`: shared navigation and language labels.
-- `src/hooks/`: reusable browser and interaction hooks.
-- `src/styles/`: application CSS and migrated page styling.
-- `public/images/`: static image assets served by the app.
-- `public/legacy/`: transitional legacy CSS only; no raw legacy HTML pages should be added.
-- `content/submissions/`: publication source data.
-- `tools/update-publications.ts`: publication data generator.
-
-## Run and Build
+- Node.js 24.18.0 LTS (pinned in `.nvmrc`)
+- TypeScript 7.0.2
+- Vite 8.1.5
+- React 18.3.1
+- Tailwind CSS 4.3.3
 
 ```bash
-npm install
-npm start
+nvm install
+nvm use
+npm ci
+npm run dev
 ```
 
-Production build:
+Quality and production commands:
 
 ```bash
+npm run typecheck
 npm run build
+npm run preview
 ```
 
-Refresh publications and build:
+Vite writes the production site to `build/` to preserve the established GitHub Actions packaging contract. `npm run build` always runs the TypeScript check first.
+
+## Project structure
+
+- `src/router/routes.tsx`: lazy route modules, canonical URLs, and compatibility redirects.
+- `src/pages/`: thin route-level React composition.
+- `src/components/`: shared and page-specific React components.
+- `src/data/`: typed content and generated JSON data.
+- `src/data/publications/`: archived publication records grouped by year.
+- `src/hooks/`: reusable interaction and browser hooks.
+- `src/styles/tailwind.css`: the only global style entry point and cascade-layer order.
+- `src/styles/legacy/`: pixel-locked route styles imported into Tailwind's `legacy` layer.
+- `public/images/`: static images referenced with `/images/...`.
+- `content/submissions/`: publication source data.
+- `tools/`: publication update and synchronization scripts.
+
+All component-level presentation uses Tailwind utilities. Pixel-locked historical rules are preserved inside Tailwind cascade layers so the migration does not change existing layout, typography, or spacing.
+
+## Content workflows
+
+Refresh publication data and build:
 
 ```bash
 npm run update:all
@@ -43,56 +57,27 @@ Sync recent publications from Pan Hui's website:
 
 ```bash
 npm run pub:sync
-```
-
-Preview remote publication differences without changing local JSON:
-
-```bash
 npm run pub:sync -- --dry-run
 ```
 
+Edit recent publication entries in `src/data/recentPublications.json`. The typed bridge in `src/data/recentPublications.ts` should not contain hand-edited content.
+
 ## Routes
 
-Canonical routes are React routes. Old `.html` URLs are kept only as redirects for external compatibility.
+English routes are `/`, `/people`, `/publication`, `/project`, `/news`, `/news/:slug`, and `/leader`. Chinese routes use the same structure under `/zh`. Historical `.html` URLs remain redirects for external compatibility.
 
-English:
+## Visual fidelity contract
 
-- `/`: Home
-- `/people`: People
-- `/publication`: Publications
-- `/project`: Projects
-- `/news`: News list
-- `/news/:slug`: News detail pages
-- `/leader`: Director page
+UI maintenance must preserve the current screenshots exactly.
 
-Chinese:
+- Validate all nine views in English and Chinese.
+- Test desktop at 1440 x 1000 and mobile at 390 x 844.
+- Compare full-page screenshots before and after the change.
+- A visual migration is accepted only when all 36 comparisons report zero changed pixels.
+- Keep Tailwind layer order in `src/styles/tailwind.css`; changing it can alter Bootstrap, icon-font, or legacy selector precedence.
 
-- `/zh`: Home
-- `/zh/people`: People
-- `/zh/publication`: Publications
-- `/zh/project`: Projects
-- `/zh/news`: News list
-- `/zh/news/:slug`: News detail pages
-- `/zh/leader`: Director page
+The TypeScript 7, Vite 8, component, and Tailwind migration is described in `docs/frontend-migration.md`.
 
-## Content Guidelines
+## Deployment
 
-- Build user-facing pages as React components, not iframe wrappers or standalone HTML files.
-- Keep English and Chinese content synchronized in structure and key claims.
-- Place static assets in `public/images/` and reference them with `/images/...`.
-- Add new recent publication entries in `src/data/recentPublications.json`; `src/data/recentPublications.ts` is only the typed bridge used by React.
-- Use `npm run pub:sync` to refresh 2026 and 2025 recent publications from `https://panhui.people.ust.hk/publications.html`; the sync script excludes exact author-name matches for `Ze Gao` / `Gao Ze`.
-- Keep `public/legacy/` limited to transitional CSS that is still needed by migrated pages.
-- Do not add new `public/legacy/**/*.html` files.
-- Preserve old `.html` route aliases as redirects when a public URL has already existed.
-
-## Visual QA
-
-Before merging UI changes:
-
-- `npm run build` passes.
-- Desktop and mobile layouts match the existing visual behavior.
-- Navigation works in both languages.
-- News list cards open local React detail pages.
-- Browser back/forward returns to the expected page.
-- No raw legacy HTML or iframe page is introduced.
+Pushing `main` runs `.github/workflows/deploy-pages.yml`. GitHub Actions performs a clean install and checked Vite build, packages `build/`, uploads it over SSH, and invokes the existing atomic deployment script on the production server. Local development uses the Node 24 version pinned in `.nvmrc`; the existing Action runner remains on its repository-configured Node version until the GitHub credential has workflow-edit permission.

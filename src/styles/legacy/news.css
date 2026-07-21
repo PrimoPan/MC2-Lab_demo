@@ -1,3 +1,4 @@
+@layer legacy {
 @counter-style custom-list-style {
     system: cyclic;
     symbols: "\2705"; /* Unicode for the check mark symbol */
@@ -394,4 +395,5 @@ img {
   .publication-nav .container ul li a {
     font-size: 0.82rem !important;
   }
+}
 }
