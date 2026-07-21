@@ -19,7 +19,7 @@ function useHomeDocumentTitle(): void {
 
 const HOME_SHELL_CLASS = [
   'home-page-shell fixed! inset-0! size-full! overflow-hidden!',
-  'bg-[rgba(31,32,41,1)]! text-[15px]! leading-[1.6]! font-light! text-white! font-[\'Poppins\']!',
+  "bg-[rgba(31,32,41,1)]! text-[15px]! leading-[1.6]! font-light! text-white! [font-family:'Poppins',sans-serif]!",
   '[&_a]:cursor-pointer! [&_a:hover]:text-[#bfdbdb]! [&_a:hover]:no-underline!'
 ].join(' ');
 
