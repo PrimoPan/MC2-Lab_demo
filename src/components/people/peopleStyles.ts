@@ -80,23 +80,23 @@ export function peopleSectionNavLinkClass(isActive: boolean): string {
 }
 
 export const PEOPLE_EXPLORER_CLASS = [
-  'member-explorer mx-auto! mb-[0.25rem]! grid! w-[min(100%,58rem)]! gap-[0.75rem]!',
-  'max-[980px]:mb-[0.2rem]! max-[980px]:gap-[0.65rem]!'
+  'member-explorer mx-auto! mb-[0.25rem]! grid! w-[min(100%,58rem)]! gap-[0.7rem]!',
+  'max-[980px]:mb-[0.2rem]! max-[980px]:gap-[0.6rem]!'
 ].join(' ');
 
 export const PEOPLE_SEARCH_SHELL_CLASS = [
-  'member-search-shell relative! mb-[0.5rem]! block! min-h-[45px]! overflow-hidden! rounded-[999px]! border! border-[rgba(146,182,255,0.22)]!',
-  'bg-[linear-gradient(130deg,rgba(18,26,46,0.88),rgba(13,20,37,0.78))]! px-[0.9rem]! py-[0.45rem]! leading-[1.5]!',
-  '[box-shadow:0_10px_24px_rgba(5,10,24,0.22)]! [backdrop-filter:blur(10px)]! [-webkit-backdrop-filter:blur(10px)]!',
-  "after:pointer-events-none! after:absolute! after:top-[-40%]! after:left-[-18%]! after:h-[160%]! after:w-[38%]! after:rotate-[12deg]! after:content-['']!",
-  'after:bg-[linear-gradient(100deg,rgba(127,228,255,0.28),rgba(127,228,255,0))]! after:animate-[memberSearchGlow_4.8s_ease-in-out_infinite]!',
-  'max-[480px]:min-h-[42px]! max-[480px]:px-[0.78rem]!'
+  'member-search-shell relative! mb-[0.25rem]! flex! min-h-[54px]! items-center! gap-[0.8rem]! overflow-hidden! rounded-[18px]! border! border-[rgba(153,186,255,0.2)]!',
+  'bg-[linear-gradient(145deg,rgba(20,29,50,0.94),rgba(13,21,38,0.9))]! px-[1.05rem]! py-[0.75rem]! leading-[1.5]!',
+  '[box-shadow:inset_0_1px_0_rgba(255,255,255,0.035),0_14px_34px_rgba(3,8,20,0.22)]! [backdrop-filter:blur(14px)]! [-webkit-backdrop-filter:blur(14px)]!',
+  '[transition:border-color_180ms_ease,box-shadow_180ms_ease,background-color_180ms_ease]! focus-within:border-[rgba(127,228,255,0.5)]! focus-within:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.05),0_0_0_3px_rgba(127,228,255,0.09),0_16px_38px_rgba(3,8,20,0.28)]!',
+  "before:pointer-events-none! before:absolute! before:inset-x-[1rem]! before:top-0! before:h-px! before:content-['']! before:bg-[linear-gradient(90deg,transparent,rgba(169,228,255,0.28),transparent)]!",
+  'max-[480px]:min-h-[48px]! max-[480px]:gap-[0.65rem]! max-[480px]:rounded-[15px]! max-[480px]:px-[0.85rem]! max-[480px]:py-[0.62rem]!'
 ].join(' ');
 
-export const PEOPLE_SEARCH_ICON_CLASS = 'member-search-icon relative! z-[1]! inline-block! text-[0.9rem]! leading-none! text-[rgba(195,228,255,0.92)]!';
+export const PEOPLE_SEARCH_ICON_CLASS = 'member-search-icon relative! z-[1]! block! shrink-0! text-[0.92rem]! leading-none! text-[rgba(169,219,255,0.86)]!';
 export const PEOPLE_SEARCH_INPUT_CLASS = [
-  'member-search-input static! z-[1]! inline-block! w-full! border-0! bg-transparent! px-[2px]! py-px! font-[system-ui,sans-serif]! text-[16px]! leading-[24px]! tracking-[0.01em]! text-[#f0f6ff]! outline-0!',
-  'placeholder:text-[rgba(194,206,233,0.78)]!'
+  'member-search-input relative! z-[1]! block! min-w-0! flex-1! border-0! bg-transparent! p-0! font-[system-ui,sans-serif]! text-[16px]! leading-[24px]! tracking-[0.01em]! text-[#f4f8ff]! outline-0!',
+  'placeholder:text-[rgba(190,203,231,0.68)]!'
 ].join(' ');
 
 export const PEOPLE_ROLE_CHIPS_CLASS = [
@@ -106,17 +106,17 @@ export const PEOPLE_ROLE_CHIPS_CLASS = [
 ].join(' ');
 
 const PEOPLE_CHIP_BASE_CLASS = [
-  'member-chip m-0! block! min-h-[34px]! rounded-none! border! px-[0.95rem]! py-[0.45rem]!',
-  'font-[system-ui,sans-serif]! text-[16px]! leading-[24px]! font-bold! tracking-[0.01em]!',
-  '[transition:transform_180ms_ease,background-color_180ms_ease,border-color_180ms_ease,box-shadow_180ms_ease]!',
-  'hover:-translate-y-px!',
-  'max-[980px]:min-h-[33px]! max-[980px]:whitespace-nowrap! max-[980px]:px-[0.9rem]! max-[980px]:py-[0.42rem]!'
+  'member-chip m-0! inline-flex! min-h-[36px]! items-center! justify-center! rounded-[999px]! border! px-[1rem]! py-[0.4rem]!',
+  'font-[system-ui,sans-serif]! text-[15px]! leading-[22px]! font-[650]! tracking-[0.01em]!',
+  '[transition:transform_180ms_ease,background-color_180ms_ease,border-color_180ms_ease,box-shadow_180ms_ease,color_180ms_ease]!',
+  'hover:-translate-y-px! focus-visible:outline-none! focus-visible:[box-shadow:0_0_0_3px_rgba(127,228,255,0.12)]!',
+  'max-[980px]:min-h-[34px]! max-[980px]:whitespace-nowrap! max-[980px]:px-[0.9rem]! max-[980px]:py-[0.35rem]!'
 ].join(' ');
 
 export function peopleChipClass(isActive: boolean): string {
   const state = isActive
-    ? 'border-[rgba(133,236,228,0.55)]! bg-transparent! bg-[linear-gradient(100deg,#80e6ff,#9cf9cf)]! text-[#071527]! [box-shadow:0_8px_18px_rgba(4,10,26,0.28)]! hover:border-[rgba(133,236,228,0.55)]!'
-    : 'border-[rgba(149,181,252,0.2)]! bg-[rgba(22,30,52,0.72)]! text-[#d8e4ff]! [box-shadow:none]! hover:border-[rgba(159,213,255,0.45)]!';
+    ? 'border-[rgba(128,230,255,0.62)]! bg-[rgba(128,230,255,0.14)]! text-[#c8f7ff]! [box-shadow:inset_0_0_0_1px_rgba(156,249,207,0.04),0_8px_22px_rgba(3,9,22,0.22)]! hover:border-[rgba(156,249,207,0.7)]! hover:bg-[rgba(128,230,255,0.18)]!'
+    : 'border-[rgba(149,181,252,0.18)]! bg-[rgba(21,29,49,0.62)]! text-[rgba(218,229,251,0.84)]! [box-shadow:none]! hover:border-[rgba(159,213,255,0.38)]! hover:bg-[rgba(30,40,66,0.78)]! hover:text-[#edf6ff]!';
   return `${PEOPLE_CHIP_BASE_CLASS} ${state}`;
 }
 
@@ -195,19 +195,29 @@ export const PEOPLE_CARD_SOCIAL_ITEM_CLASS = 'm-0! block! pt-[5px]! pb-[0.7em]! 
 export const PEOPLE_CARD_SOCIAL_LINK_CLASS = 'inline-block! bg-transparent! text-white! no-underline! max-[980px]:inline-flex! max-[980px]:size-[1.8rem]! max-[980px]:items-center! max-[980px]:justify-center! max-[980px]:rounded-[999px]!';
 export const PEOPLE_CARD_SOCIAL_ICON_CLASS = 'pt-[1em]!';
 
-export const PEOPLE_CARD_FOOTER_CLASS = 'card__footer relative! z-[5]! h-[1.5rem]! bg-[#1f2029]! max-[980px]:h-[1.15rem]! max-[980px]:bg-transparent!';
+export const PEOPLE_CARD_FOOTER_CLASS = [
+  'card__footer relative! z-[5]! h-[2.75rem]! border-x-0! border-b-0! border-t! border-solid! border-t-[rgba(165,188,238,0.08)]!',
+  'bg-[linear-gradient(180deg,rgba(28,29,40,0.9),rgba(25,27,39,0.98))]!',
+  'max-[980px]:h-[2.6rem]! max-[980px]:border-t-[rgba(165,188,238,0.1)]! max-[980px]:bg-[rgba(20,25,41,0.62)]!'
+].join(' ');
 
 const PEOPLE_CARD_TOGGLE_BASE_CLASS = [
-  'card__toggle absolute! bottom-0! left-1/2! block! aspect-square! w-[3rem]! [transform:translateX(-50%)]! cursor-pointer! rounded-none! [border:0_none_#fff]! bg-[#52546c]! p-[0.5em]! text-center! text-white! [transition:background-color_250ms_ease]!',
-  'max-[980px]:bottom-[0.18rem]! max-[980px]:w-[2.55rem]! max-[980px]:p-0! max-[980px]:[box-shadow:0_8px_16px_rgba(0,0,0,0.24)]!'
+  'card__toggle absolute! bottom-[0.3rem]! left-1/2! inline-flex! aspect-square! w-[2.2rem]! [transform:translateX(-50%)]! cursor-pointer! items-center! justify-center! rounded-full! border! border-[rgba(164,198,255,0.28)]! p-0! text-center! text-[0.78rem]! text-[rgba(220,235,255,0.9)]!',
+  'bg-[linear-gradient(145deg,rgba(80,94,130,0.72),rgba(45,55,82,0.84))]! [box-shadow:inset_0_1px_0_rgba(255,255,255,0.09),0_7px_18px_rgba(2,7,18,0.28)]!',
+  '[transition:transform_180ms_ease,background-color_180ms_ease,border-color_180ms_ease,box-shadow_180ms_ease,color_180ms_ease]! hover:border-[rgba(127,228,255,0.58)]! hover:text-white! hover:[transform:translate(-50%,-2px)]! hover:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.12),0_10px_22px_rgba(2,7,18,0.34)]!',
+  'focus-visible:outline-none! focus-visible:[box-shadow:0_0_0_3px_rgba(127,228,255,0.16),0_8px_20px_rgba(2,7,18,0.3)]!',
+  'max-[980px]:bottom-[0.22rem]! max-[980px]:w-[2.15rem]! max-[980px]:text-[0.74rem]!'
 ].join(' ');
 
 export function peopleCardToggleClass(isVisible: boolean): string {
-  return `${PEOPLE_CARD_TOGGLE_BASE_CLASS} ${isVisible ? 'bg-[crimson]! max-[980px]:bg-transparent! max-[980px]:bg-[linear-gradient(140deg,#ff7d94,#ff496e)]!' : 'max-[980px]:bg-transparent! max-[980px]:bg-[linear-gradient(140deg,rgba(129,143,188,0.95),rgba(86,99,140,0.95))]!'}`;
+  const state = isVisible
+    ? 'border-[rgba(156,249,207,0.58)]! bg-[linear-gradient(145deg,rgba(77,134,136,0.88),rgba(42,82,99,0.94))]! text-[#eafff8]!'
+    : '';
+  return `${PEOPLE_CARD_TOGGLE_BASE_CLASS} ${state}`;
 }
 
 export function peopleCardToggleIconClass(isVisible: boolean): string {
-  return `card__toggle-icon [transition:rotate_250ms_ease]! ${isVisible ? 'rotate-[315deg]!' : 'rotate-0!'}`;
+  return `card__toggle-icon block! [transition:transform_220ms_ease]! ${isVisible ? 'rotate-180!' : 'rotate-0!'}`;
 }
 
 export const PEOPLE_EMPTY_CLASS = 'member-empty w-full! rounded-[16px]! border! border-dashed! border-[rgba(163,191,245,0.36)]! bg-[rgba(18,25,44,0.62)]! px-[1rem]! py-[1.2rem]! text-center! text-[0.95rem]! text-[#d7e6ff]!';
