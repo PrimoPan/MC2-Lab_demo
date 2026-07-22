@@ -126,7 +126,7 @@ function MemberCard({ fallbackResearch, member }: { fallbackResearch: string; me
           </div>
         </div>
 
-        <div className={peopleCardBackClass(isVisible)}>
+        <div className={peopleCardBackClass(isVisible)} id={`card-details-${member.key}`} aria-hidden={!isVisible}>
           <p className={PEOPLE_CARD_BACK_NAME_CLASS}>{member.name}</p>
           <q className={PEOPLE_CARD_QUOTE_CLASS}>{research}</q>
           <ul role='list' className={PEOPLE_CARD_SOCIAL_CLASS}>
@@ -144,10 +144,12 @@ function MemberCard({ fallbackResearch, member }: { fallbackResearch: string; me
           <button
             data-card-controller
             className={peopleCardToggleClass(isVisible)}
-            aria-label={`Toggle card details for ${member.name}`}
+            aria-controls={`card-details-${member.key}`}
+            aria-expanded={isVisible}
+            aria-label={`${isVisible ? 'Hide' : 'Show'} card details for ${member.name}`}
             onClick={() => setIsVisible((visible) => !visible)}
           >
-            <i className={`fa-solid fa-plus ${peopleCardToggleIconClass(isVisible)}`}></i>
+            <i className={`fa-solid fa-chevron-up ${peopleCardToggleIconClass(isVisible)}`} aria-hidden='true'></i>
           </button>
         </footer>
       </article>
@@ -184,6 +186,7 @@ function MemberExplorer({ content }: PeopleContentProps): JSX.Element {
               type='button'
               className={peopleChipClass(activeRole === chip.role)}
               data-role-filter={chip.role}
+              aria-pressed={activeRole === chip.role}
               key={chip.role}
               onClick={() => setActiveRole(chip.role)}
             >
