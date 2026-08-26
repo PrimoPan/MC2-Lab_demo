@@ -90,7 +90,7 @@
         "positionTitle": "Ph.D. Student",
         "cohortTerm": "Fall",
         "cohortYear": 2024,
-        "photo": "/images/Team_Profile_Pic/5.jpg",
+        "photo": "/images/Team_Profile_Pic/iris-delikoura.jpg",
         "researchDirection": "",
         "website": ""
       },
@@ -108,10 +108,10 @@
       {
         "key": "shuyue-li",
         "name": "Shuyue LI",
-        "role": "mphil",
-        "positionTitle": "MPhil / Red Bird MPhil Student",
+        "role": "phd",
+        "positionTitle": "Ph.D. Student",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/shuyue.jpg",
         "researchDirection": "HCI in VR/AR; Art & Design; AI & Design",
         "website": ""
@@ -196,21 +196,21 @@
       {
         "key": "primopan",
         "name": "Dongyijie Primo Pan",
-        "role": "mphil",
-        "positionTitle": "MPhil / Red Bird MPhil Student",
+        "role": "phd",
+        "positionTitle": "Ph.D. Student",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/primo.jpg",
-        "researchDirection": "HCI, XR/VR, Digital Health, EduTech, Human-AI Interaction",
+        "researchDirection": "Digital Health, Cognitive Behavioral Therapy (CBT) in HCI, and EduTech",
         "website": "https://primopan.github.io/about/"
       },
       {
         "key": "wenqing-gu",
         "name": "Wenqing GU",
-        "role": "mphil",
-        "positionTitle": "MPhil / Red Bird MPhil Student",
+        "role": "phd",
+        "positionTitle": "Ph.D. Student",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/wenqing.jpg",
         "researchDirection": "Computational Social Science, HCI",
         "website": ""
@@ -480,12 +480,24 @@
         "website": ""
       },
       {
+        "key": "rui-yu",
+        "name": "Rui YU",
+        "role": "mphil",
+        "positionTitle": "MPhil Student",
+        "cohortTerm": "Fall",
+        "cohortYear": 2025,
+        "photo": "/images/Team_Profile_Pic/rui-yu.jpg",
+        "researchDirection": "HCI & Social Computing for Creativity & Health",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1r4NM4NeoBHIb4eywJIyXW4Bm1VHgbUS-"
+      },
+      {
         "key": "yi-zou",
         "name": "Yi ZOU",
-        "role": "mphil",
-        "positionTitle": "MPhil / Red Bird MPhil Student",
+        "role": "phd",
+        "positionTitle": "Ph.D. Student",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/zouyi.jpg",
         "researchDirection": "Context-aware AR/MR",
         "website": ""
@@ -929,7 +941,7 @@
         "positionTitle": "Ph.D. Student",
         "cohortTerm": "Fall",
         "cohortYear": 2024,
-        "photo": "/images/Team_Profile_Pic/5.jpg",
+        "photo": "/images/Team_Profile_Pic/iris-delikoura.jpg",
         "researchDirection": "",
         "website": ""
       },
@@ -947,10 +959,10 @@
       {
         "key": "shuyue-li",
         "name": "Shuyue LI",
-        "role": "mphil",
-        "positionTitle": "硕士研究生",
+        "role": "phd",
+        "positionTitle": "博士研究生",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/shuyue.jpg",
         "researchDirection": "HCI in VR/AR; Art & Design; AI & Design",
         "website": ""
@@ -1035,21 +1047,21 @@
       {
         "key": "primopan",
         "name": "Dongyijie Primo Pan",
-        "role": "mphil",
-        "positionTitle": "MPhil / Red Bird MPhil Student",
+        "role": "phd",
+        "positionTitle": "博士研究生",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/primo.jpg",
-        "researchDirection": "HCI, XR/VR, Digital Health, EduTech, Human-AI Interaction",
+        "researchDirection": "Digital Health, Cognitive Behavioral Therapy (CBT) in HCI, and EduTech",
         "website": "https://primopan.github.io/about/"
       },
       {
         "key": "wenqing-gu",
         "name": "Wenqing GU",
-        "role": "mphil",
-        "positionTitle": "MPhil / Red Bird MPhil Student",
+        "role": "phd",
+        "positionTitle": "博士研究生",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/wenqing.jpg",
         "researchDirection": "Computational Social Science, HCI",
         "website": ""
@@ -1319,12 +1331,24 @@
         "website": ""
       },
       {
+        "key": "rui-yu",
+        "name": "Rui YU",
+        "role": "mphil",
+        "positionTitle": "硕士研究生",
+        "cohortTerm": "Fall",
+        "cohortYear": 2025,
+        "photo": "/images/Team_Profile_Pic/rui-yu.jpg",
+        "researchDirection": "HCI & Social Computing for Creativity & Health",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1r4NM4NeoBHIb4eywJIyXW4Bm1VHgbUS-"
+      },
+      {
         "key": "yi-zou",
         "name": "Yi ZOU",
-        "role": "mphil",
-        "positionTitle": "MPhil / Red Bird MPhil Student",
+        "role": "phd",
+        "positionTitle": "博士研究生",
         "cohortTerm": "Fall",
-        "cohortYear": 2024,
+        "cohortYear": 2026,
         "photo": "/images/Team_Profile_Pic/zouyi.jpg",
         "researchDirection": "Context-aware AR/MR",
         "website": ""

@@ -61,12 +61,21 @@ const ROLE_SORT_ORDER: Record<string, number> = {
   other: 6
 };
 
+const COHORT_TERM_SORT_ORDER: Record<string, number> = {
+  Spring: 0,
+  Fall: 1
+};
+
 function roleRank(member: MemberProfile): number {
   return ROLE_SORT_ORDER[member.role] ?? 99;
 }
 
 function cohortYearValue(member: MemberProfile): number {
   return Number.isFinite(member.cohortYear) ? Number(member.cohortYear) : 9999;
+}
+
+function cohortTermRank(member: MemberProfile): number {
+  return COHORT_TERM_SORT_ORDER[member.cohortTerm || ''] ?? 99;
 }
 
 function formatFrontPosition(member: MemberProfile): string {
@@ -83,6 +92,12 @@ function sortMembers(members: MemberProfile[]): MemberProfile[] {
     const yearA = cohortYearValue(a);
     const yearB = cohortYearValue(b);
     if (yearA !== yearB) return yearA - yearB;
+
+    if (a.role === b.role && (a.role === 'phd' || a.role === 'mphil')) {
+      const termA = cohortTermRank(a);
+      const termB = cohortTermRank(b);
+      if (termA !== termB) return termA - termB;
+    }
 
     return a.name.localeCompare(b.name, 'en', { sensitivity: 'base' });
   });
