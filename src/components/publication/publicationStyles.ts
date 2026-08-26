@@ -39,7 +39,7 @@ export const YEAR_NAV_CONTAINER_CLASS = [
 
 export const YEAR_NAV_LIST_CLASS = [
   'yr__navs m-0! flex! list-none! flex-col! gap-[8px]! p-0!',
-  'max-[1080px]:w-full! max-[1080px]:min-w-full! max-[1080px]:flex-col! max-[1080px]:flex-nowrap!'
+  'max-[1080px]:w-max! max-[1080px]:min-w-max! max-[1080px]:flex-row! max-[1080px]:flex-nowrap!'
 ].join(' ');
 
 export const YEAR_NAV_ITEM_CLASS = [

@@ -228,14 +228,44 @@
   ],
   "2026": [
     {
+      "title": "Toward Site-Aware MR Art Exhibitions: A SLAM-Based Deployment Pipeline for Spatial Coherence and Exhibition Experience.",
+      "authors": "Yawei Zhao, Yiming Zhu, Hao Li, Yuqi Liang, Ao Yu, Anca-Simona Horvath, and Pan Hui.",
+      "venue": "In Proceedings of the 34th ACM International Conference on Multimedia (MM '26), Rio de Janeiro, Brazil, November 2026."
+    },
+    {
+      "title": "Graph-of-Evidence: Verification-Aware Evidence Graph Modeling for Multimodal Urban Socioeconomic Estimation.",
+      "authors": "Yanxin Xi, Xiang Su, Sasu Tarkoma, and Pan Hui.",
+      "venue": "In Proceedings of the 34th ACM International Conference on Multimedia (MM '26), Rio de Janeiro, Brazil, November 2026."
+    },
+    {
+      "title": "CityRiSE: Reasoning Urban Socio-Economic Status in Large Vision-Language Models via Reinforcement Learning.",
+      "authors": "Tianhui Liu, Hetian Pang, Xin Zhang, Jie Feng, Pan Hui, and Yong Li.",
+      "venue": "In Proceedings of the 34th ACM International Conference on Multimedia (MM '26), Rio de Janeiro, Brazil, November 2026."
+    },
+    {
+      "title": "Beyond Human-Made Beats: Measurement and Analysis of AI-Generated Music on SoundCloud.",
+      "authors": "Yupeng He, Yiming Zhu, Qiming Ye, Pan Hui, and Gareth Tyson.",
+      "venue": "In Proceedings of the 34th ACM International Conference on Multimedia (MM '26), Rio de Janeiro, Brazil, November 2026."
+    },
+    {
       "title": "Characterizing LLM-driven Social Network: The Chirper.ai Case.",
       "authors": "Yiming Zhu, Yupeng He, Ehsan-Ul Haq, Gareth Tyson, and Pan Hui.",
       "venue": "In Proceedings of the 29th ACM Conference on Computer-Supported Cooperative Work and Social Computing (CSCW '26), Salt Lake City, Utah, USA, October 2026."
     },
     {
+      "title": "3DStoryWeaver: An AI-Assisted Mobile-to-Headset Pipeline for Text-to-3D Story Creation.",
+      "authors": "Yibo Wang, Yuanyuan Mao, Lik-Hang Lee, Shi-Ting Ni, Zeyu Wang, and Pan Hui.",
+      "venue": "In Proceedings of the ACM International Conference on Mobile Human-Computer Interaction (MobileHCI 2026), Swansea Wales, UK, September 2026."
+    },
+    {
       "title": "IMGNN: An Efficient, Effective and Generalizable Algorithm for Influence Maximization in Social Networks.",
       "authors": "Haotian Zhang, Kai Han, Zhizhuo Yin, Shuang Cui, Jing Tang, and Pan Hui.",
-      "venue": "In Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '26), Toronto, Canada, August 2026."
+      "venue": "In Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '26), Jeju, Korea, August 2026."
+    },
+    {
+      "title": "UrbanWell: Benchmarking Multimodal Large Language Models for Spatio-Temporal Urban Wellbeing Analytics.",
+      "authors": "Yanxin Xi, Xiang Su, Jie Feng, Yu Liu, Sasu Tarkoma, and Pan Hui.",
+      "venue": "In Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '26), Jeju, Korea, August 2026."
     },
     {
       "title": "Beyond Compliance: How AI Could Help Creative Writers by Refusing Them.",
@@ -275,7 +305,7 @@
     {
       "title": "DesignerlyLoop: Forming Design Intent through Curated Reasoning for Human-LLM Alignment.",
       "authors": "Anqi Wang, Zhengyi Li, Xin Tong, Pan Hui.",
-      "venue": "In Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS '26), Singapore, June 2026."
+      "venue": "In Proceedings of the 2026 ACM Designing Interactive Systems Conference (DIS'26), Singapore, June 2026."
     },
     {
       "title": "Dream the Dream: Futuring Communication between LGBTQ+ and Cisgender Groups in Metaverse Space.",
@@ -391,6 +421,11 @@
       "title": "FlexiCamAR: Enhancing Everyday Camera Interactions on AR Glasses with a Flexible Additional Viewpoint.",
       "authors": "Ziming Li, Hongji Li, Jialin Wang, Pan Hui, and Hai-Ning Liang.",
       "venue": "In Proceedings of the IEEE Conference on Virtual Reality and 3D User Interfaces (IEEE VR '26), Daegu, Korea, March, 2026."
+    },
+    {
+      "title": "DodgeUI: An Adaptive Interface for Mitigating Attentional Conflict via Implicit Motion Cues in Mobile AR.",
+      "authors": "Yi Zou, Ao Yu, Ziming Li, Hai-Ning Liang, and Pan Hui.",
+      "venue": "In 2026 IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW), Daegu, Republic of Korea, March 2026."
     },
     {
       "title": "FSWAN: Spectrometry-based Wearable Biosensing for Monitoring Plastic Particles in the Human Body.",
