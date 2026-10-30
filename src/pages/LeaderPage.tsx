@@ -12,14 +12,14 @@ const leaderContent = {
     documentTitle: 'Professor Pan Hui | MC2',
     profileAlt: 'Professor Pan Hui',
     title: 'Professor Pan Hui',
-    subtitle: 'Director of MC2; Chair Professor and Acting Head of Computational Media and Arts at HKUST(GZ)',
+    subtitle: 'Director of MC2; Chair Professor and Head of Computational Media and Arts at HKUST(GZ)',
     meta: 'International Fellow of the Royal Academy of Engineering, Member of Academia Europaea, IEEE Fellow, and ACM Distinguished Scientist.',
     homepageLabel: 'Official Homepage',
     sections: [
       {
         title: 'Biography',
         paragraphs: [
-          'Professor Pan Hui is Chair Professor and Acting Head of Computational Media and Arts at the Hong Kong University of Science and Technology (Guangzhou), Director of the Center for Metaverse and Computational Creativity (MC2), Chair Professor of Emerging Interdisciplinary Areas at HKUST, Director of the HKUST-DT Systems and Media Laboratory (SyMLab), and Professor of Computer Science at the University of Helsinki. He previously served as Associate Dean of the Information Hub at HKUST(GZ), and was a tenured faculty member in Computer Science and Engineering at HKUST before joining CMA as a founding member.',
+          'Professor Pan Hui is Chair Professor and Head of Computational Media and Arts at the Hong Kong University of Science and Technology (Guangzhou), Director of the Center for Metaverse and Computational Creativity (MC2), Chair Professor of Emerging Interdisciplinary Areas at HKUST, Director of the HKUST-DT Systems and Media Laboratory (SyMLab), and Professor of Computer Science at the University of Helsinki. He previously served as Associate Dean of the Information Hub at HKUST(GZ), and was a tenured faculty member in Computer Science and Engineering at HKUST before joining CMA as a founding member.',
           'He studied at The University of Hong Kong and the University of Cambridge, and has built an interdisciplinary research profile spanning mobile computing, computer networking, augmented reality, data science, and human-centered computing. For his sustained contributions to mobile computing and networking, he was elected International Fellow of the Royal Academy of Engineering, Member of Academia Europaea, IEEE Fellow, and ACM Distinguished Scientist. As of 2026, his Google Scholar citations are approaching 40,000.'
         ]
       },
@@ -55,14 +55,14 @@ const leaderContent = {
     documentTitle: '许彬教授 | MC2',
     profileAlt: '许彬 Pan Hui 教授',
     title: '许彬 Pan Hui 教授',
-    subtitle: 'MC2 主任，港科大（广州）计算媒体与艺术学域讲席教授兼代理学域主任',
+    subtitle: 'MC2 主任，港科大（广州）计算媒体与艺术学域讲席教授兼学域主任',
     meta: '英国皇家工程院国际院士、欧洲科学院院士、IEEE Fellow、ACM 杰出科学家。',
     homepageLabel: '个人主页',
     sections: [
       {
         title: '个人简介',
         paragraphs: [
-          '许彬（Pan Hui）教授现任香港科技大学（广州）计算媒体与艺术学域讲席教授及代理学域主任、元宇宙与计算创意中心（MC2）主任；同时任香港科技大学新兴跨学科领域讲席教授、HKUST-DT 系统与媒体实验室（SyMLab）主任，以及赫尔辛基大学计算机系教授。此前，他曾担任港科大（广州）信息枢纽副院长，也是香港科技大学计算机科学与工程学系终身教职成员之一。',
+          '许彬（Pan Hui）教授现任香港科技大学（广州）计算媒体与艺术学域讲席教授及学域主任、元宇宙与计算创意中心（MC2）主任；同时任香港科技大学新兴跨学科领域讲席教授、HKUST-DT 系统与媒体实验室（SyMLab）主任，以及赫尔辛基大学计算机系教授。此前，他曾担任港科大（广州）信息枢纽副院长，也是香港科技大学计算机科学与工程学系终身教职成员之一。',
           '他毕业于香港大学与剑桥大学，长期活跃于移动计算、计算机网络、增强现实、数据科学与人机交互等交叉领域。由于在移动计算和网络方向的持续贡献，他获选英国皇家工程院国际院士、欧洲科学院院士、IEEE Fellow 与 ACM 杰出科学家。截至 2026 年，他的 Google Scholar 引用已接近 40000 次。'
         ]
       },
