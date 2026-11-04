@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FloatingContactMenu from '../components/FloatingContactMenu';
 import ArchivedPublicationSections from '../components/publication/ArchivedPublicationSections';
@@ -27,7 +27,8 @@ import {
   YEAR_NAV_LIST_CLASS
 } from '../components/publication/publicationStyles';
 import SitePageShell from '../components/SitePageShell';
-import { peoplePageContent } from '../data/legacyPageContent';
+import { usePeopleData } from '../hooks/usePeopleData';
+import type { MemberProfile } from '../types/legacyPages';
 import { recentPublicationData } from '../data/recentPublications';
 import { getRoutePath } from '../i18n/site';
 import type { Locale } from '../types/common';
@@ -60,10 +61,10 @@ function normalizeAuthorName(value: string): string {
     .trim();
 }
 
-function buildMemberAuthorLookup(): Map<string, MemberAuthorLink> {
+function buildMemberAuthorLookup(members: MemberProfile[]): Map<string, MemberAuthorLink> {
   const lookup = new Map<string, MemberAuthorLink>();
 
-  peoplePageContent.en.members.forEach((member) => {
+  members.forEach((member) => {
     const aliases = new Set([member.name, member.name.replace(/\([^)]*\)/g, ' '), ...(MANUAL_MEMBER_AUTHOR_ALIASES[member.key] || [])]);
     const normalizedNameParts = normalizeAuthorName(member.name).split(' ').filter(Boolean);
     if (normalizedNameParts.length > 2) {
@@ -79,10 +80,10 @@ function buildMemberAuthorLookup(): Map<string, MemberAuthorLink> {
   return lookup;
 }
 
-const MEMBER_AUTHOR_LOOKUP = buildMemberAuthorLookup();
+const MemberLookupContext = createContext(new Map<string, MemberAuthorLink>());
 
-function getMemberAuthorLink(authorName: string): MemberAuthorLink | undefined {
-  return MEMBER_AUTHOR_LOOKUP.get(normalizeAuthorName(authorName));
+function getMemberAuthorLink(authorName: string, lookup: Map<string, MemberAuthorLink>): MemberAuthorLink | undefined {
+  return lookup.get(normalizeAuthorName(authorName));
 }
 
 function splitAuthorToken(part: string): { leading: string; name: string; trailing: string } {
@@ -104,6 +105,7 @@ function getMemberProfileHref(locale: Locale, memberKey: string): string {
 }
 
 function AuthorList({ authors, locale }: { authors: string; locale: Locale }): JSX.Element {
+  const lookup = useContext(MemberLookupContext);
   const parts = authors.split(AUTHOR_SEPARATOR_PATTERN).filter((part) => part.length > 0);
 
   return (
@@ -112,7 +114,7 @@ function AuthorList({ authors, locale }: { authors: string; locale: Locale }): J
         if (isAuthorSeparator(part)) return <React.Fragment key={`${index}-${part}`}>{part}</React.Fragment>;
 
         const { leading, name, trailing } = splitAuthorToken(part);
-        const memberLink = getMemberAuthorLink(name);
+        const memberLink = getMemberAuthorLink(name, lookup);
         if (!memberLink) return <React.Fragment key={`${index}-${part}`}>{part}</React.Fragment>;
 
         return (
@@ -127,9 +129,8 @@ function AuthorList({ authors, locale }: { authors: string; locale: Locale }): J
   );
 }
 
-function decorateMemberAuthorLinks(root: HTMLElement, locale: Locale): void {
+function decorateMemberAuthorLinks(root: HTMLElement, locale: Locale, lookup: Map<string, MemberAuthorLink>): void {
   root.querySelectorAll<HTMLElement>('.author').forEach((element) => {
-    if (element.querySelector('.publication-author-link')) return;
     const text = element.textContent || '';
     const parts = text.split(AUTHOR_SEPARATOR_PATTERN).filter((part) => part.length > 0);
     const fragment = document.createDocumentFragment();
@@ -142,7 +143,7 @@ function decorateMemberAuthorLinks(root: HTMLElement, locale: Locale): void {
       }
 
       const { leading, name, trailing } = splitAuthorToken(part);
-      const memberLink = getMemberAuthorLink(name);
+      const memberLink = getMemberAuthorLink(name, lookup);
       if (!memberLink) {
         fragment.appendChild(document.createTextNode(part));
         return;
@@ -158,7 +159,7 @@ function decorateMemberAuthorLinks(root: HTMLElement, locale: Locale): void {
       if (trailing) fragment.appendChild(document.createTextNode(trailing));
     });
 
-    if (!hasMemberLink) return;
+    if (!hasMemberLink && !element.querySelector('.publication-author-link')) return;
     element.textContent = '';
     element.appendChild(fragment);
   });
@@ -241,6 +242,8 @@ function RecentPublicationSections({ locale }: { locale: Locale }): JSX.Element 
 }
 
 export default function PublicationPage({ locale = 'en' }: PublicationPageProps): JSX.Element {
+  const { content } = usePeopleData();
+  const lookup = useMemo(() => buildMemberAuthorLookup(content?.en.members || []), [content]);
   const pageRef = useRef<HTMLElement>(null);
   const [activeYear, setActiveYear] = useState('2026');
   const isZh = locale === 'zh-CN';
@@ -248,8 +251,8 @@ export default function PublicationPage({ locale = 'en' }: PublicationPageProps)
   usePublicationScrollSpy(pageRef, setActiveYear);
 
   useEffect(() => {
-    if (pageRef.current) decorateMemberAuthorLinks(pageRef.current, locale);
-  }, [locale]);
+    if (pageRef.current) decorateMemberAuthorLinks(pageRef.current, locale, lookup);
+  }, [locale, lookup]);
 
   const selectYear = (year: string) => {
     setActiveYear(year);
@@ -270,6 +273,7 @@ export default function PublicationPage({ locale = 'en' }: PublicationPageProps)
   };
 
   return (
+    <MemberLookupContext.Provider value={lookup}>
     <SitePageShell className={PUBLICATION_SHELL_CLASS} ariaLabel={isZh ? '论文' : 'Publication'} locale={locale} activeRoute='publication' ref={pageRef}>
       <div className={PUBLICATION_SECTION_CLASS}>
         <div className={PUBLICATION_CONTAINER_CLASS}>
@@ -287,5 +291,6 @@ export default function PublicationPage({ locale = 'en' }: PublicationPageProps)
       </div>
       <FloatingContactMenu wrapperClassName={PUBLICATION_CONTACT_WRAPPER_CLASS} />
     </SitePageShell>
+    </MemberLookupContext.Provider>
   );
 }

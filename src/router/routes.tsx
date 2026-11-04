@@ -10,8 +10,14 @@ const NewsPage = lazy(() => import('../pages/NewsPage'));
 const PeoplePage = lazy(() => import('../pages/PeoplePage'));
 const ProjectPage = lazy(() => import('../pages/ProjectPage'));
 const PublicationPage = lazy(() => import('../pages/PublicationPage'));
+const AdminPeoplePage = lazy(() => import('../pages/AdminPeoplePage'));
+const NewsPostPage = lazy(() => import('../pages/NewsPostPage'));
 
 export const routes: RouteObject[] = [
+  { path: '/admin', element: <AdminPeoplePage /> },
+  { path: '/admin/people', element: <Navigate to='/admin' replace /> },
+  { path: '/news/posts/:slug', element: <NewsPostPage /> },
+  { path: '/zh/news/posts/:slug', element: <NewsPostPage locale='zh-CN' /> },
   // Canonical English routes
   { path: '/', element: <HomePage /> },
   { path: '/people', element: <PeoplePage /> },

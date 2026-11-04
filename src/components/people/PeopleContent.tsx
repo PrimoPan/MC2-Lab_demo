@@ -123,6 +123,7 @@ function matchesMember(member: MemberProfile, query: string, role: MemberRole): 
 function MemberCard({ fallbackResearch, member }: { fallbackResearch: string; member: MemberProfile }): JSX.Element {
   const [isVisible, setIsVisible] = useState(false);
   const [photo, setPhoto] = useState(member.photo);
+  useEffect(() => setPhoto(member.photo), [member.photo]);
   const research = member.researchDirection || fallbackResearch;
 
   return (

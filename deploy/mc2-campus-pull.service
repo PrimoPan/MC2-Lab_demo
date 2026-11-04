@@ -1,0 +1,12 @@
+[Unit]
+Description=Pull verified MC2 campus website release
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/mc2-campus-pull.py
+TimeoutStartSec=600
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true

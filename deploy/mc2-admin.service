@@ -1,0 +1,26 @@
+[Unit]
+Description=MC2 website member and news administration API
+After=network.target
+
+[Service]
+User=mc2admin
+Group=www-data
+WorkingDirectory=/opt/mc2-admin/current
+EnvironmentFile=/etc/mc2-admin.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/mc2-admin/current/venv/bin/gunicorn --bind 127.0.0.1:2027 --workers 2 --threads 2 --timeout 30 --access-logfile - --error-logfile - server.app:create_app()
+Restart=on-failure
+RestartSec=3
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/mc2-admin
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target

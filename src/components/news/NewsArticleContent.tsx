@@ -37,7 +37,7 @@ function ArticleBlock({ block }: { block: NewsArticleBlock }): JSX.Element {
       </ul>
     );
   }
-  return <p className={NEWS_ARTICLE_PARAGRAPH_CLASS}><InlineMc2Text text={block.text} /></p>;
+  return <p className={`${NEWS_ARTICLE_PARAGRAPH_CLASS} whitespace-pre-line!`}><InlineMc2Text text={block.text} /></p>;
 }
 
 export default function NewsArticleContent({ article }: NewsArticleContentProps): JSX.Element {
@@ -54,7 +54,7 @@ export default function NewsArticleContent({ article }: NewsArticleContentProps)
               <article className={NEWS_ARTICLE_CARD_CLASS}>
                 <h2 className={NEWS_ARTICLE_TITLE_CLASS}><InlineMc2Text text={article.title} /></h2>
                 <p className={NEWS_ARTICLE_META_CLASS}><InlineMc2Text text={article.meta} /></p>
-                <img className={NEWS_ARTICLE_COVER_CLASS} src={article.image} alt={article.imageAlt} />
+                {article.image && <img className={NEWS_ARTICLE_COVER_CLASS} src={article.image} alt={article.imageAlt} />}
                 {article.blocks.map((block, index) => (
                   <ArticleBlock block={block} key={`${block.type}-${index}`} />
                 ))}

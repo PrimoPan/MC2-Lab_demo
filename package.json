@@ -34,6 +34,7 @@
     "build": "npm run typecheck && vite build",
     "build:pages": "npm run build && cp build/index.html build/404.html && touch build/.nojekyll",
     "preview": "vite preview",
+    "deploy:campus": "bash tools/deploy-campus.sh",
     "pub:update": "tsx tools/update-publications.ts",
     "update:all": "npm run pub:update && npm run build",
     "pub:sync": "tsx tools/sync-recent-publications.ts",

@@ -62,7 +62,7 @@ function NewsCard({ item, onOpenModal }: { item: NewsListItem; onOpenModal: () =
           className={NEWS_COVER_CLASS}
           src={item.image}
           alt={item.imageAlt}
-          onError={(event) => { event.currentTarget.src = 'http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg'; }}
+          onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = '/images/MC2_Icon.png'; }}
         />
       </div>
 
@@ -113,7 +113,8 @@ function SurrealityModal({ content, isOpen, onClose }: { content: NewsModalConte
           onError={(event) => {
             event.currentTarget.removeAttribute('srcset');
             event.currentTarget.removeAttribute('sizes');
-            event.currentTarget.src = 'http://www.ivang-design.com/svg-load/portfolio/photo-p.jpg';
+            event.currentTarget.onerror = null;
+            event.currentTarget.src = '/images/MC2_Icon.png';
           }}
         />
 

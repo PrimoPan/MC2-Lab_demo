@@ -49,3 +49,17 @@ output_*.txt
 # Deployment tool state
 /.netlify/
 /.vercel/
+
+# Private administration runtime (never deploy credentials or databases)
+__pycache__/
+*.pyc
+/.venv/
+/server/.venv/
+/server/runtime/
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+
+# Generated campus release packages
+/campus.tar.gz
+/campus.sha256

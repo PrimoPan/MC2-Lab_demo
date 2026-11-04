@@ -4,6 +4,10 @@ React + TypeScript website for the Center for Metaverse and Computational Creati
 
 Author: **Dongyijie Primo Pan**
 
+Canonical site: https://mc2.hkust-gz.edu.cn. The former mc2-lab.space domain redirects here.
+Pushes to `PrimoPan/MC2-Lab_demo:main` publish a checked campus release; the campus
+host pulls and activates it automatically. See [campus deployment](docs/campus-deployment.md).
+
 ## Documentation index
 
 - [Quick start](#quick-start)
@@ -388,6 +392,12 @@ git diff --check
 Then verify the affected English/Chinese routes in a real browser at both documented viewports, including interactive states and browser-console errors.
 
 ## Deployment
+
+The campus server serves the website over HTTP port **2026**. Connect with
+`ssh mc2web` and publish the current local checkout with `npm run deploy:campus`.
+See [Campus deployment](docs/campus-deployment.md) for release verification,
+backups, rollback, and the campus domain handoff. The existing public-server
+workflow below remains separate until domain routing is switched.
 
 Pushing `main` runs `.github/workflows/deploy-pages.yml`.
 
