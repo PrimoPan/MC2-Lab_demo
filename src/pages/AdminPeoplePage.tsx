@@ -375,7 +375,7 @@ export function AdminPeoplePage(): JSX.Element {
               {(error || conflict) && <div className="mc2-admin-alert" role="alert"><p>{conflict ? '另一位管理员已更新了内容。你的修改仍保留在此页面，尚未覆盖网站。请先下载草稿，再加载最新内容并重新应用修改。' : error}</p>{conflict && <div className="mc2-admin-actions"><button className="mc2-admin-btn" onClick={downloadDraft}>下载本地草稿</button><button className="mc2-admin-btn" disabled={isBusy} onClick={() => void loadPeople()}>加载最新内容</button></div>}</div>}
               {notice && <p className="mc2-admin-notice" role="status">{notice}</p>}
               {!draft ? <p className="mc2-admin-empty" role="status">{busy === 'load' ? '正在加载成员资料…' : '尚未加载资料，请点击“加载最新内容”重试。'}</p> : <>
-                
+
                 <div className="mc2-admin-workspace">
                   <aside className="mc2-admin-sidebar" aria-label={tab === 'members' ? '成员列表' : '校友列表'}>
                     <input className="mc2-admin-search" type="search" aria-label="搜索中英文姓名与资料" placeholder="搜索姓名、职务或方向…" value={search} onChange={event => setSearch(event.target.value)} />
