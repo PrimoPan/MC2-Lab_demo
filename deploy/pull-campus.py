@@ -17,6 +17,10 @@ BASE = Path('/srv/mc2-lab')
 
 
 def get(url, binary=False):
+    if binary:
+        return subprocess.check_output(['curl', '-4', '-fsSL', '--retry', '2',
+            '--retry-all-errors', '--connect-timeout', '10', '--max-time', '60',
+            '-H', 'Accept: application/octet-stream', url])
     request = urllib.request.Request(url, headers={'User-Agent': 'MC2-campus-deploy',
         'Accept': 'application/octet-stream' if binary else 'application/vnd.github+json'})
     with urllib.request.urlopen(request, timeout=90) as response:
@@ -84,10 +88,9 @@ def main():
                 raise ValueError('Unexpected asset API URL')
             digest = get(api_urls[1], binary=True).decode().split()[0]
             print('Downloading ' + tag, flush=True)
-            request = urllib.request.Request(api_urls[0], headers={
-                'User-Agent': 'MC2-campus-deploy', 'Accept': 'application/octet-stream'})
-            with urllib.request.urlopen(request, timeout=90) as response, archive.open('wb') as output:
-                shutil.copyfileobj(response, output, length=1024 * 1024)
+            subprocess.run(['curl', '-4', '-fsSL', '--retry', '2', '--retry-all-errors',
+                '--connect-timeout', '10', '--max-time', '480',
+                '-H', 'Accept: application/octet-stream', '-o', str(archive), api_urls[0]], check=True)
             if hashlib.sha256(archive.read_bytes()).hexdigest() != digest:
                 raise ValueError('Download checksum mismatch')
             unpack(archive, stage)
