@@ -27,10 +27,18 @@ def main():
         manifest = {p.relative_to(root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                     for folder in ('site', 'source')
                     for p in (root / folder).rglob('*') if p.is_file()}
+        reusable = {}
+        for name, digest in manifest.items():
+            source_path = ('public/' + name[5:]) if name.startswith('site/') else name[7:]
+            candidate = Path(source_path)
+            if source_path.startswith('public/') and candidate.is_file() and hashlib.sha256(candidate.read_bytes()).hexdigest() == digest:
+                reusable[name] = source_path
+        for name in reusable:
+            (root / name).unlink()
         (root / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
         (root / 'release.json').write_text(json.dumps({
             'release': release, 'commit': commit, 'working_tree': '',
-            'built_at': now.isoformat(), 'file_count': len(manifest),
+            'built_at': now.isoformat(), 'file_count': len(manifest), 'reusable_files': reusable,
             'node': subprocess.check_output(['node', '--version'], text=True).strip()
         }, indent=2) + '\n')
         with tarfile.open('campus.tar.gz', 'w:gz') as archive:

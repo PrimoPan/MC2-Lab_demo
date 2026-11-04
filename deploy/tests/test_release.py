@@ -59,3 +59,23 @@ class ReleaseTest(unittest.TestCase):
             (root / 'site/index.html').write_text('tampered')
             with self.assertRaises(ValueError):
                 pull.verify(root, commit)
+
+    def test_reuse_only_hash_matching_public_assets(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            root = base / 'staging'
+            root.mkdir()
+            previous = base / 'current/site/images'
+            previous.mkdir(parents=True)
+            (previous / 'photo.png').write_bytes(b'photo')
+            name = 'site/images/photo.png'
+            (root / 'release.json').write_text(json.dumps({'reusable_files': {name: 'public/images/photo.png'}}))
+            (root / 'manifest.json').write_text(json.dumps({name: hashlib.sha256(b'photo').hexdigest()}))
+            with patch.object(pull, 'BASE', base), patch.object(pull.subprocess, 'run') as download:
+                pull.hydrate(root, 'a' * 40)
+                download.assert_not_called()
+            self.assertEqual((root / name).read_bytes(), b'photo')
+            (root / 'release.json').write_text(json.dumps({'reusable_files': {'../escape': 'public/escape'}}))
+            with self.assertRaises(ValueError):
+                pull.hydrate(root, 'a' * 40)

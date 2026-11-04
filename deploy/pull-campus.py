@@ -10,6 +10,7 @@ import tarfile
 import tempfile
 import urllib.error
 import urllib.request
+import urllib.parse
 
 REPO = 'PrimoPan/MC2-Lab_demo'
 API = 'https://api.github.com/repos/' + REPO
@@ -39,6 +40,37 @@ def unpack(archive, destination):
             if not path.parts or path.parts[0] not in ('site', 'source', 'manifest.json', 'release.json'):
                 raise ValueError('Unexpected release member')
         bundle.extractall(destination, members=members, filter='data')
+
+
+def hydrate(root, commit):
+    metadata = json.loads((root / 'release.json').read_text())
+    manifest = json.loads((root / 'manifest.json').read_text())
+    reused = 0
+    fetched = 0
+    for name, repo_path in metadata.get('reusable_files', {}).items():
+        parts = PurePosixPath(name)
+        source_parts = PurePosixPath(repo_path)
+        if (parts.is_absolute() or '..' in parts.parts or source_parts.is_absolute()
+                or '..' in source_parts.parts or not repo_path.startswith('public/')
+                or name not in ('site/' + repo_path[7:], 'source/' + repo_path)
+                or name not in manifest):
+            raise ValueError('Invalid reusable asset path')
+        expected = manifest[name]
+        target = root / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        previous = BASE / 'current' / name
+        if previous.is_file() and not previous.is_symlink() and hashlib.sha256(previous.read_bytes()).hexdigest() == expected:
+            shutil.copy2(previous, target)
+            reused += 1
+        else:
+            url = API + '/contents/' + urllib.parse.quote(repo_path, safe='/') + '?ref=' + commit
+            subprocess.run(['curl', '-4', '-fsSL', '--retry', '2', '--retry-all-errors',
+                '--connect-timeout', '10', '--max-time', '120',
+                '-H', 'Accept: application/vnd.github.raw+json', '-o', str(target), url], check=True)
+            if hashlib.sha256(target.read_bytes()).hexdigest() != expected:
+                raise ValueError('Asset checksum mismatch: ' + name)
+            fetched += 1
+    print(f'Assets: reused {reused}, fetched {fetched}', flush=True)
 
 
 def verify(root, commit):
@@ -95,6 +127,7 @@ def main():
                 raise ValueError('Download checksum mismatch')
             unpack(archive, stage)
             archive.unlink()
+            hydrate(stage, commit)
             release = verify(stage, commit)
             # A frontend push cannot silently replace the running API or its database.
             api_source = Path('/opt/mc2-admin/current/server')
