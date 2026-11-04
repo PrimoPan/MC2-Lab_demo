@@ -16,8 +16,9 @@ API = 'https://api.github.com/repos/' + REPO
 BASE = Path('/srv/mc2-lab')
 
 
-def get(url):
-    request = urllib.request.Request(url, headers={'User-Agent': 'MC2-campus-deploy'})
+def get(url, binary=False):
+    request = urllib.request.Request(url, headers={'User-Agent': 'MC2-campus-deploy',
+        'Accept': 'application/octet-stream' if binary else 'application/vnd.github+json'})
     with urllib.request.urlopen(request, timeout=90) as response:
         return response.read()
 
@@ -78,8 +79,15 @@ def main():
         with tempfile.TemporaryDirectory(prefix='.pull-', dir=BASE / 'releases') as temp:
             stage = Path(temp)
             archive = stage / 'download.tar.gz'
-            archive.write_bytes(get(urls[0]))
-            digest = get(urls[1]).decode().split()[0]
+            api_urls = [assets[name]['url'] for name in ('campus.tar.gz', 'campus.sha256')]
+            if any(not re.fullmatch(re.escape(API) + r'/releases/assets/\d+', url) for url in api_urls):
+                raise ValueError('Unexpected asset API URL')
+            digest = get(api_urls[1], binary=True).decode().split()[0]
+            print('Downloading ' + tag, flush=True)
+            request = urllib.request.Request(api_urls[0], headers={
+                'User-Agent': 'MC2-campus-deploy', 'Accept': 'application/octet-stream'})
+            with urllib.request.urlopen(request, timeout=90) as response, archive.open('wb') as output:
+                shutil.copyfileobj(response, output, length=1024 * 1024)
             if hashlib.sha256(archive.read_bytes()).hexdigest() != digest:
                 raise ValueError('Download checksum mismatch')
             unpack(archive, stage)
