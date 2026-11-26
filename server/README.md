@@ -11,32 +11,105 @@ This document describes the role-aware implementation. Deploying it, assigning r
 - Versioned code and venv: `/opt/mc2-admin/releases/<release-id>`; `/opt/mc2-admin/current` selects the active version.
 - Persistent data: `/var/lib/mc2-admin/admin.sqlite3`, `photos/`, and `backups/`. Never put these inside a frontend release.
 - `/etc/mc2-admin.env` contains `MC2_DATA_DIR`, the single HTTPS `MC2_ORIGIN`, and `MC2_TRUST_LOCAL_PROXY=1`. Nginx must overwrite `X-Real-IP`; the API trusts it only on loopback when explicitly enabled. No proxy headers control authentication or cookie security.
-- Nginx routes `/api/` to Gunicorn and `/media/people/` to `/var/lib/mc2-admin/photos/`. Photos are also served by a UUID-restricted Flask route for local verification. The existing campus gateway provides HTTPS; fixed Secure cookies are compatible with the private HTTP hop.
+- Nginx must proxy both `/api/` and `/media/people/` to Gunicorn. A direct filesystem alias for uploaded photos would bypass approval privacy and must not remain enabled. The existing campus gateway provides HTTPS; fixed Secure cookies are compatible with the private HTTP hop.
+
+## Drafts, review and publication
+
+The campus database has separate public `people`/`news` tables and a single shared
+`workspace`. All editors and administrators may add/delete members, edit alumni,
+edit the detailed bilingual leader profile, and create/edit/delete news. Every
+content save changes only the workspace. This includes `PUT /api/admin/people`
+and `PUT /api/admin/news`; these legacy URLs no longer publish content.
+
+Only the configured account `MC2_REVIEWER_USERNAME` (default `primo`), with the
+`admin` role, can approve or return a submission. Other `admin` accounts have no
+publication bypass. Jeannie should use `editor`; retaining an old admin role
+also does not grant approval access. Member roles such as `chair` and `admin`
+are public classification and never account privileges.
+
+The lifecycle is `published → draft → submitted → published`, or
+`submitted → rejected → draft/submitted`. Saving a submitted or rejected
+workspace changes it to `draft`, clearing submission metadata. Every save,
+submission, return and approval increments one shared revision. A stale save or
+approval receives 409, so the reviewer cannot publish a newer, unseen edit.
+The frontend must preserve unsaved work and deliberately reload on conflict.
+
+Approval copies the **complete** people/leader/alumni/news snapshot into the
+public tables in one transaction, with both public history records and an audit
+record. The public base revisions must still match; out-of-band public changes
+cause 409 and require operator reconciliation, never a silent overwrite.
+Draft history records retain every saved/submitted/returned/approved snapshot.
+A saved post's `published` flag expresses desired visibility **after approval**;
+new posts normally use `true`, and `false` requests withdrawal or exclusion.
+
+Initialization is additive and idempotent: it creates a workspace from existing
+public data only when no workspace exists. It never imports seed data over live
+content or discards a pending submission. The new optional leader fields stay
+absent until edited, preserving the existing frontend fallback.
 
 ## API
 
 | Route | Result / write body |
 | --- | --- |
-| `GET /api/people` | `{revision,content:{en,...,"zh-CN":...}}` |
-| `GET /api/news` | `{revision,posts}` containing only published posts |
-| `GET /api/admin/session` | `{user:{username,mustChangePassword,role},csrfToken}` or 401; `role` is `admin` or `editor` |
+| `GET /api/people` | Public `{revision,content}` only |
+| `GET /api/news` | Public `{revision,posts}` with visible posts only |
+| `GET /api/admin/session` | `{user:{username,mustChangePassword,role,canReview},csrfToken}` or 401 |
 | `POST /api/admin/login` | `{username,password}`; returns the session shape |
-| `POST /api/admin/password` | `{currentPassword,newPassword}`; returns a new session and invalidates all old sessions |
+| `POST /api/admin/password` | `{currentPassword,newPassword}`; rotates all sessions |
 | `POST /api/admin/logout` | Revokes the current session |
-| `PUT /api/admin/people` | Administrator only; `{revision,content}`; returns updated document and revision |
-| `GET /api/admin/news` | Both roles; all posts including drafts |
-| `PUT /api/admin/news` | `{revision,posts}`; editors may change only unpublished drafts; returns updated posts and revision |
-| `POST /api/admin/photos` | Both roles; multipart `file`; returns `{url}` with status 201 |
+| `GET /api/admin/people` | `{revision,content,workflow}` from the shared workspace |
+| `PUT /api/admin/people` | `{revision,content}`; saves the draft; same result shape |
+| `GET /api/admin/news` | `{revision,posts,workflow}` from the shared workspace |
+| `PUT /api/admin/news` | `{revision,posts}`; saves the draft; same result shape |
+| `GET /api/admin/review` | `{revision,content,posts,workflow,live:{people:{revision,content},news:{revision,posts}}}` |
+| `POST /api/admin/review/submit` | `{revision}`; submits the complete saved workspace |
+| `POST /api/admin/review/approve` | `{revision}`; designated reviewer only; atomically publishes all changes |
+| `POST /api/admin/review/reject` | `{revision,reason}`; designated reviewer only; preserves the draft |
+| `POST /api/admin/photos` | Multipart `file`; returns `{url}` with status 201 |
 
-Every write requires the exact configured Origin. Authenticated writes additionally require `X-CSRF-Token` from the current session. Login uses exact-Origin validation before reading credentials and persistent account/IP attempt limits. Both roles must change their initial password before reading draft news, saving content or uploading. Session lifetime is eight hours, with HttpOnly, Secure and SameSite=Strict cookies. Session IDs are random and stored only as SHA-256 hashes. Passwords use Werkzeug scrypt; new passwords must contain **14–128 Unicode characters**.
+Review actions return the complete review snapshot. `workflow` contains
+`status`, `revision`, `canReview`, `submittedBy`, `submittedAt` (Unix seconds),
+`reason` and `reviewer` (configured account name). Public and workspace revision
+numbers are independent. Admin reads require authentication and completion of
+the initial password change; public APIs never expose the workspace.
 
-Administrators retain all content-management capabilities. Editors can read members/alumni and all news, create/edit/delete unpublished news drafts, and upload images. They cannot publish, withdraw, change, delete or reorder published news. Members and alumni are read-only for editors because saving those records immediately changes the public site. Role checks are enforced by the API, including within content-write transactions; hiding frontend controls is not the authorization boundary. A denied role operation returns 403 with `code: "insufficientPermission"`. Authentication, first-password-change and CSRF requirements still apply.
+Every write requires the exact configured Origin. Authenticated writes also
+require `X-CSRF-Token` from the current session. Permissions and session validity
+are checked again inside write transactions. Denied permissions return 403 with
+`code: "insufficientPermission"`; validation errors return 400. Login has
+persistent account/IP attempt limits. Passwords use Werkzeug scrypt; new passwords
+must contain 14–128 Unicode characters. Sessions last eight hours, have HttpOnly,
+Secure, SameSite=Strict cookies, and store only hashes of random session IDs.
 
-Stale revisions return 409. Validation errors return 400. The frontend must preserve unsaved work and offer a deliberate reload on conflict. People require matching bilingual keys, shared properties, role-filter structure, and corresponding alumni group lengths. Localized text remains separate; initialization preserves the original JSON exactly. Member keys are public anchors and should remain stable when names change.
+## Content and image validation
 
-News fields are `id`, `slug`, `date`, `title`, `summary`, `body`, `image`, `published`. `title`, `summary`, and `body` each have `en` and `zh-CN` strings. English title/body are required; summaries and Chinese strings may be empty. Text limits are 200/1000/50000 characters. Body is plain text and must be rendered as text paragraphs, never as HTML. Saved slugs are immutable. News is separate from the existing static news archive.
+People require matching bilingual keys, shared properties, role filters and
+corresponding alumni group lengths. Member keys are stable public anchors.
+The optional `leader` object must exist in both locales or neither; it contains
+plain text profile labels, `photo`, `homepage`, bounded `sections` (title and
+paragraphs), and `projects` (title and body).
 
-Images must be JPEG, PNG or WebP, at most 5 MiB and 20 megapixels, and not animated. Pillow decodes, strips metadata and re-encodes a fresh WebP with a maximum 1600-pixel dimension. Names are random UUIDs; original filenames are never used. Only site image paths are accepted as member photos/news covers; website links must be HTTPS or site-relative. No server-side URL fetch is performed. Orphan uploads are not automatically deleted.
+News keeps `id`, immutable `slug`, `date`, bilingual `title`, `summary`, `body`,
+`image`, and desired `published` visibility. Optional `template` is one of
+`announcement`, `image-left`, `image-right`, `gallery`. Optional `sections`
+contains up to 40 entries with `id`, `layout` (`text`, `image-left`, `image-right`,
+`gallery`), bilingual `heading` and `body`, and up to 8 `images`. Each image has
+`id`, a site-image `url`, bilingual `alt` and `caption`. All text is plain text,
+never trusted HTML. A nonempty English body or a section with English body/image
+is required, along with an English title. The whole saved section document is
+limited to 2 MiB. Legacy posts without templates/sections remain valid.
+
+Images must be JPEG, PNG or WebP, at most 5 MiB and 20 megapixels, and not
+animated. Pillow decodes, strips metadata and re-encodes WebP at a maximum
+1600-pixel dimension. Random UUID filenames prevent filename injection. Only
+site image paths are accepted; website links must be HTTPS or site-relative.
+No server-side URL fetch occurs. Orphan uploads are not automatically deleted.
+Uploaded media is served anonymously only while its exact path is referenced by
+public people/leader content or a visible, approved news post. Otherwise an active
+editor/reviewer session with the initial password already changed is required;
+anonymous requests receive 404. Media responses use `private, no-store` so future
+withdrawal or removal takes effect without a stale public cache. This enforcement
+requires the Nginx proxy above; a static alias would be a publication bypass.
 
 ## Local verification
 
@@ -53,7 +126,11 @@ Unit tests use only temporary databases and temporary photos. Production data is
 
 Install Ubuntu's `python3-venv` package if `python3 -c 'import ensurepip'` fails. Then run the reviewed `deploy/install-admin.sh SOURCE_DIRECTORY RELEASE_ID` on the server as root. It installs a new venv/code release, backs up the existing database when present, initializes new tables without replacing existing content, switches code atomically and checks API health. If health fails, it restores the previous code symlink. It does not touch Nginx, the frontend release or administrator passwords. An optional `MC2_WHEELHOUSE` supplies predownloaded wheels for offline installation.
 
-The requested primary administrator usernames are `primo`, `jeannie` and `panhui`, each with the existing `admin` role, which provides the highest website content and publishing privileges. This request does not introduce a separate super-administrator role or account-management UI. Preserve existing accounts, including `secretary`; inspect `list-users` before creating or assigning accounts. These names describe the intended account setup, not confirmation that it has been provisioned on the live site.
+The publishing owner is `primo` (admin). Use `editor` for `jeannie` and other
+content editors. Preserve existing accounts and inspect `list-users` before
+creating or assigning accounts. This document describes intended configuration,
+not proof that it has been applied to a live server. No account-management UI or
+public registration is provided. Account passwords are never embedded in source.
 
 Create each missing account separately. Run the CLI from `/opt/mc2-admin/current` as `mc2admin`, using `venv/bin/python -m server.cli create-user USERNAME --role admin --password-stdin` or `--role editor`. Omitting `--role` defaults to `admin` for compatibility; specify it explicitly for test accounts. Supply the password through standard input from a protected local file or a subprocess input stream. Never put it in a shell command argument or print it in logs. Any deliverable credential file should be created with mode 0600 and kept separate from the source repository. No accounts are automatically created by this package.
 
@@ -71,8 +148,14 @@ There is no public registration or UI for creating accounts or assigning roles. 
 
 Every successful members/news edit creates an immutable content-history row and an audit row in the same SQLite transaction. The `backup` command uses SQLite's online backup API, including WAL content, and saves mode-0600 snapshots under `backups/`. Back up the photos directory together with database snapshots for off-host recovery. Installation takes a database backup before switching an existing release. Never copy only the live `.sqlite3` file while ignoring its WAL.
 
-To roll back code, switch `/opt/mc2-admin/current` to a compatible retained release and restart the service. **Do not run a previous single-role API while editor accounts remain enabled.** That API does not enforce the role column and would treat a logged-in editor as an administrator. Before such a rollback, disable every editor account with the current CLI, which also revokes its sessions, and keep those accounts disabled until role enforcement is restored and checked. Database restoration must preserve this restriction too.
+To roll back code, switch `/opt/mc2-admin/current` only to a release that enforces
+this review workflow, then restart and verify. **Do not reactivate a previous
+API that publishes on PUT**, even if editor roles are disabled: old administrator
+accounts could bypass the owner review gate. A safe emergency rollback must
+first stop all authenticated writes at Nginx or disable every account, preserving
+public read-only availability until the review-capable API is restored.
 
-Content is not rolled back by a code switch. To restore data, first stop the service, preserve the current database/WAL and photos, restore the selected complete backup and corresponding media, then restart and verify health. Do not remove historical revisions or uploads during routine deployment.
-
-Framework references: [Flask security](https://flask.palletsprojects.com/en/stable/web-security/), [Gunicorn deployment](https://flask.palletsprojects.com/en/stable/deploying/gunicorn/), [Werkzeug password hashing](https://werkzeug.palletsprojects.com/en/stable/utils/), [Pillow image safety](https://pillow.readthedocs.io/en/stable/reference/Image.html).
+Content is not rolled back by a code switch. Before restoring data, stop the
+service, preserve the current database/WAL and photos, restore the selected
+complete backup and corresponding media, then restart and verify health and
+permissions. Do not remove historical revisions or uploads during deployment.

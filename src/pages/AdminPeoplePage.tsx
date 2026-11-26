@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import AdminNewsEditor from '../components/admin/AdminNewsEditor';
-import { adminApi, AdminApiError, type AdminSession, type PeopleContent, type PeopleSnapshot } from '../lib/adminApi';
+import AdminReviewPanel from '../components/admin/AdminReviewPanel';
+import AdminReviewLeaderEditor from '../components/admin/AdminReviewLeaderEditor';
+import { adminApi, AdminApiError, type AdminSession, type PeopleContent, type PeopleSnapshot, type ReviewSnapshot, type ReviewWorkflow } from '../lib/adminApi';
 import type { AlumniEntry, MemberProfile, MemberRole } from '../types/legacyPages';
 import '../styles/admin.css';
 
 type Language = 'en' | 'zh-CN';
 type Selection = { kind: 'member'; key: string } | { kind: 'alumni'; group: number; entry: number | null } | null;
-type Tab = 'members' | 'alumni' | 'news';
+type Tab = 'members' | 'alumni' | 'news' | 'review' | 'leader';
 const languages: Language[] = ['en', 'zh-CN'];
 const roleLabels: Record<Exclude<MemberRole, 'all'>, string> = {
   chair: 'Chair / 教授', postdoc: 'Postdoc / 博士后', admin: 'Administration / 行政',
@@ -48,6 +50,10 @@ function validate(content: PeopleContent): string {
       if (!websiteValid(member.website)) return `${member.name} 的个人主页须为 HTTPS 链接或站内路径，且不含空格。`;
       if (member.cohortYear !== null && (!Number.isInteger(member.cohortYear) || member.cohortYear < 1950 || member.cohortYear > 2100)) return `${member.name} 的入组年份应为 1950–2100 之间的整数，或留空。`;
     }
+    const leader = content[language].leader;
+    if (leader && !leader.title.trim()) return `请填写负责人页面的${label}姓名与头衔。`;
+    if (leader && !sitePhoto(leader.photo)) return `负责人${label}页面的照片须使用站内图片路径。`;
+    if (leader && !websiteValid(leader.homepage)) return `负责人${label}页面的个人主页须为 HTTPS 或站内链接。`;
     for (const [index, group] of content[language].alumniGroups.entries()) {
       if (!group.heading.trim()) return `请填写第 ${index + 1} 个校友分组的${label}标题。`;
       if (group.entries.length !== content.en.alumniGroups[index].entries.length) return '中英文校友条目未对应，请加载最新内容后重试。';
@@ -133,7 +139,7 @@ export function AdminPeoplePage(): JSX.Element {
   const secureAccess = window.isSecureContext || ['localhost', '127.0.0.1'].includes(window.location.hostname);
   const [session, setSession] = useState<AdminSession | null>(null);
   const sessionIdentity = useRef<string | null>(null);
-  const canEditPeople = session?.user.role === 'admin';
+  const canEditPeople = session?.user.role === 'admin' || session?.user.role === 'editor';
   const roleLabel = session?.user.role === 'admin' ? '管理员' : session?.user.role === 'editor' ? '编辑' : '权限未知';
   const [checking, setChecking] = useState(true);
   const [sessionError, setSessionError] = useState('');
@@ -152,9 +158,12 @@ export function AdminPeoplePage(): JSX.Element {
   const [newsDirty, setNewsDirty] = useState(false);
   const [newsBusy, setNewsBusy] = useState(false);
   const [passwordBusy, setPasswordBusy] = useState(false);
+  const [reviewBusy, setReviewBusy] = useState(false);
+  const [workflow, setWorkflow] = useState<ReviewWorkflow | undefined>();
+  const [workspaceRevision, setWorkspaceRevision] = useState<number>();
   const peopleDirty = Boolean(draft && JSON.stringify(draft.content) !== savedContent);
   const dirty = peopleDirty || newsDirty;
-  const isBusy = Boolean(busy) || newsBusy || passwordBusy;
+  const isBusy = Boolean(busy) || newsBusy || passwordBusy || reviewBusy;
   const onNewsUnauthorized = useCallback(() => setReauthenticate(true), []);
 
   function acceptSession(value: AdminSession) {
@@ -162,7 +171,7 @@ export function AdminPeoplePage(): JSX.Element {
     if (sessionIdentity.current !== null && sessionIdentity.current !== identity) {
       setDraft(null); setSavedContent(''); setSelection(null); setSearch('');
       setConflict(false); setNotice(''); setTab('members');
-      setNewsVisited(false); setNewsDirty(false); setNewsBusy(false);
+      setNewsVisited(false); setNewsDirty(false); setNewsBusy(false); setWorkflow(undefined); setWorkspaceRevision(undefined);
     }
     sessionIdentity.current = identity;
     setSession(value);
@@ -211,6 +220,7 @@ export function AdminPeoplePage(): JSX.Element {
       if (owner !== sessionIdentity.current) return;
       if (!snapshotValid(result)) throw new Error('网站返回的成员数据格式不完整，请稍后重试。');
       setDraft(result); setSavedContent(JSON.stringify(result.content)); setConflict(false);
+      setWorkflow(result.workflow); setWorkspaceRevision(Number(result.revision));
       setSelection(result.content.en.members[0] ? { kind: 'member', key: result.content.en.members[0].key } : null);
       setTab('members'); setSearch('');
     } catch (cause) { handleError(cause); }
@@ -252,7 +262,7 @@ export function AdminPeoplePage(): JSX.Element {
   function deleteMember(key: string, name: string) {
     if (!canEditPeople) return;
     if (draft && draft.content.en.members.length <= 1) { setError('网站至少需要保留一位当前成员。'); return; }
-    if (!window.confirm(`删除“${name || '未命名成员'}”的中英文资料？保存更改后会从公开网站移除。`)) return;
+    if (!window.confirm(`删除“${name || '未命名成员'}”的中英文资料？该删除会进入草稿，审核批准后才从公开网站移除。`)) return;
     updateContent(content => languages.forEach(language => { content[language].members = content[language].members.filter(item => item.key !== key); }));
     setSelection(null);
   }
@@ -282,7 +292,7 @@ export function AdminPeoplePage(): JSX.Element {
     if (!draft) return;
     const target = draft.content.en.alumniGroups[group];
     const name = entry === null ? target.heading || '未命名分组' : target.entries[entry].name || '未命名校友';
-    if (!window.confirm(entry === null ? `删除“${name}”分组及其中 ${target.entries.length} 位校友的中英文资料？保存后生效。` : `删除“${name}”的中英文校友资料？保存后生效。`)) return;
+    if (!window.confirm(entry === null ? `删除“${name}”分组及其中 ${target.entries.length} 位校友的中英文资料？审核批准后生效。` : `删除“${name}”的中英文校友资料？审核批准后生效。`)) return;
     updateContent(content => languages.forEach(language => {
       if (entry === null) content[language].alumniGroups.splice(group, 1);
       else content[language].alumniGroups[group].entries.splice(entry, 1);
@@ -304,8 +314,9 @@ export function AdminPeoplePage(): JSX.Element {
     try {
       const result = await adminApi.save(session.csrfToken, draft);
       if (typeof result?.revision !== 'string' && typeof result?.revision !== 'number') throw new Error('保存响应缺少版本信息。请先加载最新内容，确认本次保存状态。');
-      setDraft({ ...draft, revision: result.revision }); setSavedContent(JSON.stringify(draft.content));
-      setConflict(false); setNotice('已保存，中英文成员与校友资料已更新。');
+      setDraft({ ...draft, revision: result.revision, workflow: result.workflow }); setSavedContent(JSON.stringify(draft.content));
+      setWorkflow(result.workflow); setWorkspaceRevision(Number(result.revision));
+      setConflict(false); setNotice('草稿已保存，官网尚未变化。请预览全部变更并提交审核。');
     } catch (cause) { handleError(cause); }
     finally { setBusy(''); }
   }
@@ -317,7 +328,7 @@ export function AdminPeoplePage(): JSX.Element {
     try {
       const result = await adminApi.upload(session.csrfToken, file);
       if (!result?.url || !sitePhoto(result.url)) throw new Error('上传返回的照片地址无效，请重试。');
-      updateSharedMember(key, 'photo', result.url); setNotice('照片已上传。点击“保存更改”后才会用于该成员资料。');
+      updateSharedMember(key, 'photo', result.url); setNotice('照片已上传。点击“保存草稿”后可预览，审核批准后才会公开。');
     } catch (cause) { handleError(cause); }
     finally { setBusy(''); }
   }
@@ -325,9 +336,9 @@ export function AdminPeoplePage(): JSX.Element {
     if (!session || isBusy) return;
     if (dirty && !window.confirm('退出会放弃当前未保存的修改。确定退出吗？')) return;
     setBusy('logout'); setError('');
-    try { await adminApi.logout(session.csrfToken); setSession(null); sessionIdentity.current = null; setDraft(null); setSavedContent(''); setSelection(null); setPasswordView(false); setNotice(''); setNewsVisited(false); setReauthenticate(false); }
+    try { await adminApi.logout(session.csrfToken); setSession(null); sessionIdentity.current = null; setTab('members'); setWorkflow(undefined); setWorkspaceRevision(undefined); setDraft(null); setSavedContent(''); setSelection(null); setPasswordView(false); setNotice(''); setNewsVisited(false); setReauthenticate(false); }
     catch (cause) {
-      if (cause instanceof AdminApiError && cause.status === 401) { setSession(null); sessionIdentity.current = null; setDraft(null); setSavedContent(''); setNewsVisited(false); setReauthenticate(false); }
+      if (cause instanceof AdminApiError && cause.status === 401) { setSession(null); sessionIdentity.current = null; setTab('members'); setWorkflow(undefined); setWorkspaceRevision(undefined); setDraft(null); setSavedContent(''); setNewsVisited(false); setReauthenticate(false); }
       else handleError(cause);
     } finally { setBusy(''); }
   }
@@ -336,6 +347,28 @@ export function AdminPeoplePage(): JSX.Element {
     const url = URL.createObjectURL(new Blob([JSON.stringify(draft, null, 2)], { type: 'application/json' }));
     const link = document.createElement('a'); link.href = url; link.download = 'mc2-people-unsaved-draft.json'; link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  const acceptReview = useCallback((value: ReviewSnapshot) => {
+    setDraft({ revision: value.revision, content: value.content, workflow: value.workflow });
+    setSavedContent(JSON.stringify(value.content)); setWorkflow(value.workflow);
+    setWorkspaceRevision(value.revision); setConflict(false);
+  }, []);
+  async function newsSaved(revision: number) {
+    setWorkspaceRevision(revision); setBusy('sync');
+    setWorkflow(current => current ? { ...current, revision, status: 'draft' } : current);
+    try {
+      const value = await adminApi.people();
+      // A news-only save may advance our shared revision without invalidating
+      // local people edits. Rebase only when their saved baseline still matches.
+      if (peopleDirty && JSON.stringify(value.content) !== savedContent) {
+        setConflict(true);
+      } else {
+        setDraft(current => peopleDirty && current ? { ...current, revision: value.revision, workflow: value.workflow } : value);
+        if (!peopleDirty) setSavedContent(JSON.stringify(value.content));
+      }
+      setWorkflow(value.workflow); setWorkspaceRevision(Number(value.revision));
+    } catch (cause) { handleError(cause); } finally { setBusy(''); }
   }
 
   const query = search.trim().toLocaleLowerCase();
@@ -363,20 +396,24 @@ export function AdminPeoplePage(): JSX.Element {
               {reauthenticate ? <Login onSession={value => { acceptSession(value); setReauthenticate(false); setError(''); }} message="登录已过期，未保存内容仍保留。请重新登录后继续。" />
                 : passwordView || session.user.mustChangePassword ? <PasswordForm session={session} onBusyChange={setPasswordBusy} onSession={value => { acceptSession(value); setPasswordView(false); setNotice('密码已更新。'); }} onCancel={session.user.mustChangePassword ? undefined : () => setPasswordView(false)} /> : null}
               <main className="mc2-admin-main" hidden={passwordView || reauthenticate || session.user.mustChangePassword}>
-              <div className="mc2-admin-heading"><div><h1>{tab === 'news' ? 'News 文章' : '成员与校友'}</h1><p className="mc2-admin-muted">{tab === 'news' ? (canEditPeople ? '编辑与发布实验室新闻。' : '编辑新闻草稿，由管理员发布。') : (canEditPeople ? '中英文资料分别编辑，保存后同步到公开页面。' : '查看中英文成员与校友资料。')}</p></div><div className="mc2-admin-actions">
-                {tab !== 'news' && <><span className="mc2-admin-status" data-dirty={peopleDirty} role="status">{busy === 'upload' ? '照片上传中…' : busy === 'save' ? '正在保存…' : peopleDirty ? '有未保存的修改' : draft ? '已与网站同步' : ''}</span>
+              <div className="mc2-admin-heading"><div><h1>{tab === 'news' ? 'News 文章' : tab === 'review' ? '预览与审核' : tab === 'leader' ? '负责人资料' : '成员与校友'}</h1><p className="mc2-admin-muted">保存草稿 → 预览全部变更 → 提交审核 → 最终审核人批准发布。</p></div><div className="mc2-admin-actions">
+                {tab !== 'news' && tab !== 'review' && <><span className="mc2-admin-status" data-dirty={peopleDirty} role="status">{busy === 'upload' ? '照片上传中…' : busy === 'save' ? '正在保存…' : peopleDirty ? '有未保存的修改' : draft ? '已保存草稿' : ''}</span>
                 <button className="mc2-admin-btn" disabled={isBusy} onClick={() => void loadPeople()}>加载最新内容</button>
-                {canEditPeople && <button className="mc2-admin-btn mc2-admin-btn-primary" disabled={!peopleDirty || isBusy || conflict} onClick={() => void save()}>{busy === 'save' ? '正在保存…' : '保存更改'}</button>}</>}
+                {canEditPeople && <button className="mc2-admin-btn mc2-admin-btn-primary" disabled={!peopleDirty || isBusy || conflict} onClick={() => void save()}>{busy === 'save' ? '正在保存…' : '保存草稿'}</button>}</>}
               </div></div>
-              <nav className="mc2-admin-tabs" aria-label="内容类型"><button className="mc2-admin-tab" aria-pressed={tab === 'members'} disabled={isBusy} onClick={() => { setTab('members'); setSearch(''); setSelection(null); }}>当前成员{draft ? ` · ${draft.content.en.members.length}` : ''}</button><button className="mc2-admin-tab" aria-pressed={tab === 'alumni'} disabled={isBusy} onClick={() => { setTab('alumni'); setSearch(''); setSelection(null); }}>校友{draft ? ` · ${alumniCount}` : ''}</button><button className="mc2-admin-tab" aria-pressed={tab === 'news'} disabled={isBusy} onClick={() => { setNewsVisited(true); setTab('news'); }}>News{newsDirty ? ' · 未保存' : ''}</button></nav>
-              {newsVisited && <div hidden={tab !== 'news'}><AdminNewsEditor key={`${session.user.username}:${session.user.role}`} role={session.user.role} csrfToken={session.csrfToken} onUnauthorized={onNewsUnauthorized} onDirtyChange={setNewsDirty} onBusyChange={setNewsBusy} /></div>}
-              <div hidden={tab === 'news'}>
-              {!canEditPeople && <p className="mc2-admin-notice" role="status">{session.user.role === 'editor' ? '编辑账号可在 News 中新建和修改未发布的新闻草稿。成员与校友资料保存后会直接更新公开网站，因此仅管理员可修改。' : '未识别到有效账号权限，内容暂为只读。请重新登录或联系管理员。'}</p>}
+              {workflow && <div className="mc2-admin-notice mc2-admin-workflow" role="status"><strong>{({ draft: '草稿 · 尚未提交审核', submitted: '已提交审核 · 等待批准', rejected: '已退回修改', published: '已审核发布' })[workflow.status]}</strong><span>最终审核人：{workflow.reviewer || 'primo'}。保存与删除均先进入草稿，审核批准后官网才会变化。</span>{workflow.reason && <span>退回原因：{workflow.reason}</span>}</div>}
+              <nav className="mc2-admin-tabs" aria-label="内容类型"><button className="mc2-admin-tab" aria-pressed={tab === 'members'} disabled={isBusy} onClick={() => { setTab('members'); setSearch(''); setSelection(null); }}>当前成员{draft ? ` · ${draft.content.en.members.length}` : ''}</button><button className="mc2-admin-tab" aria-pressed={tab === 'alumni'} disabled={isBusy} onClick={() => { setTab('alumni'); setSearch(''); setSelection(null); }}>校友{draft ? ` · ${alumniCount}` : ''}</button><button className="mc2-admin-tab" aria-pressed={tab === 'news'} disabled={isBusy} onClick={() => { setNewsVisited(true); setTab('news'); }}>News{newsDirty ? ' · 未保存' : ''}</button><button className="mc2-admin-tab" aria-pressed={tab === 'leader'} disabled={isBusy} onClick={() => setTab('leader')}>负责人资料</button><button className="mc2-admin-tab" aria-pressed={tab === 'review'} disabled={isBusy || dirty} title={dirty ? '请先保存成员、负责人和新闻的全部修改' : undefined} onClick={() => setTab('review')}>预览与提交审核</button></nav>
+              {dirty && <p className="mc2-admin-muted mc2-review-save-hint">有未保存的修改。请在对应栏目保存草稿，再进入“预览与提交审核”。</p>}
+              {tab === 'review' && !session.user.mustChangePassword && !passwordView && !reauthenticate && <AdminReviewPanel csrfToken={session.csrfToken} onSnapshot={acceptReview} onUnauthorized={onNewsUnauthorized} onBusyChange={setReviewBusy} />}
+              {newsVisited && <div hidden={tab !== 'news'}><AdminNewsEditor key={`${session.user.username}:${session.user.role}`} role={session.user.role} csrfToken={session.csrfToken} onUnauthorized={onNewsUnauthorized} onDirtyChange={setNewsDirty} onBusyChange={setNewsBusy} workspaceRevision={workspaceRevision} onSaved={revision => void newsSaved(revision)} /></div>}
+              <div hidden={tab === 'news' || tab === 'review'}>
+              {!canEditPeople && <p className="mc2-admin-notice" role="status">未识别到有效账号权限，内容暂为只读。请重新登录或联系管理员。</p>}
               {(error || conflict) && <div className="mc2-admin-alert" role="alert"><p>{conflict ? '另一位管理员已更新了内容。你的修改仍保留在此页面，尚未覆盖网站。请先下载草稿，再加载最新内容并重新应用修改。' : error}</p>{conflict && <div className="mc2-admin-actions"><button className="mc2-admin-btn" onClick={downloadDraft}>下载本地草稿</button><button className="mc2-admin-btn" disabled={isBusy} onClick={() => void loadPeople()}>加载最新内容</button></div>}</div>}
               {notice && <p className="mc2-admin-notice" role="status">{notice}</p>}
               {!draft ? <p className="mc2-admin-empty" role="status">{busy === 'load' ? '正在加载成员资料…' : '尚未加载资料，请点击“加载最新内容”重试。'}</p> : <>
 
-                <div className="mc2-admin-workspace">
+                {tab === 'leader' && <AdminReviewLeaderEditor content={draft.content} disabled={isBusy || !canEditPeople} csrfToken={session.csrfToken} onChange={updateContent} onBusyChange={value => setBusy(value ? 'upload' : '')} onError={handleError} />}
+                <div className="mc2-admin-workspace" hidden={tab === 'leader'}>
                   <aside className="mc2-admin-sidebar" aria-label={tab === 'members' ? '成员列表' : '校友列表'}>
                     <input className="mc2-admin-search" type="search" aria-label="搜索中英文姓名与资料" placeholder="搜索姓名、职务或方向…" value={search} onChange={event => setSearch(event.target.value)} />
                     {canEditPeople && <div className="mc2-admin-actions">{tab === 'members' ? <button className="mc2-admin-btn" disabled={isBusy} onClick={addMember}>＋ 新增成员</button> : <><button className="mc2-admin-btn" disabled={isBusy} onClick={() => addAlumni()}>＋ 新增校友</button><button className="mc2-admin-btn mc2-admin-btn-quiet" disabled={isBusy} onClick={addGroup}>新增分组</button></>}</div>}

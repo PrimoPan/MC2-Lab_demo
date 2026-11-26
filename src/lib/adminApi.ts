@@ -1,11 +1,28 @@
 import type { PeoplePageContent } from '../types/legacyPages';
+import type { NewsPost } from '../types/newsPost';
 
 export type PeopleContent = { en: PeoplePageContent; 'zh-CN': PeoplePageContent };
 export type PeopleRevision = number | string;
-export interface PeopleSnapshot { revision: PeopleRevision; content: PeopleContent }
+export interface ReviewWorkflow {
+  status: 'draft' | 'submitted' | 'published' | 'rejected';
+  revision: number;
+  canReview: boolean;
+  submittedBy?: string | null;
+  submittedAt?: number | null;
+  reason?: string | null;
+  reviewer?: string;
+}
+export interface PeopleSnapshot { revision: PeopleRevision; content: PeopleContent; workflow?: ReviewWorkflow }
+export interface ReviewSnapshot {
+  revision: number;
+  content: PeopleContent;
+  posts: NewsPost[];
+  workflow: ReviewWorkflow;
+  live: { people: PeopleSnapshot; news: { revision: number; posts: NewsPost[] } };
+}
 export type AdminRole = 'admin' | 'editor';
 export interface AdminSession {
-  user: { username: string; mustChangePassword: boolean; role: AdminRole };
+  user: { username: string; mustChangePassword: boolean; role: AdminRole; canReview?: boolean };
   csrfToken: string;
 }
 
@@ -54,9 +71,13 @@ export const adminApi = {
   password: (csrfToken: string, currentPassword: string, newPassword: string) => request<unknown>('/api/admin/password', {
     method: 'POST', csrfToken, body: { currentPassword, newPassword },
   }),
-  people: (signal?: AbortSignal) => request<PeopleSnapshot>('/api/people', { signal }),
-  save: (csrfToken: string, snapshot: PeopleSnapshot) => request<{ revision: PeopleRevision }>('/api/admin/people', {
-    method: 'PUT', csrfToken, body: snapshot,
+  people: (signal?: AbortSignal) => request<PeopleSnapshot>('/api/admin/people', { signal }),
+  save: (csrfToken: string, snapshot: PeopleSnapshot) => request<PeopleSnapshot>('/api/admin/people', {
+    method: 'PUT', csrfToken, body: { revision: snapshot.revision, content: snapshot.content },
+  }),
+  review: () => request<ReviewSnapshot>('/api/admin/review'),
+  reviewAction: (csrfToken: string, action: 'submit' | 'approve' | 'reject', revision: number, reason?: string) => request<ReviewSnapshot>(`/api/admin/review/${action}`, {
+    method: 'POST', csrfToken, body: action === 'reject' ? { revision, reason: reason ?? '' } : { revision },
   }),
   upload: (csrfToken: string, file: File) => {
     const body = new FormData();

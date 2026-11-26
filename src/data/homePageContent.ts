@@ -22,7 +22,7 @@ export const homeAboutCopy: HomeAboutCopy = {
   leaderPrefix: 'Led by ',
   leaderName: 'Professor Pan Hui',
   leaderHref: 'https://panhui.people.ust.hk/',
-  leaderSuffix: '—an International Fellow of the Royal Academy of Engineering, Member of Academia Europaea, and IEEE Fellow—the Center for Metaverse and Computational Creativity (MC2) operates at the intersection of immersive technology, Human-Computer Interaction (HCI), social computing, computational social science, and machine learning. Our research is guided by five key foci:',
+  leaderSuffix: '—an International Fellow of the Royal Academy of Engineering, Member of Academia Europaea, IEEE Fellow, and ACM Distinguished Scientist—the Center for Metaverse and Computational Creativity (MC2) operates at the intersection of immersive technology, Human-Computer Interaction (HCI), social computing, computational social science, and machine learning. Our research is guided by five key foci:',
   closing: 'Our group’s work has been published in top-tier venues across computer science and art, including ACM WWW, ACM SIGCOMM, ACM Mobisys, ACM MobiCom, ACM CoNext, IEEE Infocom, IEEE PerCom, IEEE ICNP, IEEE ICDCS, IJCAI, AAAI, SIGGRAPH, CHI, CSCW, and more. At MC2, we are committed to harnessing these interdisciplinary approaches to create transformative experiences that enrich lives and foster a more connected world. Join us as we navigate the exciting possibilities of the Metaverse and its applications in society.'
 };
 

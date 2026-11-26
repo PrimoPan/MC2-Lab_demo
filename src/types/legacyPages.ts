@@ -30,7 +30,15 @@ export interface AlumniGroup {
   entries: AlumniEntry[];
 }
 
+export interface LeaderContent {
+  pageLabel: string; documentTitle: string; profileAlt: string; title: string;
+  subtitle: string; meta: string; homepageLabel: string; photo: string; homepage: string;
+  sections: { title: string; paragraphs: string[] }[];
+  projectsTitle: string; projects: { title: string; body: string }[];
+}
+
 export interface PeoplePageContent {
+  leader?: LeaderContent;
   pageHeading: string;
   currentLabel: string;
   alumniLabel: string;

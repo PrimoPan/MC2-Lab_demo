@@ -1,0 +1,98 @@
+{
+  "en": {
+    "pageLabel": "Director",
+    "documentTitle": "Professor Pan Hui | MC2",
+    "profileAlt": "Professor Pan Hui",
+    "title": "Professor Pan Hui",
+    "subtitle": "Director of MC2; Chair Professor and Head of Computational Media and Arts Thrust at HKUST(GZ)",
+    "meta": "International Fellow of the Royal Academy of Engineering, Member of Academia Europaea, IEEE Fellow, and ACM Distinguished Scientist.",
+    "homepageLabel": "Official Homepage",
+    "sections": [
+      {
+        "title": "Biography",
+        "paragraphs": [
+          "Professor Pan Hui is Chair Professor and Head of Computational Media and Arts Thrust and Director of the Center for Metaverse and Computational Creativity (MC2) at the Hong Kong University of Science and Technology (Guangzhou). He also holds an appointment as Chair Professor of Emerging Interdisciplinary Areas at the Hong Kong University of Science and Technology (HKUST) and serves as Director of the HKUST-DT Systems and Media Laboratory (SyMLab). He previously served as Associate Dean of the Information Hub at HKUST(GZ) and was a tenured faculty member in Computer Science and Engineering at HKUST before joining CMA as a founding member.",
+          "Previously, Professor Hui served as Senior Research Scientist and subsequently Distinguished Scientist at Telekom Innovation Laboratories (T-Labs) in Germany. His industry research experience also includes positions at Intel Research Cambridge and Thomson Research Paris. His research has received support from major industry partners, including Nokia (through an endowed Nokia Chair in Data Science), Deutsche Telekom, Microsoft Research, and China Mobile.",
+          "He has published more than 600 research papers, received over 40,000 citations, and holds 32 European and US patents. For his sustained contributions to mobile computing and networking, he was elected International Fellow of the Royal Academy of Engineering, Member of Academia Europaea, IEEE Fellow, and ACM Distinguished Scientist.",
+          "He is a founding member of the INTERPOL Expert Group on Metaverse and was a member of the World Economic Forum’s Global Future Council on the Future of Metaverse.",
+          "Professor Hui studied at The University of Hong Kong and earned his PhD in Computer Science from the University of Cambridge. His interdisciplinary research spans mobile computing, computer networking, augmented reality, data science, and human-centered computing."
+        ]
+      },
+      {
+        "title": "Research Agenda",
+        "paragraphs": [
+          "Professor Hui's work can be understood through two connected threads: data-driven systems design and immersive human-data interaction. On one side, he studies human behavior and sociotechnical systems through large-scale empirical data, and translates those insights into software and network systems for mobile, wearable, cloud, and edge environments. On the other side, he develops AR/VR/XR, spatial computing, and metaverse infrastructures that bring digital content, social interaction, and intelligent systems into physical space in more seamless ways."
+        ]
+      }
+    ],
+    "projectsTitle": "Selected Directions and Projects",
+    "projects": [
+      {
+        "title": "AI-enabled education",
+        "body": "In 2024, he led the launch of one of Asia's first AI lecturer initiatives, using AI-generated digital humans in teaching and exploring how realism, trust, and pedagogy interact in immersive classrooms. The work later drew broader attention from outlets including Nature and Forbes."
+      },
+      {
+        "title": "Opportunistic networking and mobile systems",
+        "body": "His earlier work made foundational contributions to social-based opportunistic networking, mobility modelling, and mobile offloading. This includes influential research on social forwarding and the ThinkAir mobile cloud offloading system."
+      },
+      {
+        "title": "Metaverse and immersive infrastructure",
+        "body": "He has advanced open AR/VR systems such as CloudAR, and has explored gesture interaction, privacy, accessibility, and large-scale spatial computing. His work on MetaHKUST connected HKUST and HKUST(GZ) in a shared immersive learning environment across campuses."
+      },
+      {
+        "title": "XR + AI creative practice",
+        "body": "In 2025, he led and curated SURREALITY, a large-scale XR and AI art exhibition that integrated spatial computing, real-time rendering, and campus-scale storytelling, bringing metaverse ideas into a public cultural setting."
+      }
+    ],
+    "photo": "/images/Team_Profile_Pic/2.jpg?v=20260412-2",
+    "homepage": "https://panhui.people.ust.hk/"
+  },
+  "zh-CN": {
+    "pageLabel": "负责人",
+    "documentTitle": "许彬教授 | MC2",
+    "profileAlt": "许彬 Pan Hui 教授",
+    "title": "许彬 Pan Hui 教授",
+    "subtitle": "MC2 主任，港科大（广州）计算媒体与艺术学域讲席教授兼学域主任",
+    "meta": "英国皇家工程院国际院士、欧洲科学院院士、IEEE Fellow、ACM 杰出科学家。",
+    "homepageLabel": "个人主页",
+    "sections": [
+      {
+        "title": "个人简介",
+        "paragraphs": [
+          "许彬（Pan Hui）教授现任香港科技大学（广州）计算媒体与艺术学域讲席教授及学域主任、元宇宙与计算创意中心（MC2）主任；同时任香港科技大学新兴跨学科领域讲席教授、HKUST-DT 系统与媒体实验室（SyMLab）主任。此前，他曾担任港科大（广州）信息枢纽副院长，并在香港科技大学计算机科学与工程学系担任终身教职，之后作为创始成员加入计算媒体与艺术学域。",
+          "此前，许教授曾在德国电信创新实验室（Telekom Innovation Laboratories，T-Labs）先后担任高级研究科学家和杰出科学家。他的产业研究经历还包括在英特尔剑桥研究院（Intel Research Cambridge）和汤姆逊巴黎研究院（Thomson Research Paris）的任职。他的研究获得了诺基亚（包括诺基亚数据科学冠名讲席资助）、德国电信、微软研究院和中国移动等主要产业合作伙伴的支持。",
+          "他已发表超过 600 篇研究论文，获得超过 40,000 次引用，并持有 32 项欧洲及美国专利。由于在移动计算和网络领域的持续贡献，他获选英国皇家工程院国际院士、欧洲科学院院士、IEEE Fellow 和 ACM 杰出科学家。",
+          "他是国际刑警组织元宇宙专家组（INTERPOL Expert Group on Metaverse）的创始成员，并曾任世界经济论坛“元宇宙未来”全球未来理事会（Global Future Council on the Future of Metaverse）成员。",
+          "许教授曾就读于香港大学，并获得剑桥大学计算机科学博士学位。他的跨学科研究涵盖移动计算、计算机网络、增强现实、数据科学及以人为中心的计算。"
+        ]
+      },
+      {
+        "title": "研究脉络",
+        "paragraphs": [
+          "许教授的研究主线可以概括为“数据驱动系统设计”与“沉浸式人机数据交互”。一方面，他通过大规模实证数据理解人类行为与社会技术系统，并进一步设计面向移动设备、可穿戴设备、云边协同环境的高性能软件与网络系统；另一方面，他持续推进 AR/VR/XR、空间计算与元宇宙基础设施研究，探索数字内容、社会交互与智能系统如何更自然地进入真实空间。"
+        ]
+      }
+    ],
+    "projectsTitle": "代表性方向与项目",
+    "projects": [
+      {
+        "title": "AI 赋能教育",
+        "body": "2024 年，他带领团队推出亚洲首批 AI 讲师项目，将 AI 生成数字人引入教学场景，系统探索沉浸式课堂中的拟真度、信任感与教学效果之间的关系，相关成果随后受到 Nature 与 Forbes 等媒体关注。"
+      },
+      {
+        "title": "机会网络与移动系统",
+        "body": "他在社会机会通信、移动行为建模与移动卸载等方向做出了基础性贡献，代表性工作包括 social-based forwarding 研究以及 ThinkAir 移动云卸载系统。"
+      },
+      {
+        "title": "元宇宙与沉浸式基础设施",
+        "body": "他推动了 CloudAR 等开放 AR/VR 系统的发展，并持续研究手势交互、隐私保护、辅助应用和大规模空间计算。MetaHKUST 项目则将港科大与港科大（广州）连接为跨校区共享的沉浸式学习环境。"
+      },
+      {
+        "title": "XR 与 AI 创意实践",
+        "body": "2025 年，他主导并策划了 SURREALITY 大型 XR 与 AI 艺术展，通过空间计算、实时渲染与校园级叙事，把元宇宙相关理念带入公共文化与艺术现场。"
+      }
+    ],
+    "photo": "/images/Team_Profile_Pic/2.jpg?v=20260412-2",
+    "homepage": "https://panhui.people.ust.hk/"
+  }
+}

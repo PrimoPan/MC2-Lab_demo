@@ -43,7 +43,7 @@
         "key": "pan-hui",
         "name": "Pan HUI",
         "role": "chair",
-        "positionTitle": "Chair Professor (International Fellow of RAEng, MAE, and IEEE Fellow)",
+        "positionTitle": "Chair Professor and Head of Computational Media and Arts Thrust; Director of MC2 (International Fellow of RAEng, Member of Academia Europaea, IEEE Fellow, and ACM Distinguished Scientist)",
         "cohortTerm": "",
         "cohortYear": null,
         "photo": "/images/Team_Profile_Pic/2.jpg?v=20260412-2",
@@ -638,6 +638,66 @@
         "photo": "/images/Team_Profile_Pic/bianca.jpeg",
         "researchDirection": "XR + Multimodal AI + Cultural Heritage",
         "website": ""
+      },
+      {
+        "key": "ching-deng",
+        "name": "Ching DENG",
+        "role": "phd",
+        "positionTitle": "Ph.D. Student",
+        "cohortTerm": "Fall",
+        "cohortYear": 2026,
+        "photo": "/images/Team_Profile_Pic/ching-deng.jpg",
+        "researchDirection": "Spatial Intelligence, 3D Generation, World Models",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1t3934abUqTBjn_kVEmJOeEpjIK08FGz3"
+      },
+      {
+        "key": "jeannie-jingyi-liang",
+        "name": "Jeannie Jingyi LIANG",
+        "role": "admin",
+        "positionTitle": "Admin Officer (2026)",
+        "cohortTerm": "",
+        "cohortYear": 2026,
+        "photo": "/images/Team_Profile_Pic/jeannie-jingyi-liang.jpg",
+        "researchDirection": "",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=15VAfLNmlzSXzj-FpXIBAraskId5R585a"
+      },
+      {
+        "key": "dai-jiyue",
+        "name": "DAI Jiyue",
+        "role": "ra",
+        "positionTitle": "Research Assistant",
+        "cohortTerm": "",
+        "cohortYear": null,
+        "photo": "/images/Team_Profile_Pic/dai-jiyue.jpg",
+        "researchDirection": "Computer Vision, Multimodal Learning, 3DGS Avatar",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=13Ceqj_y1r-8WzVqSB1tof898yzuJnnlV"
+      },
+      {
+        "key": "jiatong-li",
+        "name": "Jiatong LI",
+        "role": "mphil",
+        "positionTitle": "MPhil Student",
+        "cohortTerm": "Fall",
+        "cohortYear": 2026,
+        "photo": "/images/Team_Profile_Pic/jiatong-li.jpg",
+        "researchDirection": "Human–Computer Interaction (HCI) & Human–AI Interaction (HAI) & Extended Reality (XR)",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1Axue6JpKQvvpCEZ1bRIemOTqOl2GUWYC"
+      },
+      {
+        "key": "deng-yu",
+        "name": "Deng Yu",
+        "role": "ra",
+        "positionTitle": "Research Assistant",
+        "cohortTerm": "",
+        "cohortYear": null,
+        "photo": "/images/Team_Profile_Pic/deng-yu.jpg",
+        "researchDirection": "AI Education, HCI",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1VgVRyw-kh55yeJri5yCKuNAfO1Rvv18Q"
       }
     ],
     "alumniGroups": [
@@ -936,13 +996,13 @@
     "members": [
       {
         "key": "pan-hui",
-        "name": "Pan HUI",
+        "name": "许彬（Pan Hui）",
         "role": "chair",
-        "positionTitle": "Chair Professor (International Fellow of RAEng, MAE, and IEEE Fellow)",
+        "positionTitle": "计算媒体与艺术学域讲席教授兼学域主任、MC2 主任（英国皇家工程院国际院士、欧洲科学院院士、IEEE Fellow、ACM 杰出科学家）",
         "cohortTerm": "",
         "cohortYear": null,
         "photo": "/images/Team_Profile_Pic/2.jpg?v=20260412-2",
-        "researchDirection": "Ubiquitous Computing",
+        "researchDirection": "普适计算",
         "website": "https://panhui.people.ust.hk/"
       },
       {
@@ -1533,6 +1593,66 @@
         "photo": "/images/Team_Profile_Pic/bianca.jpeg",
         "researchDirection": "XR + Multimodal AI + Cultural Heritage",
         "website": ""
+      },
+      {
+        "key": "ching-deng",
+        "name": "Ching DENG",
+        "role": "phd",
+        "positionTitle": "博士研究生",
+        "cohortTerm": "Fall",
+        "cohortYear": 2026,
+        "photo": "/images/Team_Profile_Pic/ching-deng.jpg",
+        "researchDirection": "Spatial Intelligence, 3D Generation, World Models",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1t3934abUqTBjn_kVEmJOeEpjIK08FGz3"
+      },
+      {
+        "key": "jeannie-jingyi-liang",
+        "name": "Jeannie Jingyi LIANG",
+        "role": "admin",
+        "positionTitle": "行政专员（2026）",
+        "cohortTerm": "",
+        "cohortYear": 2026,
+        "photo": "/images/Team_Profile_Pic/jeannie-jingyi-liang.jpg",
+        "researchDirection": "",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=15VAfLNmlzSXzj-FpXIBAraskId5R585a"
+      },
+      {
+        "key": "dai-jiyue",
+        "name": "DAI Jiyue",
+        "role": "ra",
+        "positionTitle": "研究助理",
+        "cohortTerm": "",
+        "cohortYear": null,
+        "photo": "/images/Team_Profile_Pic/dai-jiyue.jpg",
+        "researchDirection": "Computer Vision, Multimodal Learning, 3DGS Avatar",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=13Ceqj_y1r-8WzVqSB1tof898yzuJnnlV"
+      },
+      {
+        "key": "jiatong-li",
+        "name": "Jiatong LI",
+        "role": "mphil",
+        "positionTitle": "硕士研究生",
+        "cohortTerm": "Fall",
+        "cohortYear": 2026,
+        "photo": "/images/Team_Profile_Pic/jiatong-li.jpg",
+        "researchDirection": "Human–Computer Interaction (HCI) & Human–AI Interaction (HAI) & Extended Reality (XR)",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1Axue6JpKQvvpCEZ1bRIemOTqOl2GUWYC"
+      },
+      {
+        "key": "deng-yu",
+        "name": "Deng Yu",
+        "role": "ra",
+        "positionTitle": "研究助理",
+        "cohortTerm": "",
+        "cohortYear": null,
+        "photo": "/images/Team_Profile_Pic/deng-yu.jpg",
+        "researchDirection": "AI Education, HCI",
+        "website": "",
+        "drivePhotoSource": "https://drive.google.com/open?id=1VgVRyw-kh55yeJri5yCKuNAfO1Rvv18Q"
       }
     ],
     "alumniGroups": [

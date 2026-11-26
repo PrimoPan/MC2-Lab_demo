@@ -50,6 +50,15 @@ CREATE TABLE IF NOT EXISTS news (
  id INTEGER PRIMARY KEY CHECK(id=1), revision INTEGER NOT NULL, posts TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS news_history (
  revision INTEGER PRIMARY KEY, posts TEXT NOT NULL, user_id INTEGER, created_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS workspace (
+ id INTEGER PRIMARY KEY CHECK(id=1), revision INTEGER NOT NULL,
+ content TEXT NOT NULL, posts TEXT NOT NULL,
+ people_base INTEGER NOT NULL, news_base INTEGER NOT NULL,
+ status TEXT NOT NULL CHECK(status IN ('published','draft','submitted','rejected')),
+ submitted_by TEXT, submitted_at INTEGER, reason TEXT NOT NULL DEFAULT '');
+CREATE TABLE IF NOT EXISTS workspace_history (
+ revision INTEGER PRIMARY KEY, content TEXT NOT NULL, posts TEXT NOT NULL,
+ status TEXT NOT NULL, user_id INTEGER, created_at INTEGER NOT NULL);
 '''
 
 
@@ -85,6 +94,12 @@ def initialize(data_dir, seed_path):
         if db.execute('SELECT 1 FROM news').fetchone() is None:
             db.execute("INSERT INTO news VALUES(1,1,'[]')")
             db.execute("INSERT INTO news_history VALUES(1,'[]',NULL,?)", (int(time.time()),))
+        if db.execute('SELECT 1 FROM workspace').fetchone() is None:
+            people = db.execute('SELECT revision,content FROM people WHERE id=1').fetchone()
+            news = db.execute('SELECT revision,posts FROM news WHERE id=1').fetchone()
+            db.execute('''INSERT INTO workspace(id,revision,content,posts,people_base,news_base,status)
+                          VALUES(1,1,?,?,?,?,'published')''',
+                       (people['content'], news['posts'], people['revision'], news['revision']))
         db.commit()
     except Exception:
         db.rollback()
@@ -118,6 +133,7 @@ def create_app(config=None):
         MAX_FORM_MEMORY_SIZE=128 * 1024,
         MAX_FORM_PARTS=3,
         TESTING=False,
+        REVIEWER_USERNAME=os.environ.get('MC2_REVIEWER_USERNAME', 'primo').strip().lower(),
     )
     if config:
         app.config.update(config)
@@ -194,6 +210,13 @@ def create_app(config=None):
             return wrapped
         return decorate
 
+    def can_review(user):
+        return user['role'] == 'admin' and user['username'].lower() == app.config['REVIEWER_USERNAME']
+
+    def user_info(user):
+        return {'username': user['username'], 'mustChangePassword': bool(user['must_change']),
+                'role': user['role'], 'canReview': can_review(user)}
+
     def session_response(user, rotate_all=False):
         connection = db()
         if rotate_all:
@@ -204,8 +227,7 @@ def create_app(config=None):
         token, csrf = secrets.token_urlsafe(32), secrets.token_urlsafe(32)
         connection.execute('INSERT INTO sessions VALUES (?,?,?,?)',
                            (digest(token), user['id'], csrf, int(time.time()) + SESSION_TTL))
-        response = jsonify(user={'username': user['username'], 'mustChangePassword': bool(user['must_change']),
-                                 'role': user['role']}, csrfToken=csrf)
+        response = jsonify(user=user_info(user), csrfToken=csrf)
         response.set_cookie(app.config['COOKIE_NAME'], token, max_age=SESSION_TTL,
                             secure=app.config['COOKIE_SECURE'], httponly=True, samesite='Strict', path='/')
         return response
@@ -213,7 +235,9 @@ def create_app(config=None):
     @app.after_request
     def response_headers(response):
         response.headers['X-Content-Type-Options'] = 'nosniff'
-        if request.path.startswith('/api/admin/'):
+        if request.path.startswith('/media/people/'):
+            response.headers['Cache-Control'] = 'private, no-store'
+        elif request.path.startswith('/api/admin/'):
             response.headers['Cache-Control'] = 'no-store'
         elif request.path.startswith('/api/'):
             response.headers['Cache-Control'] = 'no-cache'
@@ -244,8 +268,7 @@ def create_app(config=None):
     @app.get('/api/admin/session')
     @require_auth(allow_password_change=True)
     def get_session():
-        return jsonify(user={'username': g.user['username'], 'mustChangePassword': bool(g.user['must_change']),
-                             'role': g.user['role']}, csrfToken=g.user['csrf'])
+        return jsonify(user=user_info(g.user), csrfToken=g.user['csrf'])
 
     @app.get('/api/news')
     def public_news():
@@ -253,22 +276,55 @@ def create_app(config=None):
         posts = [post for post in json.loads(row['posts']) if post['published']]
         return jsonify(revision=row['revision'], posts=posts)
 
+    def workspace_snapshot(row=None, section=None):
+        row = row or db().execute('SELECT * FROM workspace WHERE id=1').fetchone()
+        workflow = {'status': row['status'], 'revision': row['revision'],
+                    'canReview': can_review(g.user), 'submittedBy': row['submitted_by'],
+                    'submittedAt': row['submitted_at'], 'reason': row['reason'],
+                    'reviewer': app.config['REVIEWER_USERNAME']}
+        result = {'revision': row['revision'], 'workflow': workflow}
+        if section != 'news':
+            result['content'] = json.loads(row['content'])
+        if section != 'people':
+            result['posts'] = json.loads(row['posts'])
+        if section is None:
+            people = db().execute('SELECT revision,content FROM people WHERE id=1').fetchone()
+            news = db().execute('SELECT revision,posts FROM news WHERE id=1').fetchone()
+            result['live'] = {'people': {'revision': people['revision'], 'content': json.loads(people['content'])},
+                              'news': {'revision': news['revision'], 'posts': json.loads(news['posts'])}}
+        return result
+
+    def record_workspace(active, action):
+        row = db().execute('SELECT * FROM workspace WHERE id=1').fetchone()
+        db().execute('INSERT INTO workspace_history VALUES(?,?,?,?,?,?)',
+                     (row['revision'], row['content'], row['posts'], row['status'], active['id'], int(time.time())))
+        audit(action, active['id'], str(row['revision']))
+        return row
+
+    @app.get('/api/admin/people')
+    @require_auth()
+    def admin_people():
+        return jsonify(workspace_snapshot(section='people'))
+
     @app.get('/api/admin/news')
     @require_auth()
     def admin_news():
-        row = db().execute('SELECT revision,posts FROM news WHERE id=1').fetchone()
-        return jsonify(revision=row['revision'], posts=json.loads(row['posts']))
+        return jsonify(workspace_snapshot(section='news'))
 
-    @app.put('/api/admin/news')
+    @app.get('/api/admin/review')
     @require_auth()
-    def save_news():
+    def admin_review():
+        return jsonify(workspace_snapshot())
+
+    def save_section(section):
+        field, validator = ('content', validate_content) if section == 'people' else ('posts', validate_posts)
         data = json_body()
-        if set(data) != {'revision', 'posts'} or type(data['revision']) is not int:
-            raise ValidationError('revision and posts are required')
-        posts = validate_posts(data['posts'])
-        raw = json.dumps(posts, ensure_ascii=False, separators=(',', ':'))
+        if set(data) != {'revision', field} or type(data['revision']) is not int:
+            raise ValidationError('revision and ' + field + ' are required')
+        value = validator(data[field])
+        raw = json.dumps(value, ensure_ascii=False, separators=(',', ':'))
         if len(raw.encode()) > 2 * 1024 * 1024:
-            raise ValidationError('News document is too large')
+            raise ValidationError('Content document is too large')
         connection = db()
         connection.execute('BEGIN IMMEDIATE')
         try:
@@ -276,30 +332,98 @@ def create_app(config=None):
             if active is None or active['must_change']:
                 connection.rollback()
                 return error('Authentication required', 401)
-            row = connection.execute('SELECT revision,posts FROM news WHERE id=1').fetchone()
+            if active['role'] not in ROLES:
+                connection.rollback()
+                return error('This account cannot edit content', 403, code='insufficientPermission')
+            row = connection.execute('SELECT * FROM workspace WHERE id=1').fetchone()
             if row['revision'] != data['revision']:
                 connection.rollback()
-                return error('News changed in another session; reload before saving', 409, revision=row['revision'])
-            previous_posts = json.loads(row['posts'])
-            # Compare the complete public projection, including order. Editors
-            # may alter drafts only, even when bypassing the UI with raw JSON.
-            if active['role'] not in ROLES or (active['role'] == 'editor' and
-                    [post for post in posts if post['published']] !=
-                    [post for post in previous_posts if post['published']]):
-                connection.rollback()
-                return error('Only administrators can publish or change published news', 403, code='insufficientPermission')
-            previous = {post['id']: post['slug'] for post in previous_posts}
-            if any(post['id'] in previous and previous[post['id']] != post['slug'] for post in posts):
-                raise ValidationError('The slug of a saved post cannot be changed')
-            revision = row['revision'] + 1
-            connection.execute('UPDATE news SET revision=?,posts=? WHERE id=1', (revision, raw))
-            connection.execute('INSERT INTO news_history VALUES(?,?,?,?)', (revision, raw, g.user['id'], int(time.time())))
-            audit('news_saved', g.user['id'], str(revision))
+                return error('Draft changed in another session; reload before saving', 409, revision=row['revision'])
+            if field == 'posts':
+                # Keep a stable URL for existing drafts AND published records, even if
+                # an editor first removes a record then recreates it in a later save.
+                previous = {post['id']: post['slug'] for post in json.loads(row['posts'])}
+                live = json.loads(connection.execute('SELECT posts FROM news WHERE id=1').fetchone()['posts'])
+                previous.update({post['id']: post['slug'] for post in live})
+                if any(post['id'] in previous and previous[post['id']] != post['slug'] for post in value):
+                    raise ValidationError('The slug of a saved post cannot be changed')
+            # Every save invalidates an earlier submission. Shared revision protects
+            # both sections from a stale approval or an overlapping browser tab.
+            connection.execute(f"UPDATE workspace SET {field}=?,revision=revision+1,status='draft',submitted_by=NULL,submitted_at=NULL,reason='' WHERE id=1", (raw,))
+            updated = record_workspace(active, section + '_draft_saved')
+            result = workspace_snapshot(updated, section)
             connection.commit()
         except Exception:
             connection.rollback()
             raise
-        return jsonify(revision=revision, posts=posts)
+        return jsonify(result)
+
+    @app.put('/api/admin/news')
+    @require_auth()
+    def save_news():
+        return save_section('news')
+
+    @app.put('/api/admin/people')
+    @require_auth()
+    def save_people():
+        return save_section('people')
+
+    @app.post('/api/admin/review/<action>')
+    @require_auth()
+    def review_action(action):
+        if action not in ('submit', 'approve', 'reject'):
+            return error('Not found', 404)
+        data = json_body()
+        expected = {'revision', 'reason'} if action == 'reject' else {'revision'}
+        if set(data) != expected or type(data.get('revision')) is not int:
+            raise ValidationError('revision' + (' and reason' if action == 'reject' else '') + ' are required')
+        reason = data.get('reason', '')
+        if action == 'reject' and (not isinstance(reason, str) or not reason.strip() or len(reason) > 2000):
+            raise ValidationError('A review reason of 1–2000 characters is required')
+        connection = db()
+        connection.execute('BEGIN IMMEDIATE')
+        try:
+            active = user_session()
+            if active is None or active['must_change']:
+                connection.rollback()
+                return error('Authentication required', 401)
+            if active['role'] not in ROLES or (action != 'submit' and not can_review(active)):
+                connection.rollback()
+                return error('Only the designated reviewer can approve or return changes', 403, code='insufficientPermission')
+            row = connection.execute('SELECT * FROM workspace WHERE id=1').fetchone()
+            if row['revision'] != data['revision']:
+                connection.rollback()
+                return error('Draft changed; review the latest complete changes before continuing', 409, revision=row['revision'])
+            if (action == 'submit' and row['status'] not in ('draft', 'rejected')) or (action != 'submit' and row['status'] != 'submitted'):
+                connection.rollback()
+                return error('The current draft is not ready for this review action', 409)
+            now = int(time.time())
+            if action == 'submit':
+                connection.execute("UPDATE workspace SET status='submitted',revision=revision+1,submitted_by=?,submitted_at=?,reason='' WHERE id=1", (active['username'], now))
+            elif action == 'reject':
+                connection.execute("UPDATE workspace SET status='rejected',revision=revision+1,reason=? WHERE id=1", (reason.strip(),))
+            else:
+                people = connection.execute('SELECT revision FROM people WHERE id=1').fetchone()
+                news = connection.execute('SELECT revision FROM news WHERE id=1').fetchone()
+                if people['revision'] != row['people_base'] or news['revision'] != row['news_base']:
+                    connection.rollback()
+                    return error('Live content changed outside this draft; reconcile before approval', 409)
+                # Revalidate persisted input before making the entire bundle public.
+                validate_content(json.loads(row['content']))
+                validate_posts(json.loads(row['posts']))
+                people_revision, news_revision = people['revision'] + 1, news['revision'] + 1
+                connection.execute('UPDATE people SET revision=?,content=? WHERE id=1', (people_revision, row['content']))
+                connection.execute('INSERT INTO content_history VALUES(?,?,?,?)', (people_revision, row['content'], active['id'], now))
+                connection.execute('UPDATE news SET revision=?,posts=? WHERE id=1', (news_revision, row['posts']))
+                connection.execute('INSERT INTO news_history VALUES(?,?,?,?)', (news_revision, row['posts'], active['id'], now))
+                connection.execute("UPDATE workspace SET status='published',revision=revision+1,people_base=?,news_base=?,reason='' WHERE id=1", (people_revision, news_revision))
+            updated = record_workspace(active, 'review_' + action)
+            result = workspace_snapshot(updated)
+            connection.commit()
+        except Exception:
+            connection.rollback()
+            raise
+        return jsonify(result)
 
     @app.post('/api/admin/login')
     def login():
@@ -388,41 +512,6 @@ def create_app(config=None):
             raise
         return response
 
-    @app.put('/api/admin/people')
-    @require_auth(roles=('admin',))
-    def save_people():
-        data = json_body()
-        if set(data) != {'revision', 'content'} or type(data['revision']) is not int:
-            raise ValidationError('revision and content are required')
-        content = validate_content(data['content'])
-        raw = json.dumps(content, ensure_ascii=False, separators=(',', ':'))
-        if len(raw.encode()) > 2 * 1024 * 1024:
-            raise ValidationError('Content document is too large')
-        connection = db()
-        connection.execute('BEGIN IMMEDIATE')
-        try:
-            active = user_session()
-            if active is None or active['must_change']:
-                connection.rollback()
-                return error('Authentication required', 401)
-            if active['role'] != 'admin':
-                connection.rollback()
-                return error('Only administrators can change published people content', 403, code='insufficientPermission')
-            row = connection.execute('SELECT revision FROM people WHERE id=1').fetchone()
-            if row['revision'] != data['revision']:
-                connection.rollback()
-                return error('Content changed in another session; reload before saving', 409, revision=row['revision'])
-            revision = row['revision'] + 1
-            connection.execute('UPDATE people SET revision=?,content=? WHERE id=1', (revision, raw))
-            # Atomic history is the undo/recovery record for every committed change.
-            connection.execute('INSERT INTO content_history VALUES(?,?,?,?)', (revision, raw, g.user['id'], int(time.time())))
-            audit('people_saved', g.user['id'], str(revision))
-            connection.commit()
-        except Exception:
-            connection.rollback()
-            raise
-        return jsonify(revision=revision, content=content)
-
     @app.post('/api/admin/photos')
     @require_auth()
     def upload_photo():
@@ -481,11 +570,32 @@ def create_app(config=None):
 
     @app.get('/media/people/<filename>')
     def uploaded_photo(filename):
-        # Production Nginx uses the same fixed directory; this route supports local QA.
+        # Nginx must proxy this path to Flask. A filesystem alias bypasses the
+        # draft/public boundary and exposes unapproved uploads by their URLs.
         if not re.fullmatch(r'[a-f0-9]{32}\.webp', filename):
             return error('Not found', 404)
+        url = '/media/people/' + filename
+
+        def references(value):
+            if isinstance(value, dict):
+                return any(references(item) for item in value.values())
+            if isinstance(value, list):
+                return any(references(item) for item in value)
+            return isinstance(value, str) and value == url
+
+        people = json.loads(db().execute('SELECT content FROM people WHERE id=1').fetchone()['content'])
+        posts = json.loads(db().execute('SELECT posts FROM news WHERE id=1').fetchone()['posts'])
+        published = references(people) or references([post for post in posts if post['published']])
+        if not published:
+            active = user_session()
+            if active is None or active['must_change'] or active['role'] not in ROLES:
+                response, status = error('Not found', 404)
+                response.headers['Cache-Control'] = 'private, no-store'
+                return response, status
         response = send_from_directory(Path(app.config['DATA_DIR']) / 'photos', filename, mimetype='image/webp')
-        response.headers['Cache-Control'] = 'public, max-age=31536000, immutable'
+        # A later withdrawal must take effect immediately, including in browsers
+        # which previously previewed or viewed the public image.
+        response.headers['Cache-Control'] = 'private, no-store'
         return response
 
     return app

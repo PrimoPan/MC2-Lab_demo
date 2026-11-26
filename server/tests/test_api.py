@@ -71,7 +71,6 @@ class ApiTest(unittest.TestCase):
     def test_seed_preserved_across_reinitialization(self):
         content = self.request('GET', '/api/people').json['content']
         self.assertEqual(content, json.loads(SEED.read_text()))
-        self.assertEqual(len(content['en']['members']), 54)
         self.db.execute('UPDATE people SET revision=9 WHERE id=1')
         initialize(self.data_dir, SEED)
         self.assertEqual(self.request('GET', '/api/people').json['revision'], 9)
@@ -159,8 +158,10 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(saved.status_code, 200)
         self.assertEqual(saved.json['revision'], 2)
         self.assertEqual(self.request('PUT', '/api/admin/people', token=token, json=payload).status_code, 409)
-        self.assertEqual(self.db.execute('SELECT count(*) FROM content_history').fetchone()[0], 2)
-        self.assertEqual(self.db.execute("SELECT count(*) FROM audit WHERE action='people_saved'").fetchone()[0], 1)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM content_history').fetchone()[0], 1)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM workspace_history').fetchone()[0], 1)
+        self.assertEqual(self.request('GET', '/api/people').json['revision'], 1)
+        self.assertEqual(self.db.execute("SELECT count(*) FROM audit WHERE action='people_draft_saved'").fetchone()[0], 1)
 
     def test_reject_invalid_members_without_mutation(self):
         token = self.authorized()
@@ -197,8 +198,13 @@ class ApiTest(unittest.TestCase):
         post['slug'] = 'local-test-news'
         post['published'] = True
         self.assertEqual(self.request('PUT', '/api/admin/news', token=token, json={'revision':2,'posts':[post]}).status_code, 200)
+        self.assertEqual(self.request('GET', '/api/news').json['posts'], [])
+        submitted = self.request('POST', '/api/admin/review/submit', token=token, json={'revision': 3})
+        self.assertEqual(submitted.status_code, 200, submitted.json)
+        approved = self.request('POST', '/api/admin/review/approve', token=token, json={'revision': submitted.json['revision']})
+        self.assertEqual(approved.status_code, 200, approved.json)
         self.assertEqual(self.request('GET', '/api/news').json['posts'][0]['title']['en'], 'Local test')
-        self.assertEqual(self.db.execute('SELECT count(*) FROM news_history').fetchone()[0], 3)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM news_history').fetchone()[0], 2)
 
     def test_photo_reencoded_and_limits(self):
         token = self.authorized()

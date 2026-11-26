@@ -1,5 +1,29 @@
 # Campus deployment
 
+## Draft review rollout (2026-11-12)
+
+The administrator workspace now stores a shared draft of members, alumni,
+the director page and news. Saves and deletions do not change the public API.
+Only the `primo` account with the administrator role can approve the submitted
+revision; other administrator accounts cannot bypass this restriction. Jeannie
+uses the editor role and can edit all content, preview and submit the bundle.
+
+Deploy matching API and frontend together. Install the updated
+`deploy/nginx-campus.conf` too: `/media/people/` must proxy to the API instead
+of serving the photos directory directly. The API keeps uploaded draft images
+private until their content is approved. Preserve the complete existing database
+and photos, and take an online backup before switching API releases. Do not
+roll back to an API that permits direct publication: that would remove the
+review boundary. A rollback requires maintaining the review-aware API or
+suspending content writes first.
+
+The public `/admin` HTML and `/api/admin/` access are controlled separately by
+the campus gateway. A 200 response for the homepage or the HTML shell does not
+prove administrator access. Validate login/session through the canonical HTTPS
+host. A `403 Cyber Security` response comes from the upstream gateway and
+requires the campus operator to allow the administrator routes for the intended
+network/users; changing the Flask app does not lift that restriction.
+
 ## Canonical campus migration (2026-11-04)
 
 The canonical website is https://mc2.hkust-gz.edu.cn. The former
